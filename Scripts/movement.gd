@@ -2,6 +2,8 @@ extends CharacterBody2D
 @onready var length_timer: Timer = $DashLength
 @onready var cooldown_timer: Timer = $DashCooldown
 @onready var health_regen_timer: Timer = $HealthRegen
+@onready var hazard_timer: Timer = $HazardTimer
+var active_hazards: Array[Area2D] = []
 const SPEED = 500.0
 const JUMP_VELOCITY = -1000.0
 const BowScene=preload("res://BowAttack.tscn")
@@ -51,59 +53,19 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("dash"):
 		velocity.x = direction*1000
 	if Input.is_action_just_pressed("card1"):
-		if Globals.deck.size()!=0:
-			Globals.discard = Globals.hand[0]
-			Globals.hand[0]=Globals.deck[0]
-			Globals.deck.remove_at(0)
-		elif Globals.hand.size()>=1:
-			Globals.discard = Globals.hand[0]
-			Globals.hand.remove_at(0)
-		else:
-			pass
+		card(0)
 	if Input.is_action_just_pressed("card2"):
-		if Globals.deck.size()!=0:
-			Globals.discard = Globals.hand[1]
-			Globals.hand[1]=Globals.deck[0]
-			Globals.deck.remove_at(0)
-		elif Globals.hand.size()>=2:
-			Globals.discard = Globals.hand[1]
-			Globals.hand.remove_at(1)
-		else:
-			pass
+		card(1)
 	if Input.is_action_just_pressed("card3"):
-		if Globals.deck.size()!=0:
-			Globals.discard = Globals.hand[2]
-			Globals.hand[2]=Globals.deck[0]
-			Globals.deck.remove_at(0)
-		elif Globals.hand.size()>=3:
-			Globals.discard = Globals.hand[2]
-			Globals.hand.remove_at(2)
-		else:
-			pass
+		card(2)
 	if Input.is_action_just_pressed("card4"):
-		if Globals.deck.size()!=0:
-			Globals.discard = Globals.hand[3]
-			Globals.hand[3]=Globals.deck[0]
-			Globals.deck.remove_at(0)
-		elif Globals.hand.size()>=4:
-			Globals.discard = Globals.hand[3]
-			Globals.hand.remove_at(3)
-		else:
-			pass
+		card(3)
 	if Input.is_action_just_pressed("card5"):
-		if Globals.deck.size()!=0:
-			Globals.discard = Globals.hand[4]
-			Globals.hand[4]=Globals.deck[0]
-			Globals.deck.remove_at(0)
-		elif Globals.hand.size()>=5:
-			Globals.discard = Globals.hand[4]
-			Globals.hand.remove_at(4)
-		else:
-			pass
-	if direction:
+		card(4)
+	if pivot.scale.x:
 		if Input.is_action_just_pressed("dash") and cooldown_timer.is_stopped():
-			velocity.x=19000.0 * abs(direction)/direction
-			current_direction = direction
+			velocity.x=19000.0 * pivot.scale.x
+			current_direction = pivot.scale.x
 			length_timer.start()
 			cooldown_timer.start()
 		if not length_timer.is_stopped():
@@ -135,11 +97,9 @@ func _physics_process(delta: float) -> void:
 	if not length_timer.is_stopped() and velocity.x==0:
 		length_timer.stop()
 	if health<=0:
-		queue_free()
-	if jump and is_on_floor():
-		velocity.y=-500
-		jump=false
-		can_double_jump=true
+		$CollisionShape2D.set_deferred("disabled", true)
+		Globals.reset_game_state()
+		get_tree().call_deferred("reload_current_scene")
 	if bounce:
 		velocity.y=-2500
 		bounce = false
@@ -165,7 +125,32 @@ func equip_weapon(weapon_scene: PackedScene):
 
 func _on_character_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Hazards") or area.get_parent().is_in_group("Hazards"):
-		jump=true
+		active_hazards.append(area)
 		take_damage(15)
+		if hazard_timer.is_stopped():
+			hazard_timer.start()
 	if area.is_in_group("bouncepads") or area.get_parent().is_in_group("bouncepads"):
 		bounce=true
+
+
+func _on_character_area_2d_area_exited(area: Area2D) -> void:
+	if area in active_hazards:
+		active_hazards.erase(area)
+	if active_hazards.is_empty():
+		hazard_timer.stop()
+func _on_hazard_timer_timeout() -> void:
+	active_hazards = active_hazards.filter(func(a): return is_instance_valid(a))
+	if not active_hazards.is_empty():
+		take_damage(15)
+	else:
+		hazard_timer.stop()
+func card(num):
+	if Globals.deck.size()!=0:
+		Globals.discard = Globals.hand[num]
+		Globals.hand[num]=Globals.deck[0]
+		Globals.deck.remove_at(0)
+	elif Globals.hand.size()>=(num+1):
+		Globals.discard = Globals.hand[num]
+		Globals.hand.remove_at(num)
+	else:
+		pass

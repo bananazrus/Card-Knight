@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://svkr2wc15kfy" path="res://Scripts/snuggles.gd" id="2_lnbgr"]
 [ext_resource type="PackedScene" uid="uid://b6oa14cessw1m" path="res://laser.tscn" id="2_o1i15"]
 [ext_resource type="Texture2D" uid="uid://cssvhj4h5whvh" path="res://Assets/teddy.png" id="2_skx2t"]
+[ext_resource type="PackedScene" uid="uid://r7bwl4xlp7vi" path="res://enemy.tscn" id="3_o1i15"]
 [ext_resource type="PackedScene" uid="uid://cyretfkwawglu" path="res://spikes.tscn" id="4_lnbgr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_smhyf"]
@@ -20,6 +21,7 @@ collision_layer = 2
 collision_mask = 12
 script = ExtResource("2_lnbgr")
 laser = ExtResource("2_o1i15")
+enemy = ExtResource("3_o1i15")
 
 [node name="Spikes" parent="Snuggles" unique_id=641470422 instance=ExtResource("4_lnbgr")]
 visible = false
@@ -40,6 +42,8 @@ shape = SubResource("RectangleShape2D_smhyf")
 [node name="Area2D" type="Area2D" parent="Snuggles" unique_id=1179122177]
 collision_layer = 2
 collision_mask = 9
+monitoring = false
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Snuggles/Area2D" unique_id=1640173229]
 position = Vector2(-27, 104)

@@ -73,11 +73,10 @@ wait_time = 0.25
 one_shot = true
 
 [node name="HealthRegen" type="Timer" parent="." unique_id=939930859]
-wait_time = 15.0
+wait_time = 5.0
 one_shot = true
 
 [node name="DashCooldown" type="Timer" parent="." unique_id=1018747611]
-wait_time = 3.0
 one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=216309636]
@@ -105,5 +104,9 @@ collision_mask = 6
 position = Vector2(-1.5, 10.5)
 shape = SubResource("RectangleShape2D_smhyf")
 
+[node name="HazardTimer" type="Timer" parent="." unique_id=1670961451]
+
 [connection signal="area_entered" from="pivot/Area2D" to="." method="_on_character_area_2d_area_entered"]
+[connection signal="area_exited" from="pivot/Area2D" to="." method="_on_character_area_2d_area_exited"]
 [connection signal="body_entered" from="pivot/Area2D" to="." method="_on_area_2d_player_body_entered"]
+[connection signal="timeout" from="HazardTimer" to="." method="_on_hazard_timer_timeout"]

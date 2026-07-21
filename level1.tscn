@@ -470,7 +470,7 @@ metadata/_edit_vertical_guides_ = [6457.0]
 position = Vector2(8899, -3270)
 
 [node name="CharacterBody2D" parent="." unique_id=345397137 instance=ExtResource("1_ootpb")]
-position = Vector2(-942, 226)
+position = Vector2(5123, -3485)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1027367017]
 
@@ -480,7 +480,7 @@ offset_top = 2.0
 offset_right = 415.0
 offset_bottom = 34.0
 
-[node name="boss_health" parent="CanvasLayer" unique_id=943627485 instance=ExtResource("5_nauge")]
+[node name="boss_health" parent="CanvasLayer" unique_id=943627485 groups=["boss_health_bar"] instance=ExtResource("5_nauge")]
 visible = false
 offset_left = 199.0
 offset_top = 665.0
@@ -530,7 +530,7 @@ position = Vector2(4580.75, -3066.25)
 shape = SubResource("RectangleShape2D_on2th")
 disabled = true
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=323924275]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=323924275 groups=["gate"]]
 position = Vector2(9709, -3080)
 shape = SubResource("RectangleShape2D_on2th")
 disabled = true

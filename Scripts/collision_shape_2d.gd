@@ -6,7 +6,7 @@ var show_door2 = false
 func _process(_delta: float) -> void:
 	if show_door1:
 		$CollisionShape2D.set_deferred("disabled", false)
-	if show_door2:
+	if show_door2 and has_node("CollisionShape2D3"):
 		$CollisionShape2D3.set_deferred("disabled", false)
 		$CollisionShape2D4.set_deferred("disabled", false)
 
