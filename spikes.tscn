@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cyretfkwawglu"]
+
+[ext_resource type="Texture2D" uid="uid://dinc4c0y4qkys" path="res://Assets/spike.png" id="1_s0g1x"]
+
+[node name="Spikes" type="Area2D" unique_id=641470422 groups=["Hazards"]]
+collision_layer = 2
+collision_mask = 9
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1549617655]
+position = Vector2(155.375, -85.375)
+scale = Vector2(0.36524996, 0.22924998)
+texture = ExtResource("1_s0g1x")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1885066812]
+position = Vector2(470.375, -85.375)
+scale = Vector2(0.36524996, 0.22924998)
+texture = ExtResource("1_s0g1x")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1874019059 groups=["Hazards"]]
+position = Vector2(6, 31)
+scale = Vector2(1.000437, 0.6)
+polygon = PackedVector2Array(-6.9969406, -106.66667, 593.74054, -98.33333, 593.74054, 0, -0.9995613, -3.3333378)

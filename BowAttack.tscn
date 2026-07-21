@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bc7cescr63ok3"]
+
+[ext_resource type="Script" uid="uid://di5r3wt4wpiuu" path="res://Scripts/bow.gd" id="1_ka2c4"]
+[ext_resource type="Texture2D" uid="uid://cqkknji4xdtgt" path="res://Assets/bow.png" id="2_ll2qf"]
+
+[node name="Node2D" type="Node2D" unique_id=1767712584]
+
+[node name="Bow" type="Area2D" parent="." unique_id=256874008]
+script = ExtResource("1_ka2c4")
+
+[node name="Sprite2D" type="Sprite2D" parent="Bow" unique_id=130491095]
+position = Vector2(11.000001, 0)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_ll2qf")
+
+[node name="Marker2D" type="Marker2D" parent="Bow" unique_id=1501414392]
+position = Vector2(15, -1)
+
+[node name="Timer" type="Timer" parent="Bow" unique_id=625851155]
+wait_time = 0.5
+one_shot = true

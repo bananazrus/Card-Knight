@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://d2517gbwlgbx"]
+
+[ext_resource type="Script" uid="uid://vq67rrdjao8a" path="res://Scripts/boss_health.gd" id="1_rsklu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lnbgr"]
+bg_color = Color(0.083392, 0.08339202, 0.08339197, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o1i15"]
+bg_color = Color(1, 0, 0, 1)
+
+[node name="boss_health" type="ProgressBar" unique_id=943627485]
+offset_right = 795.0
+offset_bottom = 38.0
+theme_override_styles/background = SubResource("StyleBoxFlat_lnbgr")
+theme_override_styles/fill = SubResource("StyleBoxFlat_o1i15")
+max_value = 1000.0
+value = 1000.0
+show_percentage = false
+script = ExtResource("1_rsklu")
+
+[node name="Label" type="Label" parent="." unique_id=165257836]
+layout_mode = 0
+offset_left = 356.0
+offset_top = -40.0
+offset_right = 425.0
+offset_bottom = -17.0
+text = "Snuggles"

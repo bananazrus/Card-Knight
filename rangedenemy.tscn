@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://cnq4f7s8u3pkm"]
+
+[ext_resource type="Script" uid="uid://d0dap32lnis3k" path="res://Scripts/rangedenemy.gd" id="1_w75bq"]
+[ext_resource type="PackedScene" uid="uid://b5hbum46oq3o7" path="res://projectile.tscn" id="2_o45e0"]
+[ext_resource type="Texture2D" uid="uid://bktq7taam3j3l" path="res://Assets/rangedenemy.png" id="3_o45e0"]
+[ext_resource type="Script" uid="uid://nwdrc5mi2giq" path="res://Scripts/rangedenemyhealth.gd" id="4_hi58m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hi58m"]
+size = Vector2(48, 79)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_smhyf"]
+bg_color = Color(0.8352941, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xvnu6"]
+bg_color = Color(0, 1, 0.30588236, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_smhyf"]
+size = Vector2(55, 89)
+
+[node name="Node2D" type="Node2D" unique_id=828445498]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1138933750 groups=["Enemies"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_w75bq")
+projectile = ExtResource("2_o45e0")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=1042450883]
+position = Vector2(1, 1.0000004)
+scale = Vector2(0.22899997, 0.24178319)
+texture = ExtResource("3_o45e0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=2094950050]
+position = Vector2(-2, 6.5)
+shape = SubResource("RectangleShape2D_hi58m")
+
+[node name="Muzzle" type="Marker2D" parent="StaticBody2D" unique_id=100534317]
+position = Vector2(0, -18)
+
+[node name="ShotTimer" type="Timer" parent="StaticBody2D" unique_id=1458193124]
+wait_time = 2.0
+one_shot = true
+
+[node name="rangedenemyhealth" type="ProgressBar" parent="StaticBody2D" unique_id=1967403803]
+offset_left = -52.0
+offset_top = -103.00001
+offset_right = 60.0
+offset_bottom = -76.00001
+scale = Vector2(1, 0.7)
+theme_override_styles/background = SubResource("StyleBoxFlat_smhyf")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xvnu6")
+value = 100.0
+show_percentage = false
+script = ExtResource("4_hi58m")
+
+[node name="Area2D" type="Area2D" parent="StaticBody2D" unique_id=1554517708]
+collision_layer = 2
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D/Area2D" unique_id=1407572704]
+position = Vector2(-1.5, 6.5)
+shape = SubResource("RectangleShape2D_smhyf")
+
+[connection signal="area_entered" from="StaticBody2D/Area2D" to="StaticBody2D" method="_on_rangedenemy_area_2d_area_entered"]

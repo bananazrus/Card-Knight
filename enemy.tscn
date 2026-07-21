@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://r7bwl4xlp7vi"]
+
+[ext_resource type="Script" uid="uid://dxovekjr6gcl7" path="res://Scripts/enemymovement.gd" id="1_qi2p4"]
+[ext_resource type="Texture2D" uid="uid://ppgkhcwmhv53" path="res://Assets/enemyjump.png" id="2_qi2p4"]
+[ext_resource type="Texture2D" uid="uid://cptdiwycesb8l" path="res://Assets/enemyneutral.png" id="3_iifgy"]
+[ext_resource type="Texture2D" uid="uid://dg2wxl7v6ugwl" path="res://Assets/enemywalk1.png" id="4_epg4t"]
+[ext_resource type="Texture2D" uid="uid://d1wtjnoybvj60" path="res://Assets/enemywalk2.png" id="5_3yqyl"]
+[ext_resource type="Script" uid="uid://b1c8pa1wjd6hk" path="res://Scripts/enemyhealth.gd" id="6_3yqyl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wujgv"]
+size = Vector2(55, 79)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_smhyf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_qi2p4")
+}],
+"loop": 1,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_iifgy")
+}],
+"loop": 1,
+"name": &"neutral",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.3,
+"texture": ExtResource("4_epg4t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3yqyl")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_smhyf"]
+bg_color = Color(0.8352941, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xvnu6"]
+bg_color = Color(0, 1, 0.30588236, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3yqyl"]
+size = Vector2(66, 92)
+
+[node name="Enemy" type="Node2D" unique_id=326279830 groups=["Enemies"]]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=868717366 groups=["Enemies"]]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_qi2p4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=212026520 groups=["Enemies"]]
+light_mask = 2
+visibility_layer = 5
+position = Vector2(1.5, 3.5)
+shape = SubResource("RectangleShape2D_wujgv")
+
+[node name="Node2D" type="Node2D" parent="CharacterBody2D" unique_id=1616234330]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D/Node2D" unique_id=1990302482 groups=["Enemies"]]
+position = Vector2(-2.999999, -18)
+scale = Vector2(0.269, 0.244)
+sprite_frames = SubResource("SpriteFrames_smhyf")
+animation = &"walk"
+
+[node name="enemyhealth" type="ProgressBar" parent="CharacterBody2D" unique_id=9929086]
+offset_left = -49.0
+offset_top = -83.0
+offset_right = 49.0
+offset_bottom = -56.0
+scale = Vector2(1, 0.7)
+theme_override_styles/background = SubResource("StyleBoxFlat_smhyf")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xvnu6")
+value = 100.0
+show_percentage = false
+script = ExtResource("6_3yqyl")
+
+[node name="Area2D" type="Area2D" parent="CharacterBody2D" unique_id=1705236625]
+collision_layer = 2
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Area2D" unique_id=621630175]
+position = Vector2(1, 2)
+shape = SubResource("RectangleShape2D_3yqyl")
+
+[connection signal="area_entered" from="CharacterBody2D/Area2D" to="CharacterBody2D" method="_on_enemy_area_2d_area_entered"]

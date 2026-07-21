@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://dqva1mhwdkven"]
+
+[ext_resource type="Texture2D" uid="uid://1y7rgb28uyqa" path="res://Assets/10D.png" id="1_m8kri"]
+[ext_resource type="Texture2D" uid="uid://brfck41ryaofy" path="res://Assets/2D.png" id="2_qasfy"]
+[ext_resource type="Texture2D" uid="uid://y6bjltk3jlnu" path="res://Assets/3H.png" id="3_upxsk"]
+[ext_resource type="Texture2D" uid="uid://c5rolvea63g6w" path="res://Assets/4S.png" id="4_rewbj"]
+[ext_resource type="Texture2D" uid="uid://b8u3tnkyqleuf" path="res://Assets/5C.png" id="5_2nk83"]
+[ext_resource type="Texture2D" uid="uid://o7osivrkfcql" path="res://Assets/6D.png" id="6_4ut6e"]
+[ext_resource type="Texture2D" uid="uid://vekr0pr1ukx0" path="res://Assets/7H.png" id="7_upovy"]
+[ext_resource type="Texture2D" uid="uid://b8026vpw0d1o3" path="res://Assets/8S.png" id="8_n66mp"]
+[ext_resource type="Texture2D" uid="uid://cpffd72csprj6" path="res://Assets/9C.png" id="9_3bxhq"]
+[ext_resource type="Texture2D" uid="uid://dcprr58kwe0e" path="res://Assets/AC.png" id="10_qov2y"]
+[ext_resource type="Script" uid="uid://c1hl7884v7aq2" path="res://Scripts/card3.gd" id="11_qasfy"]
+[ext_resource type="Texture2D" uid="uid://bcstrn2u2e47a" path="res://Assets/empty.png" id="11_upxsk"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_smhyf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_m8kri")
+}],
+"loop": 1,
+"name": &"10D",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_qasfy")
+}],
+"loop": 1,
+"name": &"2D",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_upxsk")
+}],
+"loop": 1,
+"name": &"3H",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_rewbj")
+}],
+"loop": 1,
+"name": &"4S",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_2nk83")
+}],
+"loop": 1,
+"name": &"5C",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_4ut6e")
+}],
+"loop": 1,
+"name": &"6D",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_upovy")
+}],
+"loop": 1,
+"name": &"7H",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_n66mp")
+}],
+"loop": 1,
+"name": &"8S",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_3bxhq")
+}],
+"loop": 1,
+"name": &"9C",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_qov2y")
+}],
+"loop": 1,
+"name": &"AC",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_upxsk")
+}],
+"loop": 1,
+"name": &"empty",
+"speed": 5.0
+}]
+
+[node name="Card3" type="Node2D" unique_id=1828931675]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1058206295]
+scale = Vector2(0.13, 0.13)
+sprite_frames = SubResource("SpriteFrames_smhyf")
+animation = &"empty"
+script = ExtResource("11_qasfy")

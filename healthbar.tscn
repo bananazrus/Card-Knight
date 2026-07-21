@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://d03xmdkamvic4"]
+
+[ext_resource type="Script" uid="uid://cpoyosa2g3cge" path="res://Scripts/progress_bar.gd" id="1_iywrq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ckogx"]
+bg_color = Color(0.8352941, 0, 0, 1)
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iywrq"]
+bg_color = Color(0, 1, 0.30588236, 1)
+border_color = Color(0, 0, 0, 1)
+
+[node name="ProgressBar" type="ProgressBar" unique_id=1743704793]
+offset_right = 322.0
+offset_bottom = 24.0
+theme_override_styles/background = SubResource("StyleBoxFlat_ckogx")
+theme_override_styles/fill = SubResource("StyleBoxFlat_iywrq")
+value = 100.0
+show_percentage = false
+script = ExtResource("1_iywrq")
+
+[node name="HealthRegenCooldown" type="Timer" parent="." unique_id=1700158624]
+wait_time = 10.0
+one_shot = true

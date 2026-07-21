@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://dl5cya6ij4csw"]
+
+[ext_resource type="Script" uid="uid://svkr2wc15kfy" path="res://Scripts/snuggles.gd" id="2_lnbgr"]
+[ext_resource type="PackedScene" uid="uid://b6oa14cessw1m" path="res://laser.tscn" id="2_o1i15"]
+[ext_resource type="Texture2D" uid="uid://cssvhj4h5whvh" path="res://Assets/teddy.png" id="2_skx2t"]
+[ext_resource type="PackedScene" uid="uid://cyretfkwawglu" path="res://spikes.tscn" id="4_lnbgr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_smhyf"]
+size = Vector2(326, 431)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0in4i"]
+size = Vector2(379, 439)
+
+[node name="Node2D" type="Node2D" unique_id=822850006]
+metadata/_edit_vertical_guides_ = [-2179.0]
+
+[node name="Snuggles" type="StaticBody2D" parent="." unique_id=1589786842 groups=["Enemies"]]
+visible = false
+collision_layer = 2
+collision_mask = 12
+script = ExtResource("2_lnbgr")
+laser = ExtResource("2_o1i15")
+
+[node name="Spikes" parent="Snuggles" unique_id=641470422 instance=ExtResource("4_lnbgr")]
+visible = false
+position = Vector2(772, 292)
+monitoring = false
+monitorable = false
+
+[node name="Spikes2" parent="Snuggles" unique_id=292497488 instance=ExtResource("4_lnbgr")]
+visible = false
+position = Vector2(-1278, 295)
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Snuggles" unique_id=1523185841]
+position = Vector2(-32, 117)
+shape = SubResource("RectangleShape2D_smhyf")
+
+[node name="Area2D" type="Area2D" parent="Snuggles" unique_id=1179122177]
+collision_layer = 2
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Snuggles/Area2D" unique_id=1640173229]
+position = Vector2(-27, 104)
+shape = SubResource("RectangleShape2D_0in4i")
+
+[node name="AttackTimer" type="Timer" parent="Snuggles" unique_id=1803649711]
+wait_time = 0.36
+one_shot = true
+
+[node name="pivot" type="Node2D" parent="Snuggles" unique_id=774679609]
+position = Vector2(0, 54.5)
+
+[node name="Muzzle" type="Marker2D" parent="Snuggles/pivot" unique_id=2014491036]
+position = Vector2(-40, -35)
+
+[node name="Sprite2D" type="Sprite2D" parent="Snuggles/pivot" unique_id=247084130]
+position = Vector2(-76.99057, 92.98515)
+scale = Vector2(0.5349366, 0.5398575)
+texture = ExtResource("2_skx2t")
+offset = Vector2(106.074, -95.5)
+
+[node name="LengthTimer" type="Timer" parent="Snuggles" unique_id=1610045047]
+wait_time = 2.0
+one_shot = true
+
+[node name="CooldownTimer" type="Timer" parent="Snuggles" unique_id=1045242254]
+wait_time = 5.0
+one_shot = true
+
+[node name="SpikeTimer" type="Timer" parent="Snuggles" unique_id=172029286]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="area_entered" from="Snuggles/Area2D" to="Snuggles" method="_on_snuggles_area_2d_area_entered"]

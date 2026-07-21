@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://dgb5ts4wtpfxl"]
+
+[ext_resource type="Script" uid="uid://disgwfki3c6wb" path="res://Scripts/sword.gd" id="1_8r4il"]
+[ext_resource type="Texture2D" uid="uid://dv04jbg5ivg34" path="res://Assets/sword.png" id="2_7nk0x"]
+
+[sub_resource type="Animation" id="Animation_7nk0x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_1k1oe"]
+resource_name = "SwordAttack1"
+length = 0.16999999999999998
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16, 0.17),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 2.0943952, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_d5m6v"]
+resource_name = "SwordAttack2"
+length = 0.17
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16, 0.17),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -2.0943952, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_54pyj"]
+_data = {
+&"RESET": SubResource("Animation_7nk0x"),
+&"SwordAttack1": SubResource("Animation_1k1oe"),
+&"SwordAttack2": SubResource("Animation_d5m6v")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1k1oe"]
+size = Vector2(15.272727, 102.09091)
+
+[node name="Node2D" type="Node2D" unique_id=1101200473 groups=["Sword"]]
+
+[node name="WeaponPivot" type="Node2D" parent="." unique_id=1017608845 groups=["Sword"]]
+scale = Vector2(1.1, 1.1)
+
+[node name="Sword" type="Area2D" parent="WeaponPivot" unique_id=475230202 groups=["Sword"]]
+collision_layer = 8
+collision_mask = 6
+script = ExtResource("1_8r4il")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WeaponPivot/Sword" unique_id=342037560]
+libraries/ = SubResource("AnimationLibrary_54pyj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WeaponPivot/Sword" unique_id=1602020567]
+position = Vector2(-0.3636365, -68.04543)
+shape = SubResource("RectangleShape2D_1k1oe")
+
+[node name="Sprite2D" type="Sprite2D" parent="WeaponPivot/Sword" unique_id=1876024089]
+position = Vector2(0, 19.090912)
+rotation = -0.7853982
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("2_7nk0x")
+offset = Vector2(400, -400)
