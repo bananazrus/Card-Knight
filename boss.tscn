@@ -70,7 +70,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="CooldownTimer" type="Timer" parent="Snuggles" unique_id=1045242254]
-wait_time = 5.0
+wait_time = 4.5
 one_shot = true
 
 [node name="SpikeTimer" type="Timer" parent="Snuggles" unique_id=172029286]
