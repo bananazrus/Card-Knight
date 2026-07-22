@@ -1,11 +1,12 @@
 extends StaticBody2D
-var snuggles_health=1000
+var snuggles_health=2000
 @export var laser: PackedScene
 @export var enemy: PackedScene
 @onready var attack_timer: Timer = $AttackTimer
 @onready var length_timer: Timer = $LengthTimer
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var spike_timer: Timer = $SpikeTimer
+var bleed=false
 var random
 var boss_health_bar
 var gate
@@ -13,13 +14,15 @@ var player: CharacterBody2D
 signal boss_health_changed
 var is_spawning: bool = false
 var is_active: bool = false
+var shocked = 0
+var slow = 1
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player") as CharacterBody2D
 	boss_health_bar = get_tree().get_first_node_in_group("boss_health_bar") as CanvasItem
 	gate=get_tree().get_first_node_in_group("gate") as CollisionShape2D
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	var enemy_pos = global_position
 	var distance_to_player = enemy_pos.distance_to(player.global_position)
 	if distance_to_player <= 1000 and not visible and not is_spawning:
@@ -31,6 +34,7 @@ func _process(_delta: float) -> void:
 	if distance_to_player<=2000 and visible:
 		if cooldown_timer.is_stopped():
 			random = randi_range(1,3)
+			cooldown_timer.wait_time = 5.0*slow
 			cooldown_timer.start()
 			if random == 1:
 				length_timer.start()
@@ -68,6 +72,9 @@ func _process(_delta: float) -> void:
 	if not spike_timer.is_stopped():
 		$Spikes.position.x+=10
 		$Spikes2.position.x-=10
+	if bleed:
+		snuggles_health = max(snuggles_health - (2 * delta), 0)
+		boss_health_changed.emit(snuggles_health)
 func laser_fire():
 	var b = laser.instantiate()
 	get_parent().add_child(b)
@@ -90,9 +97,12 @@ func spawn_boss() -> void:
 	is_active = true
 func _on_snuggles_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Sword"):
-		snuggles_health-=30*Globals.damage_buff_5
+		snuggles_health-=30*Globals.damage_buff_5+shocked
 	elif area.is_in_group("Arrow"):
-		snuggles_health-=40*Globals.damage_buff_5
+		snuggles_health-=40*Globals.damage_buff_5+shocked
+	elif area.is_in_group("2D"):
+		slow=1.5
+		snuggles_health-=10*Globals.damage_buff_5+shocked
 	boss_health_changed.emit(snuggles_health)
 func spawn_enemy(enemy_position: Vector2):
 	var new_enemy = enemy.instantiate()

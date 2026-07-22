@@ -7,6 +7,12 @@
 [ext_resource type="Texture2D" uid="uid://c8hr7p23sv1fa" path="res://Assets/IMG_0728.png" id="4_qp52p"]
 [ext_resource type="Texture2D" uid="uid://qvqmgw2g2j0s" path="res://Assets/walk1.png" id="5_6ct3r"]
 [ext_resource type="Texture2D" uid="uid://jgitgw8q73fd" path="res://Assets/walk2.png" id="6_1kp85"]
+[ext_resource type="Texture2D" uid="uid://b6pi2ji6o6knr" path="res://Assets/2D_aura.png" id="8_tpxmh"]
+[ext_resource type="Texture2D" uid="uid://bwqgbapq2cwko" path="res://Assets/6D_aura.png" id="9_klcnx"]
+[ext_resource type="Texture2D" uid="uid://dlsynfln6qqgv" path="res://Assets/5C_aura.png" id="9_tpxmh"]
+[ext_resource type="Texture2D" uid="uid://cc4lsu0x72wbm" path="res://Assets/7H_aura.png" id="10_lu52h"]
+[ext_resource type="Texture2D" uid="uid://c85rawld3d4vq" path="res://Assets/9C_aura.png" id="11_tnskp"]
+[ext_resource type="Texture2D" uid="uid://bcstrn2u2e47a" path="res://Assets/empty.png" id="12_xpgea"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vii3e"]
 size = Vector2(53, 96.00001)
@@ -59,6 +65,49 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_smhyf"]
 size = Vector2(61, 99)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xvnu6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_tpxmh")
+}],
+"loop": 1,
+"name": &"2D",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_tpxmh")
+}],
+"loop": 1,
+"name": &"5C",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_lu52h")
+}],
+"loop": 1,
+"name": &"7H",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_tnskp")
+}],
+"loop": 1,
+"name": &"9C",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_xpgea")
+}],
+"loop": 1,
+"name": &"empty",
+"speed": 5.0
+}]
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=345397137 groups=["player"]]
 collision_mask = 5
@@ -116,7 +165,56 @@ one_shot = true
 
 [node name="Seven_Timer" type="Timer" parent="." unique_id=926320943]
 
+[node name="Two_Timer" type="Timer" parent="." unique_id=551431066]
+wait_time = 12.0
+one_shot = true
+
+[node name="Buff_Aura" type="AnimatedSprite2D" parent="." unique_id=2128021199]
+z_index = -2
+position = Vector2(7.0000005, -25.000004)
+scale = Vector2(0.3285, 0.30775002)
+sprite_frames = SubResource("SpriteFrames_xvnu6")
+animation = &"5C"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=886238961]
+visible = false
+collision_layer = 4
+collision_mask = 13
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=129281549]
+position = Vector2(-2.3841858e-07, -69)
+scale = Vector2(0.385, 0.315)
+texture = ExtResource("9_klcnx")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=30976209]
+position = Vector2(-1, -56)
+build_mode = 1
+polygon = PackedVector2Array(-181, -121, 165, -110, 173, 135, -195, 127)
+disabled = true
+
+[node name="Six_Timer" type="Timer" parent="." unique_id=1214026774]
+wait_time = 7.0
+one_shot = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1566692510 groups=["2D"]]
+visible = false
+collision_layer = 8
+collision_mask = 2
+monitoring = false
+monitorable = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D" unique_id=1927237175]
+z_index = -9
+position = Vector2(-5.0000014, -56)
+scale = Vector2(0.451, 0.437)
+texture = ExtResource("8_tpxmh")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=1675911997 groups=["2D"]]
+polygon = PackedVector2Array(-128, 54, -127, -69, -70, -149, 53, -151, 106, -88, 130, 58)
+
 [connection signal="area_entered" from="pivot/Area2D" to="." method="_on_character_area_2d_area_entered"]
 [connection signal="area_exited" from="pivot/Area2D" to="." method="_on_character_area_2d_area_exited"]
 [connection signal="body_entered" from="pivot/Area2D" to="." method="_on_area_2d_player_body_entered"]
 [connection signal="timeout" from="HazardTimer" to="." method="_on_hazard_timer_timeout"]
+[connection signal="timeout" from="Five_Timer" to="." method="_on_five_timer_timeout"]
+[connection signal="timeout" from="Nine_Timer" to="." method="_on_nine_timer_timeout"]

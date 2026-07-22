@@ -1,10 +1,12 @@
 extends CharacterBody2D
-
+var bleed=false
 const SPEED = 200.0
 const JUMP_VELOCITY = -1000.0
 var player: CharacterBody2D
 var direction=0
 var health=100
+var slow =1
+var shocked = 0
 @onready var sprite = $Node2D/AnimatedSprite2D
 func _ready():
 	player = get_tree().get_first_node_in_group("player") as CharacterBody2D
@@ -23,7 +25,7 @@ func _physics_process(delta: float) -> void:
 			direction=-1
 		elif player_pos.x>enemy_pos.x:
 			direction=1
-	velocity.x = direction * SPEED
+	velocity.x = direction * SPEED * slow
 	move_and_slide()
 	if direction < 0:
 		$Node2D.scale.x = 1
@@ -38,11 +40,17 @@ func _physics_process(delta: float) -> void:
 	sprite.play()
 	if health<=0:
 		queue_free()
-
+	if bleed:
+		$enemyhealth.health_changed(health-max(health - (2 * delta), 0))
+		health = max(health - (2 * delta), 0)
 func _on_enemy_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Sword"):
-		$enemyhealth.health_changed(20*Globals.damage_buff_5)
-		health-=30*Globals.damage_buff_5
+		$enemyhealth.health_changed((30*Globals.damage_buff_5)+shocked)
+		health-=30*Globals.damage_buff_5+shocked
 	elif area.is_in_group("Arrow"):
-		$enemyhealth.health_changed(40*Globals.damage_buff_5)
-		health-=40*Globals.damage_buff_5
+		$enemyhealth.health_changed(40*Globals.damage_buff_5+shocked)
+		health-=40*Globals.damage_buff_5+shocked
+	elif area.is_in_group("2D"):
+		slow=0.7
+		health-=10*Globals.damage_buff_5+shocked
+		$enemyhealth.health_changed(10*Globals.damage_buff_5+shocked)

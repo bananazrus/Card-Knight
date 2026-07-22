@@ -6,9 +6,13 @@ extends CharacterBody2D
 @onready var five_timer: Timer = $Five_Timer
 @onready var nine_timer: Timer = $Nine_Timer
 @onready var seven_timer: Timer = $Seven_Timer
+@onready var six_timer: Timer = $Six_Timer
+@onready var two_timer: Timer = $Two_Timer
+@export var downslash : PackedScene
+var invulnerable= true
 var active_hazards: Array[Area2D] = []
-const SPEED = 500.0
-const JUMP_VELOCITY = -1000.0
+var SPEED = 500.0
+var JUMP_VELOCITY = -1000.0
 const BowScene=preload("res://BowAttack.tscn")
 const SwordScene=preload("res://SwordAttack.tscn")
 var weapon_offset := Vector2.ZERO
@@ -32,8 +36,14 @@ var ability=""
 func _ready() -> void:
 	equip_weapon(SwordScene)
 	weapon_offset=weapon_slot.position
+	$Buff_Aura.play("empty")
 func _physics_process(delta: float) -> void:
-	print(health)
+	if position.x < get_global_mouse_position().x:
+		facing_direction = 1
+		pivot.scale.x = 1
+	elif position.x > get_global_mouse_position().x:
+		facing_direction = -1
+		pivot.scale.x = -1
 	if Input.is_action_just_pressed("switch"):
 		if weapon == "sword":
 			equip_weapon(BowScene)
@@ -52,10 +62,7 @@ func _physics_process(delta: float) -> void:
 	if (Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("wkey")) and not is_on_floor() and can_double_jump:
 		velocity.y = JUMP_VELOCITY
 		can_double_jump=false
-	print(Globals.hand)
 	var direction := Input.get_axis("akey", "dkey")
-	if Input.is_action_pressed("dash"):
-		velocity.x = direction*1000
 	if Input.is_action_just_pressed("card1"):
 		card(0)
 	if Input.is_action_just_pressed("card2"):
@@ -68,22 +75,19 @@ func _physics_process(delta: float) -> void:
 		card(4)
 	if pivot.scale.x:
 		if Input.is_action_just_pressed("dash") and cooldown_timer.is_stopped():
-			velocity.x=19000.0 * pivot.scale.x
-			current_direction = pivot.scale.x
+			if direction != 0:
+				current_direction = sign(direction)
+			else:
+				current_direction = pivot.scale.x
+			velocity.x = 19000.0 * current_direction
 			length_timer.start()
 			cooldown_timer.start()
 		if not length_timer.is_stopped():
-			velocity.x=2000 * abs(current_direction)/current_direction
+			velocity.x=2000 * current_direction
 		else:
 			velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-	if direction < 0:
-		facing_direction = -1
-		pivot.scale.x = -1
-	elif direction > 0:
-		facing_direction = 1
-		pivot.scale.x = 1
 	if not length_timer.is_stopped():
 		sprite.animation = "dash"
 		sprite.offset.y = -40
@@ -110,19 +114,26 @@ func _physics_process(delta: float) -> void:
 	if health_regen_timer.is_stopped() and health < max_health:
 		health = min(health + (regen_rate * delta), max_health)
 		health_changed.emit(health)
-	if five_timer.is_stopped():
-		Globals.damage_buff_5=1
-	if nine_timer.is_stopped():
-		Globals.damage_reduction=1
+	if six_timer.is_stopped():
+		$StaticBody2D.hide()
+		$StaticBody2D/CollisionShape2D.set_deferred("disabled",true)
+		SPEED=500
+		JUMP_VELOCITY = -1000
+		invulnerable = false
+	if two_timer.is_stopped():
+		$Area2D.hide()
+		$Area2D.set_deferred("monitoring",false)
+		$Area2D.set_deferred("monitorable",false)
 	move_and_slide()
 
 func _on_area_2d_player_body_entered(body) -> void:
 	if body.is_in_group("Enemies") or body.get_parent().is_in_group("Enemies"):
 		take_damage(15*Globals.damage_reduction)
 func take_damage(amount: int) -> void:
-	health -= amount
-	health_changed.emit(health)
-	health_regen_timer.start()
+	if not invulnerable:
+		health -= amount
+		health_changed.emit(health)
+		health_regen_timer.start()
 
 func equip_weapon(weapon_scene: PackedScene):
 	if current_weapon_node != null:
@@ -153,7 +164,8 @@ func _on_hazard_timer_timeout() -> void:
 	else:
 		hazard_timer.stop()
 func card(num):
-	ability=Globals.hand[num]
+	if Globals.hand.size()>=(num+1):
+		ability=Globals.hand[num]
 	if Globals.seven==false:
 		if Globals.deck.size()!=0:
 			Globals.discard = Globals.hand[num]
@@ -166,12 +178,41 @@ func card(num):
 			pass
 	else:
 		Globals.seven=false
+		$Buff_Aura.play("empty")
 	if ability == "5C":
 		Globals.damage_buff_5 = 2
 		five_timer.start()
+		$Buff_Aura.play("5C")
 	if ability == "9C":
 		Globals.damage_reduction = 0.1
 		nine_timer.start()
+		$Buff_Aura.play("9C")
 	if ability == "7H":
+		$Buff_Aura.play("7H")
 		Globals.seven=true
-		
+	if ability =="6D":
+		$StaticBody2D.show()
+		$StaticBody2D/CollisionShape2D.set_deferred("disabled",false)
+		SPEED=0
+		JUMP_VELOCITY = 0
+		invulnerable = true
+		six_timer.start()
+	if ability == "10D":
+		pass
+	if ability == "2D":
+		$Area2D.show()
+		$Area2D.set_deferred("monitoring",true)
+		$Area2D.set_deferred("monitorable",true)
+		two_timer.start()
+func slash():
+	var downslash = downslash.instantiate()
+	get_parent().add_child(downslash)
+	downslash.global_transform = get_global_mouse_position()
+	downslash.add_to_group("Enemies")
+func _on_five_timer_timeout() -> void:
+	Globals.damage_buff_5 = 1
+	$Buff_Aura.play("empty")
+
+func _on_nine_timer_timeout() -> void:
+	Globals.damage_reduction = 1
+	$Buff_Aura.play("empty")

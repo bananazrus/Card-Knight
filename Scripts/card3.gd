@@ -4,11 +4,11 @@ var all_cards=[["AC","Summons a bolt of lightning above foes.\n\nType: Lighting"
 func _process(_delta: float) -> void:
 	if Globals.hand.size()>=3:
 		animation=Globals.hand[2]
+		for i in all_cards:
+			if i[0]==Globals.hand[2]:
+				label.text=i[1]
 	else:
 		animation="empty"
-	for i in all_cards:
-		if i[0]==Globals.hand[2]:
-			label.text=i[1]
 func _on_area_2d_mouse_entered() -> void:
 	label.show()
 
