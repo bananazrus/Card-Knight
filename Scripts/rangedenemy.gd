@@ -5,6 +5,7 @@ var ranged_health=100
 var player: CharacterBody2D
 var bleed = false
 var shocked = 0
+var slow = 1
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player") as CharacterBody2D
@@ -15,6 +16,7 @@ func _process(delta: float) -> void:
 	if distance_to_player<=1700:
 		if shot_timer.is_stopped():
 			shoot()
+			shot_timer.wait_time= 2*slow
 			shot_timer.start()
 	$Muzzle.look_at(player.global_position)
 	if player.global_position.x < enemy_pos.x:
@@ -41,3 +43,7 @@ func _on_rangedenemy_area_2d_area_entered(area: Area2D) -> void:
 	elif area.is_in_group("Arrow"):
 		$rangedenemyhealth.rangedenemy_health_changed(40*Globals.damage_buff_5+shocked)
 		ranged_health-=40*Globals.damage_buff_5+shocked
+	elif area.is_in_group("2D"):
+		slow=1.3
+		$rangedenemyhealth.rangedenemy_health_changed(10*Globals.damage_buff_5+shocked)
+		ranged_health-=10*Globals.damage_buff_5+shocked

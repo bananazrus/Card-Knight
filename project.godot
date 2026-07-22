@@ -34,6 +34,7 @@ Hazards=""
 bouncepads=""
 boss_health_bar=""
 gate=""
+2D=""
 
 [input]
 

@@ -1,5 +1,5 @@
 extends StaticBody2D
-var snuggles_health=1000
+var snuggles_health=2000
 @export var laser: PackedScene
 @export var enemy: PackedScene
 @onready var attack_timer: Timer = $AttackTimer
@@ -15,6 +15,7 @@ signal boss_health_changed
 var is_spawning: bool = false
 var is_active: bool = false
 var shocked = 0
+var slow = 1
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player") as CharacterBody2D
@@ -33,6 +34,7 @@ func _process(delta: float) -> void:
 	if distance_to_player<=2000 and visible:
 		if cooldown_timer.is_stopped():
 			random = randi_range(1,3)
+			cooldown_timer.wait_time = 5.0*slow
 			cooldown_timer.start()
 			if random == 1:
 				length_timer.start()
@@ -98,6 +100,9 @@ func _on_snuggles_area_2d_area_entered(area: Area2D) -> void:
 		snuggles_health-=30*Globals.damage_buff_5+shocked
 	elif area.is_in_group("Arrow"):
 		snuggles_health-=40*Globals.damage_buff_5+shocked
+	elif area.is_in_group("2D"):
+		slow=1.5
+		snuggles_health-=10*Globals.damage_buff_5+shocked
 	boss_health_changed.emit(snuggles_health)
 func spawn_enemy(enemy_position: Vector2):
 	var new_enemy = enemy.instantiate()
