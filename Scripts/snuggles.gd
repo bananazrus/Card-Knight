@@ -90,9 +90,9 @@ func spawn_boss() -> void:
 	is_active = true
 func _on_snuggles_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Sword"):
-		snuggles_health-=30
+		snuggles_health-=30*Globals.damage_buff_5
 	elif area.is_in_group("Arrow"):
-		snuggles_health-=40
+		snuggles_health-=40*Globals.damage_buff_5
 	boss_health_changed.emit(snuggles_health)
 func spawn_enemy(enemy_position: Vector2):
 	var new_enemy = enemy.instantiate()

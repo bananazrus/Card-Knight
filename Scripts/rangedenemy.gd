@@ -31,8 +31,8 @@ func shoot():
 
 func _on_rangedenemy_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Sword"):
-		$rangedenemyhealth.rangedenemy_health_changed(20)
-		ranged_health-=30
+		$rangedenemyhealth.rangedenemy_health_changed(20*Globals.damage_buff_5)
+		ranged_health-=30*Globals.damage_buff_5
 	elif area.is_in_group("Arrow"):
-		$rangedenemyhealth.rangedenemy_health_changed(40)
-		ranged_health-=40
+		$rangedenemyhealth.rangedenemy_health_changed(40*Globals.damage_buff_5)
+		ranged_health-=40*Globals.damage_buff_5
