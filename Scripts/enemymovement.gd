@@ -41,8 +41,8 @@ func _physics_process(delta: float) -> void:
 
 func _on_enemy_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Sword"):
-		$enemyhealth.health_changed(20)
-		health-=30
+		$enemyhealth.health_changed(20*Globals.damage_buff_5)
+		health-=30*Globals.damage_buff_5
 	elif area.is_in_group("Arrow"):
-		$enemyhealth.health_changed(40)
-		health-=40
+		$enemyhealth.health_changed(40*Globals.damage_buff_5)
+		health-=40*Globals.damage_buff_5

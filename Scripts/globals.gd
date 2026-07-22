@@ -6,10 +6,15 @@ var deck = ["AC","2D","3H","4S","5C","6D","7H","8S","9C","10D"]
 var all_cards=["AC","2D","3H","4S","5C","6D","7H","8S","9C","10D"]
 var hand=[]
 var random_index=0
+var damage_buff_5: = 1
+var seven: bool = false
 var discard="empty"
+var damage_reduction = 1
 func _ready() -> void:
 	reset_game_state()
 func reset_game_state():
+	damage_buff_5 = 1
+	damage_reduction = 1
 	deck = all_cards.duplicate()
 	hand = []
 	discard = "empty"

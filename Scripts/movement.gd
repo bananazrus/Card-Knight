@@ -3,6 +3,9 @@ extends CharacterBody2D
 @onready var cooldown_timer: Timer = $DashCooldown
 @onready var health_regen_timer: Timer = $HealthRegen
 @onready var hazard_timer: Timer = $HazardTimer
+@onready var five_timer: Timer = $Five_Timer
+@onready var nine_timer: Timer = $Nine_Timer
+@onready var seven_timer: Timer = $Seven_Timer
 var active_hazards: Array[Area2D] = []
 const SPEED = 500.0
 const JUMP_VELOCITY = -1000.0
@@ -25,6 +28,7 @@ var bounce = false
 signal health_changed
 var weapon="sword"
 var regen_rate = 5
+var ability=""
 func _ready() -> void:
 	equip_weapon(SwordScene)
 	weapon_offset=weapon_slot.position
@@ -48,7 +52,7 @@ func _physics_process(delta: float) -> void:
 	if (Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("wkey")) and not is_on_floor() and can_double_jump:
 		velocity.y = JUMP_VELOCITY
 		can_double_jump=false
-		
+	print(Globals.hand)
 	var direction := Input.get_axis("akey", "dkey")
 	if Input.is_action_pressed("dash"):
 		velocity.x = direction*1000
@@ -106,11 +110,15 @@ func _physics_process(delta: float) -> void:
 	if health_regen_timer.is_stopped() and health < max_health:
 		health = min(health + (regen_rate * delta), max_health)
 		health_changed.emit(health)
+	if five_timer.is_stopped():
+		Globals.damage_buff_5=1
+	if nine_timer.is_stopped():
+		Globals.damage_reduction=1
 	move_and_slide()
 
 func _on_area_2d_player_body_entered(body) -> void:
 	if body.is_in_group("Enemies") or body.get_parent().is_in_group("Enemies"):
-		take_damage(15)
+		take_damage(15*Globals.damage_reduction)
 func take_damage(amount: int) -> void:
 	health -= amount
 	health_changed.emit(health)
@@ -126,7 +134,7 @@ func equip_weapon(weapon_scene: PackedScene):
 func _on_character_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Hazards") or area.get_parent().is_in_group("Hazards"):
 		active_hazards.append(area)
-		take_damage(15)
+		take_damage(15*Globals.damage_reduction)
 		if hazard_timer.is_stopped():
 			hazard_timer.start()
 	if area.is_in_group("bouncepads") or area.get_parent().is_in_group("bouncepads"):
@@ -141,16 +149,29 @@ func _on_character_area_2d_area_exited(area: Area2D) -> void:
 func _on_hazard_timer_timeout() -> void:
 	active_hazards = active_hazards.filter(func(a): return is_instance_valid(a))
 	if not active_hazards.is_empty():
-		take_damage(15)
+		take_damage(15*Globals.damage_reduction)
 	else:
 		hazard_timer.stop()
 func card(num):
-	if Globals.deck.size()!=0:
-		Globals.discard = Globals.hand[num]
-		Globals.hand[num]=Globals.deck[0]
-		Globals.deck.remove_at(0)
-	elif Globals.hand.size()>=(num+1):
-		Globals.discard = Globals.hand[num]
-		Globals.hand.remove_at(num)
+	ability=Globals.hand[num]
+	if Globals.seven==false:
+		if Globals.deck.size()!=0:
+			Globals.discard = Globals.hand[num]
+			Globals.hand[num]=Globals.deck[0]
+			Globals.deck.remove_at(0)
+		elif Globals.hand.size()>=(num+1):
+			Globals.discard = Globals.hand[num]
+			Globals.hand.remove_at(num)
+		else:
+			pass
 	else:
-		pass
+		Globals.seven=false
+	if ability == "5C":
+		Globals.damage_buff_5 = 2
+		five_timer.start()
+	if ability == "9C":
+		Globals.damage_reduction = 0.1
+		nine_timer.start()
+	if ability == "7H":
+		Globals.seven=true
+		

@@ -106,6 +106,16 @@ shape = SubResource("RectangleShape2D_smhyf")
 
 [node name="HazardTimer" type="Timer" parent="." unique_id=1670961451]
 
+[node name="Five_Timer" type="Timer" parent="." unique_id=314876032]
+wait_time = 5.0
+one_shot = true
+
+[node name="Nine_Timer" type="Timer" parent="." unique_id=680077047]
+wait_time = 4.0
+one_shot = true
+
+[node name="Seven_Timer" type="Timer" parent="." unique_id=926320943]
+
 [connection signal="area_entered" from="pivot/Area2D" to="." method="_on_character_area_2d_area_entered"]
 [connection signal="area_exited" from="pivot/Area2D" to="." method="_on_character_area_2d_area_exited"]
 [connection signal="body_entered" from="pivot/Area2D" to="." method="_on_area_2d_player_body_entered"]
