@@ -1,5 +1,5 @@
 extends CharacterBody2D
-
+var bleed=false
 const SPEED = 200.0
 const JUMP_VELOCITY = -1000.0
 var player: CharacterBody2D
@@ -38,10 +38,12 @@ func _physics_process(delta: float) -> void:
 	sprite.play()
 	if health<=0:
 		queue_free()
-
+	if bleed:
+		$enemyhealth.health_changed(health-max(health - (2 * delta), 0))
+		health = max(health - (2 * delta), 0)
 func _on_enemy_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Sword"):
-		$enemyhealth.health_changed(20*Globals.damage_buff_5)
+		$enemyhealth.health_changed(30*Globals.damage_buff_5)
 		health-=30*Globals.damage_buff_5
 	elif area.is_in_group("Arrow"):
 		$enemyhealth.health_changed(40*Globals.damage_buff_5)

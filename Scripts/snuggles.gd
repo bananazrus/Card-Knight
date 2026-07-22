@@ -6,6 +6,7 @@ var snuggles_health=1000
 @onready var length_timer: Timer = $LengthTimer
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var spike_timer: Timer = $SpikeTimer
+var bleed=false
 var random
 var boss_health_bar
 var gate
@@ -19,7 +20,7 @@ func _ready() -> void:
 	boss_health_bar = get_tree().get_first_node_in_group("boss_health_bar") as CanvasItem
 	gate=get_tree().get_first_node_in_group("gate") as CollisionShape2D
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	var enemy_pos = global_position
 	var distance_to_player = enemy_pos.distance_to(player.global_position)
 	if distance_to_player <= 1000 and not visible and not is_spawning:
@@ -68,6 +69,9 @@ func _process(_delta: float) -> void:
 	if not spike_timer.is_stopped():
 		$Spikes.position.x+=10
 		$Spikes2.position.x-=10
+	if bleed:
+		snuggles_health = max(snuggles_health - (2 * delta), 0)
+		boss_health_changed.emit(snuggles_health)
 func laser_fire():
 	var b = laser.instantiate()
 	get_parent().add_child(b)
