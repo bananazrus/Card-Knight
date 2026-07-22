@@ -104,10 +104,40 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_smhyf"]
+size = Vector2(600, 892.30774)
+
+[sub_resource type="SystemFont" id="SystemFont_6bwnn"]
+subpixel_positioning = 0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_so6f8"]
+bg_color = Color(0, 0, 0, 1)
+
 [node name="Card4" type="Node2D" unique_id=585867046]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=874453964]
 scale = Vector2(0.13, 0.13)
 sprite_frames = SubResource("SpriteFrames_smhyf")
-animation = &"empty"
+animation = &"7H"
 script = ExtResource("11_pykmr")
+
+[node name="Area2D" type="Area2D" parent="AnimatedSprite2D" unique_id=1974473420]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Area2D" unique_id=347145633]
+position = Vector2(184.61539, 30.769217)
+shape = SubResource("RectangleShape2D_smhyf")
+
+[node name="Label" type="Label" parent="AnimatedSprite2D" unique_id=1281984763]
+visible = false
+offset_left = -15.384616
+offset_top = 484.6154
+offset_right = 415.38464
+offset_bottom = 569.2307
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_6bwnn")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_so6f8")
+text = "help me"
+
+[connection signal="mouse_entered" from="AnimatedSprite2D/Area2D" to="AnimatedSprite2D" method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="AnimatedSprite2D/Area2D" to="AnimatedSprite2D" method="_on_area_2d_mouse_exited"]
