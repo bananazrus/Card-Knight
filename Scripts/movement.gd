@@ -101,7 +101,7 @@ func _physics_process(delta: float) -> void:
 		Globals.reset_game_state()
 		get_tree().call_deferred("reload_current_scene")
 	if bounce:
-		velocity.y=-2500
+		velocity.y=-3000
 		bounce = false
 	if health_regen_timer.is_stopped() and health < max_health:
 		health = min(health + (regen_rate * delta), max_health)

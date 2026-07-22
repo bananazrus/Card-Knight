@@ -40,7 +40,7 @@ func _process(_delta: float) -> void:
 				length_timer.start()
 			elif random == 3:
 				spawn_enemy(Vector2(enemy_pos.x+1000,enemy_pos.y))
-				spawn_enemy(Vector2(enemy_pos.x-1000,enemy_pos.y))
+				spawn_enemy(Vector2(enemy_pos.x-300,enemy_pos.y))
 				length_timer.start()
 		if not length_timer.is_stopped():
 			if attack_timer.is_stopped():
@@ -81,8 +81,8 @@ func spike():
 	$Spikes2.set_deferred("monitorable", true)
 	$Spikes.show()
 	$Spikes2.show()
-	$Spikes.position.x=1209
-	$Spikes2.position.x=-909
+	$Spikes.position.x=300
+	$Spikes2.position.x=0
 func spawn_boss() -> void:
 	is_spawning = true
 	visible = true
