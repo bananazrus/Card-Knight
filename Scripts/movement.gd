@@ -78,12 +78,12 @@ func _physics_process(delta: float) -> void:
 			velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-	if direction < 0 and not Input.is_action_pressed("lock"):
-		facing_direction = -1
-		pivot.scale.x = -1
-	elif direction > 0 and not Input.is_action_pressed("lock"):
+	if position.x < get_global_mouse_position().x:
 		facing_direction = 1
 		pivot.scale.x = 1
+	elif position.x > get_global_mouse_position().x:
+		facing_direction = -1
+		pivot.scale.x = -1
 	if not length_timer.is_stopped():
 		sprite.animation = "dash"
 		sprite.offset.y = -40
@@ -114,12 +114,6 @@ func _physics_process(delta: float) -> void:
 		Globals.damage_buff_5=1
 	if nine_timer.is_stopped():
 		Globals.damage_reduction=1
-	if position.x < get_global_mouse_position().x and Input.is_action_pressed("lock"):
-		facing_direction = 1
-		pivot.scale.x = 1
-	elif position.x > get_global_mouse_position().x and Input.is_action_pressed("lock"):
-		facing_direction = -1
-		pivot.scale.x = -1
 	move_and_slide()
 
 func _on_area_2d_player_body_entered(body) -> void:

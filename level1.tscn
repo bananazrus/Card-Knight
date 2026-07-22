@@ -470,7 +470,7 @@ metadata/_edit_vertical_guides_ = [6457.0]
 position = Vector2(8899, -3270)
 
 [node name="CharacterBody2D" parent="." unique_id=345397137 instance=ExtResource("1_ootpb")]
-position = Vector2(5718, -3226)
+position = Vector2(-942, 333)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1027367017]
 
