@@ -61,4 +61,20 @@ collision_mask = 8
 position = Vector2(-1.5, 6.5)
 shape = SubResource("RectangleShape2D_smhyf")
 
+[node name="BleedTimer" type="Timer" parent="StaticBody2D" unique_id=1023833065]
+wait_time = 80.0
+one_shot = true
+
+[node name="BurnTimer" type="Timer" parent="StaticBody2D" unique_id=1341208614]
+wait_time = 60.0
+one_shot = true
+
+[node name="ShockTimer" type="Timer" parent="StaticBody2D" unique_id=1034889939]
+wait_time = 30.0
+one_shot = true
+
+[node name="SlowTimer" type="Timer" parent="StaticBody2D" unique_id=2122922585]
+wait_time = 80.0
+one_shot = true
+
 [connection signal="area_entered" from="StaticBody2D/Area2D" to="StaticBody2D" method="_on_rangedenemy_area_2d_area_entered"]

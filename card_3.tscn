@@ -127,17 +127,24 @@ script = ExtResource("11_qasfy")
 position = Vector2(180.76924, 30.769232)
 shape = SubResource("RectangleShape2D_smhyf")
 
-[node name="Label" type="Label" parent="AnimatedSprite2D" unique_id=2032542229]
+[node name="Label" type="Label" parent="AnimatedSprite2D" unique_id=1299301711]
 visible = false
-offset_left = -15.384616
-offset_top = 484.6154
-offset_right = 415.38464
-offset_bottom = 569.2307
+custom_minimum_size = Vector2(700, 0)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -584.61536
+offset_top = 484.61542
+offset_right = -53.8461
+offset_bottom = 539.6154
+grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = SubResource("SystemFont_upxsk")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxFlat_rewbj")
 text = "help me"
+horizontal_alignment = 1
+autowrap_mode = 2
 
 [connection signal="mouse_entered" from="AnimatedSprite2D/Area2D" to="AnimatedSprite2D" method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="AnimatedSprite2D/Area2D" to="AnimatedSprite2D" method="_on_area_2d_mouse_exited"]

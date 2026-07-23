@@ -77,4 +77,20 @@ one_shot = true
 wait_time = 5.0
 one_shot = true
 
+[node name="BleedTimer" type="Timer" parent="Snuggles" unique_id=1550721562]
+wait_time = 80.0
+one_shot = true
+
+[node name="BurnTimer" type="Timer" parent="Snuggles" unique_id=996099218]
+wait_time = 60.0
+one_shot = true
+
+[node name="ShockTimer" type="Timer" parent="Snuggles" unique_id=1586489440]
+wait_time = 30.0
+one_shot = true
+
+[node name="SlowTimer" type="Timer" parent="Snuggles" unique_id=770165361]
+wait_time = 80.0
+one_shot = true
+
 [connection signal="area_entered" from="Snuggles/Area2D" to="Snuggles" method="_on_snuggles_area_2d_area_entered"]

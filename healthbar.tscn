@@ -10,6 +10,12 @@ border_color = Color(0, 0, 0, 1)
 bg_color = Color(0, 1, 0.30588236, 1)
 border_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_smhyf"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xvnu6"]
+bg_color = Color(0, 0.21568628, 0.6, 1)
+
 [node name="ProgressBar" type="ProgressBar" unique_id=1743704793]
 offset_right = 322.0
 offset_bottom = 24.0
@@ -22,3 +28,14 @@ script = ExtResource("1_iywrq")
 [node name="HealthRegenCooldown" type="Timer" parent="." unique_id=1700158624]
 wait_time = 10.0
 one_shot = true
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=143568820]
+z_index = 1
+layout_mode = 0
+offset_right = 327.0
+offset_bottom = 33.0
+theme_override_styles/background = SubResource("StyleBoxFlat_smhyf")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xvnu6")
+max_value = 120.0
+value = 10.0
+show_percentage = false

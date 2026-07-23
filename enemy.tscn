@@ -51,10 +51,24 @@ size = Vector2(66, 92)
 
 [node name="Enemy" type="Node2D" unique_id=326279830 groups=["Enemies"]]
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=868717366 groups=["Enemies"]]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=868717366 groups=["Enemies", "lightning"]]
 collision_layer = 2
-collision_mask = 4
+collision_mask = 36
 script = ExtResource("1_qi2p4")
+
+[node name="BleedTimer" type="Timer" parent="CharacterBody2D" unique_id=1380472081]
+wait_time = 80.0
+
+[node name="BurnTimer" type="Timer" parent="CharacterBody2D" unique_id=1149107389]
+wait_time = 60.0
+
+[node name="ShockTimer" type="Timer" parent="CharacterBody2D" unique_id=67793630]
+wait_time = 30.0
+one_shot = true
+
+[node name="SlowTimer" type="Timer" parent="CharacterBody2D" unique_id=1453904902]
+wait_time = 80.0
+one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=212026520 groups=["Enemies"]]
 light_mask = 2

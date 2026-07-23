@@ -6,6 +6,10 @@ var snuggles_health=2000
 @onready var length_timer: Timer = $LengthTimer
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var spike_timer: Timer = $SpikeTimer
+@onready var burn_timer: Timer = $BurnTimer
+@onready var slow_timer: Timer = $SlowTimer
+@onready var shock_timer: Timer = $ShockTimer
+@onready var bleed_timer: Timer = $BleedTimer
 var bleed=false
 var random
 var boss_health_bar
@@ -16,6 +20,7 @@ var is_spawning: bool = false
 var is_active: bool = false
 var shocked = 0
 var slow = 1
+var burn=false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player") as CharacterBody2D
@@ -73,8 +78,25 @@ func _process(delta: float) -> void:
 		$Spikes.position.x+=10
 		$Spikes2.position.x-=10
 	if bleed:
-		snuggles_health = max(snuggles_health - (2 * delta), 0)
+		snuggles_health = max(snuggles_health - (4 * delta), 0)
 		boss_health_changed.emit(snuggles_health)
+		bleed_timer.start()
+	if burn:
+		snuggles_health = max(snuggles_health - (5 * delta), 0)
+		boss_health_changed.emit(snuggles_health)
+		burn_timer.start()
+	if slow != 1:
+		slow_timer.start()
+	if slow_timer.is_stopped():
+		slow = 1
+	if shocked != 0:
+		shock_timer.start()
+	if shock_timer.is_stopped():
+		shocked = 0
+	if bleed_timer.is_stopped():
+		bleed = false
+	if burn_timer.is_stopped():
+		burn = false
 func laser_fire():
 	var b = laser.instantiate()
 	get_parent().add_child(b)
@@ -101,8 +123,23 @@ func _on_snuggles_area_2d_area_entered(area: Area2D) -> void:
 	elif area.is_in_group("Arrow"):
 		snuggles_health-=40*Globals.damage_buff_5+shocked
 	elif area.is_in_group("2D"):
-		slow=1.5
 		snuggles_health-=10*Globals.damage_buff_5+shocked
+	elif area.is_in_group("downslash"):
+		snuggles_health-=200*Globals.damage_buff_5+shocked
+	elif area.is_in_group("elemental_projectile"):
+		snuggles_health-=150*Globals.damage_buff_5+shocked
+	elif area.is_in_group("pierceproj"):
+		snuggles_health-=100*Globals.damage_buff_5+shocked
+	elif area.is_in_group("lightning"):
+		snuggles_health-=300*Globals.damage_buff_5+shocked
+	if area.is_in_group("bleed"):
+		bleed=true
+	elif area.is_in_group("burn"):
+		burn = true
+	elif area.is_in_group("shock"):
+		shocked = 15
+	elif area.is_in_group("slow"):
+		slow = 1.5
 	boss_health_changed.emit(snuggles_health)
 func spawn_enemy(enemy_position: Vector2):
 	var new_enemy = enemy.instantiate()

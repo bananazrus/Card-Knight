@@ -4,6 +4,6 @@ var speed = 1050
 func _physics_process(delta):
 	position.y += speed * delta
 
-func _on_projectile_body_entered(body: Node2D) -> void:
+func _on_downslash_body_entered(_body: Node2D) -> void:
 	queue_free()
  

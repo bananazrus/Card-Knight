@@ -3,16 +3,20 @@
 [ext_resource type="Texture2D" uid="uid://cwuvyv5cbnmkm" path="res://Assets/10D_attack.png" id="1_rr7kd"]
 [ext_resource type="Script" uid="uid://nj8ebvfvtrsc" path="res://area_2d.gd" id="1_x544x"]
 
-[node name="Downslash" type="Node2D" unique_id=879441270]
+[node name="downslash" type="Node2D" unique_id=879441270]
 scale = Vector2(0.5, 0.5)
 metadata/_edit_horizontal_guides_ = [0.0]
 
-[node name="Area2D" type="Area2D" parent="." unique_id=592999883]
+[node name="Area2D" type="Area2D" parent="." unique_id=592999883 groups=["downslash"]]
 scale = Vector2(0.5, 0.5)
+collision_layer = 8
+collision_mask = 6
 script = ExtResource("1_x544x")
 
 [node name="Sprite2D" type="Sprite2D" parent="Area2D" unique_id=1935331322]
 texture = ExtResource("1_rr7kd")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=124791731]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=124791731 groups=["downslash"]]
 polygon = PackedVector2Array(-236, -33, 7, 274, 274, -30, 247, -38, 7, 221, -209, -39)
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_downslash_body_entered"]
