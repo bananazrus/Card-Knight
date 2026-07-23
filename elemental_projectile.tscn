@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://g02kt4wvq8c"]
+
+[ext_resource type="Script" uid="uid://cs2pis4rp4e8v" path="res://elemental_projectile.gd" id="1_csela"]
+[ext_resource type="Texture2D" uid="uid://bbso133t1cud7" path="res://Assets/projectile_steel.png" id="1_mdbwx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mdbwx"]
+size = Vector2(80, 64)
+
+[node name="elemental_projectile" type="Node2D" unique_id=533431380]
+
+[node name="Area2D" type="Area2D" parent="." unique_id=744680764 groups=["elemental_projectile"]]
+collision_layer = 8
+collision_mask = 6
+script = ExtResource("1_csela")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D" unique_id=195390396]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_mdbwx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1219093527]
+position = Vector2(17, -14)
+shape = SubResource("RectangleShape2D_mdbwx")
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_elementalprojectile_body_entered"]

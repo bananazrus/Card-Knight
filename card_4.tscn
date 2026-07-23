@@ -127,17 +127,24 @@ script = ExtResource("11_pykmr")
 position = Vector2(184.61539, 30.769217)
 shape = SubResource("RectangleShape2D_smhyf")
 
-[node name="Label" type="Label" parent="AnimatedSprite2D" unique_id=1281984763]
+[node name="Label" type="Label" parent="AnimatedSprite2D" unique_id=537351547]
 visible = false
-offset_left = -15.384616
-offset_top = 484.6154
-offset_right = 415.38464
-offset_bottom = 569.2307
+custom_minimum_size = Vector2(700, 0)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -584.61536
+offset_top = 484.61542
+offset_right = -53.8461
+offset_bottom = 539.6154
+grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = SubResource("SystemFont_6bwnn")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxFlat_so6f8")
 text = "help me"
+horizontal_alignment = 1
+autowrap_mode = 2
 
 [connection signal="mouse_entered" from="AnimatedSprite2D/Area2D" to="AnimatedSprite2D" method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="AnimatedSprite2D/Area2D" to="AnimatedSprite2D" method="_on_area_2d_mouse_exited"]
