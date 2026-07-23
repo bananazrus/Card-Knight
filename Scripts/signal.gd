@@ -13,7 +13,7 @@ func _ready() -> void:
 	health_bar.max_value = player.max_health
 	health_bar.value = player.health
 	player.overshield_changed.connect(health_bar._on_player_overshield_changed)
-	overshield_bar.max_value = 120
+	overshield_bar.max_value = 240
 	overshield_bar.value = player.overshield
 	boss.boss_health_changed.connect(boss_health_bar._on_boss_health_changed)
 	boss_health_bar.max_value = 2000
@@ -22,9 +22,13 @@ func _ready() -> void:
 func _on_door1_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") or body.get_parent().is_in_group("player"):
 		spawn_door1.emit()
+		$StaticBody2D/Sprite2D.show()
 		
 
 func _on_door2_2d_2_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") or body.get_parent().is_in_group("player"):
 		spawn_door2.emit()
-		boss_health_bar.show()
+		$StaticBody2D/Sprite2D2.show()
+		if is_instance_valid(boss):
+			boss_health_bar.show()
+			$StaticBody2D/Sprite2D.show()

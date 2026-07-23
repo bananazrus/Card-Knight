@@ -36,7 +36,7 @@ func _process(delta: float) -> void:
 		$Area2D.set_deferred("monitoring", true)
 	if not is_active:
 		return
-	if distance_to_player<=2000 and visible:
+	if distance_to_player<=3000 and visible:
 		if cooldown_timer.is_stopped():
 			random = randi_range(1,3)
 			cooldown_timer.wait_time = 5.0*slow
@@ -48,8 +48,8 @@ func _process(delta: float) -> void:
 				spike()
 				length_timer.start()
 			elif random == 3:
-				spawn_enemy(Vector2(enemy_pos.x+1000,enemy_pos.y))
 				spawn_enemy(Vector2(enemy_pos.x-300,enemy_pos.y))
+				spawn_enemy(Vector2(enemy_pos.x,enemy_pos.y))
 				length_timer.start()
 		if not length_timer.is_stopped():
 			if attack_timer.is_stopped():
@@ -78,19 +78,13 @@ func _process(delta: float) -> void:
 		$Spikes.position.x+=10
 		$Spikes2.position.x-=10
 	if bleed:
-		snuggles_health = max(snuggles_health - (4 * delta), 0)
+		snuggles_health = max(snuggles_health - (8 * delta), 0)
 		boss_health_changed.emit(snuggles_health)
-		bleed_timer.start()
 	if burn:
-		snuggles_health = max(snuggles_health - (5 * delta), 0)
+		snuggles_health = max(snuggles_health - (10 * delta), 0)
 		boss_health_changed.emit(snuggles_health)
-		burn_timer.start()
-	if slow != 1:
-		slow_timer.start()
 	if slow_timer.is_stopped():
 		slow = 1
-	if shocked != 0:
-		shock_timer.start()
 	if shock_timer.is_stopped():
 		shocked = 0
 	if bleed_timer.is_stopped():
@@ -119,27 +113,31 @@ func spawn_boss() -> void:
 	is_active = true
 func _on_snuggles_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Sword"):
-		snuggles_health-=30*Globals.damage_buff_5+shocked
+		snuggles_health-=30*Globals.damage_buff_5*Globals.sword_increase+shocked
 	elif area.is_in_group("Arrow"):
-		snuggles_health-=40*Globals.damage_buff_5+shocked
+		snuggles_health-=40*Globals.damage_buff_5*Globals.bow_increase+shocked
 	elif area.is_in_group("2D"):
-		snuggles_health-=10*Globals.damage_buff_5+shocked
+		snuggles_health-=25*Globals.damage_buff_5*Globals.card_increase+shocked
 	elif area.is_in_group("downslash"):
-		snuggles_health-=200*Globals.damage_buff_5+shocked
+		snuggles_health-=200*Globals.damage_buff_5*Globals.card_increase+shocked
 	elif area.is_in_group("elemental_projectile"):
-		snuggles_health-=150*Globals.damage_buff_5+shocked
+		snuggles_health-=150*Globals.damage_buff_5*Globals.card_increase+shocked
 	elif area.is_in_group("pierceproj"):
-		snuggles_health-=100*Globals.damage_buff_5+shocked
+		snuggles_health-=100*Globals.damage_buff_5*Globals.card_increase+shocked
 	elif area.is_in_group("lightning"):
-		snuggles_health-=300*Globals.damage_buff_5+shocked
+		snuggles_health-=300*Globals.damage_buff_5*Globals.card_increase+shocked
 	if area.is_in_group("bleed"):
+		bleed_timer.start()
 		bleed=true
 	elif area.is_in_group("burn"):
 		burn = true
+		burn_timer.start()
 	elif area.is_in_group("shock"):
 		shocked = 15
+		shock_timer.start()
 	elif area.is_in_group("slow"):
 		slow = 1.5
+		slow_timer.start()
 	boss_health_changed.emit(snuggles_health)
 func spawn_enemy(enemy_position: Vector2):
 	var new_enemy = enemy.instantiate()

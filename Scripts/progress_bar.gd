@@ -1,10 +1,6 @@
 extends ProgressBar
-func _ready() -> void:
-	pass
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
-func _on_player_health_changed(current_value: int):
+func _on_player_health_changed(current_value: float, max_hp: float):
 	value=current_value
-func _on_player_overshield_changed(current_value: int):
+	max_value = max_hp
+func _on_player_overshield_changed(current_value: float):
 	$ProgressBar.value=current_value

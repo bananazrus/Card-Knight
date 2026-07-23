@@ -15,10 +15,11 @@ collision_mask = 6
 script = ExtResource("1_0vbox")
 
 [node name="Sprite2D" type="Sprite2D" parent="Area2D" unique_id=98173400]
+position = Vector2(-29.999996, -112.49999)
 texture = ExtResource("1_ltihs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=705208768 groups=["pierceproj"]]
-position = Vector2(32.5, 110)
+position = Vector2(-2.3841858e-07, -2.4999998)
 shape = SubResource("CircleShape2D_ltihs")
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_pierceproj_body_entered"]

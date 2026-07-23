@@ -46,19 +46,13 @@ func _physics_process(delta: float) -> void:
 	if health<=0:
 		queue_free()
 	if bleed:
-		$enemyhealth.health_changed(health-max(health - (4 * delta), 0))
-		health = max(health - (4 * delta), 0)
-		bleed_timer.start()
+		$enemyhealth.health_changed(health-max(health - (8 * delta), 0))
+		health = max(health - (8 * delta), 0)
 	if burn:
-		$enemyhealth.health_changed(health-max(health - (5 * delta), 0))
-		health = max(health - (5 * delta), 0)
-		burn_timer.start()
-	if slow != 1:
-		slow_timer.start()
+		$enemyhealth.health_changed(health-max(health - (10 * delta), 0))
+		health = max(health - (10 * delta), 0)
 	if slow_timer.is_stopped():
 		slow = 1
-	if shocked != 0:
-		shock_timer.start()
 	if shock_timer.is_stopped():
 		shocked = 0
 	if bleed_timer.is_stopped():
@@ -67,31 +61,35 @@ func _physics_process(delta: float) -> void:
 		burn = false
 func _on_enemy_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Sword"):
-		$enemyhealth.health_changed((30*Globals.damage_buff_5)+shocked)
-		health-=30*Globals.damage_buff_5+shocked
+		$enemyhealth.health_changed((30*Globals.damage_buff_5*Globals.sword_increase)+shocked)
+		health-=30*Globals.damage_buff_5*Globals.sword_increase+shocked
 	elif area.is_in_group("Arrow"):
-		$enemyhealth.health_changed(40*Globals.damage_buff_5+shocked)
-		health-=40*Globals.damage_buff_5+shocked
+		$enemyhealth.health_changed(40*Globals.damage_buff_5*Globals.bow_increase+shocked)
+		health-=40*Globals.damage_buff_5*Globals.bow_increase+shocked
 	elif area.is_in_group("2D"):
-		health-=10*Globals.damage_buff_5+shocked
-		$enemyhealth.health_changed(10*Globals.damage_buff_5+shocked)
+		health-=25*Globals.damage_buff_5*Globals.card_increase+shocked
+		$enemyhealth.health_changed(25*Globals.damage_buff_5*Globals.card_increase+shocked)
 	elif area.is_in_group("downslash"):
-		$enemyhealth.health_changed(200*Globals.damage_buff_5+shocked)
-		health-=200*Globals.damage_buff_5+shocked
+		$enemyhealth.health_changed(200*Globals.damage_buff_5*Globals.card_increase+shocked)
+		health-=200*Globals.damage_buff_5*Globals.card_increase+shocked
 	elif area.is_in_group("elemental_projectile"):
-		$enemyhealth.health_changed(150*Globals.damage_buff_5+shocked)
-		health-=150*Globals.damage_buff_5+shocked
+		$enemyhealth.health_changed(150*Globals.damage_buff_5*Globals.card_increase+shocked)
+		health-=150*Globals.damage_buff_5*Globals.card_increase+shocked
 	elif area.is_in_group("pierceproj"):
-		$enemyhealth.health_changed(100*Globals.damage_buff_5+shocked)
-		health-=100*Globals.damage_buff_5+shocked
+		$enemyhealth.health_changed(100*Globals.damage_buff_5*Globals.card_increase+shocked)
+		health-=100*Globals.damage_buff_5*Globals.card_increase+shocked
 	elif area.is_in_group("lightning"):
-		$enemyhealth.health_changed(300*Globals.damage_buff_5+shocked)
-		health-=300*Globals.damage_buff_5+shocked
+		$enemyhealth.health_changed(300*Globals.damage_buff_5*Globals.card_increase+shocked)
+		health-=300*Globals.damage_buff_5*Globals.card_increase+shocked
 	if area.is_in_group("bleed"):
+		bleed_timer.start()
 		bleed=true
 	elif area.is_in_group("burn"):
 		burn = true
+		burn_timer.start()
 	elif area.is_in_group("shock"):
 		shocked = 15
+		shock_timer.start()
 	elif area.is_in_group("slow"):
-		slow = 0.7
+		slow = 1.5
+		slow_timer.start()

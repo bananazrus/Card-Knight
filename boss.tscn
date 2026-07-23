@@ -50,7 +50,7 @@ position = Vector2(-27, 104)
 shape = SubResource("RectangleShape2D_0in4i")
 
 [node name="AttackTimer" type="Timer" parent="Snuggles" unique_id=1803649711]
-wait_time = 0.36
+wait_time = 0.4
 one_shot = true
 
 [node name="pivot" type="Node2D" parent="Snuggles" unique_id=774679609]

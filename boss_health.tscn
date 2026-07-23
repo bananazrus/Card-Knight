@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://d2517gbwlgbx"]
 
 [ext_resource type="Script" uid="uid://vq67rrdjao8a" path="res://Scripts/boss_health.gd" id="1_rsklu"]
+[ext_resource type="FontFile" uid="uid://ce5fxt14opo3b" path="res://Assets/VCR_OSD_MONO_1.001.ttf" id="2_lofsf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lnbgr"]
 bg_color = Color(0.083392, 0.08339202, 0.08339197, 1)
@@ -13,15 +14,17 @@ offset_right = 795.0
 offset_bottom = 38.0
 theme_override_styles/background = SubResource("StyleBoxFlat_lnbgr")
 theme_override_styles/fill = SubResource("StyleBoxFlat_o1i15")
-max_value = 2000.0
+max_value = 2200.0
 value = 2000.0
 show_percentage = false
 script = ExtResource("1_rsklu")
 
 [node name="Label" type="Label" parent="." unique_id=165257836]
 layout_mode = 0
-offset_left = 356.0
-offset_top = -40.0
-offset_right = 425.0
-offset_bottom = -17.0
-text = "Snuggles"
+offset_left = 310.0
+offset_top = -53.0
+offset_right = 493.0
+offset_bottom = 1.0
+theme_override_fonts/font = ExtResource("2_lofsf")
+theme_override_font_sizes/font_size = 39
+text = "SNUGGLES"

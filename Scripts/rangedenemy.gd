@@ -32,18 +32,12 @@ func _process(delta: float) -> void:
 		queue_free()
 	if bleed:
 		$rangedenemyhealth.health_changed(ranged_health-max(ranged_health - (4 * delta), 0))
-		ranged_health = max(ranged_health - (4 * delta), 0)
-		bleed_timer.start()
+		ranged_health = max(ranged_health - (8 * delta), 0)
 	if burn:
 		$rangedenemyhealth.health_changed(ranged_health-max(ranged_health - (5 * delta), 0))
-		ranged_health = max(ranged_health - (5 * delta), 0)
-		burn_timer.start()
-	if slow != 1:
-		slow_timer.start()
+		ranged_health = max(ranged_health - (10 * delta), 0)
 	if slow_timer.is_stopped():
 		slow = 1
-	if shocked != 0:
-		shock_timer.start()
 	if shock_timer.is_stopped():
 		shocked = 0
 	if bleed_timer.is_stopped():
@@ -58,31 +52,35 @@ func shoot():
 	
 func _on_rangedenemy_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Sword"):
-		$rangedenemyhealth.rangedenemy_health_changed(30*Globals.damage_buff_5+shocked)
-		ranged_health-=30*Globals.damage_buff_5+shocked
+		$rangedenemyhealth.rangedenemy_health_changed(30*Globals.damage_buff_5*Globals.sword_increase+shocked)
+		ranged_health-=30*Globals.damage_buff_5*Globals.sword_increase+shocked
 	elif area.is_in_group("Arrow"):
-		$rangedenemyhealth.rangedenemy_health_changed(40*Globals.damage_buff_5+shocked)
-		ranged_health-=40*Globals.damage_buff_5+shocked
+		$rangedenemyhealth.rangedenemy_health_changed(40*Globals.damage_buff_5*Globals.bow_increase+shocked)
+		ranged_health-=40*Globals.damage_buff_5*Globals.bow_increase+shocked
 	elif area.is_in_group("2D"):
-		$rangedenemyhealth.rangedenemy_health_changed(10*Globals.damage_buff_5+shocked)
-		ranged_health-=10*Globals.damage_buff_5+shocked
+		$rangedenemyhealth.rangedenemy_health_changed(25*Globals.damage_buff_5*Globals.card_increase+shocked)
+		ranged_health-=25*Globals.damage_buff_5*Globals.card_increase+shocked
 	elif area.is_in_group("downslash"):
-		$rangedenemyhealth.rangedenemy_health_changed(200*Globals.damage_buff_5+shocked)
-		ranged_health-=200*Globals.damage_buff_5+shocked
+		$rangedenemyhealth.rangedenemy_health_changed(200*Globals.damage_buff_5*Globals.card_increase+shocked)
+		ranged_health-=200*Globals.damage_buff_5*Globals.card_increase+shocked
 	elif area.is_in_group("elemental_projectile"):
-		$rangedenemyhealth.rangedenemy_health_changed(150*Globals.damage_buff_5+shocked)
-		ranged_health-=100*Globals.damage_buff_5+shocked
-	elif area.is_in_group("pierceproje"):
-		$rangedenemyhealth.rangedenemy_health_changed(100*Globals.damage_buff_5+shocked)
-		ranged_health-=100*Globals.damage_buff_5+shocked
+		$rangedenemyhealth.rangedenemy_health_changed(150*Globals.damage_buff_5*Globals.card_increase+shocked)
+		ranged_health-=100*Globals.damage_buff_5*Globals.card_increase+shocked
+	elif area.is_in_group("pierceproj"):
+		$rangedenemyhealth.rangedenemy_health_changed(100*Globals.damage_buff_5*Globals.card_increase+shocked)
+		ranged_health-=100*Globals.damage_buff_5*Globals.card_increase+shocked
 	elif area.is_in_group("lightning"):
-		$rangedenemyhealth.rangedenemy_health_changed(300*Globals.damage_buff_5+shocked)
-		ranged_health-=300*Globals.damage_buff_5+shocked
+		$rangedenemyhealth.rangedenemy_health_changed(300*Globals.damage_buff_5*Globals.card_increase+shocked)
+		ranged_health-=300*Globals.damage_buff_5*Globals.card_increase+shocked
 	if area.is_in_group("bleed"):
+		bleed_timer.start()
 		bleed=true
 	elif area.is_in_group("burn"):
 		burn = true
+		burn_timer.start()
 	elif area.is_in_group("shock"):
 		shocked = 15
+		shock_timer.start()
 	elif area.is_in_group("slow"):
-		slow = 1.3
+		slow = 1.5
+		slow_timer.start()

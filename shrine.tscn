@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://bl65hgyikbaxn"]
+
+[ext_resource type="Script" uid="uid://bm0f3m62pol3b" path="res://shrine.gd" id="1_fagqx"]
+[ext_resource type="Texture2D" uid="uid://vyhife0dri0d" path="res://shrineoff.png" id="1_yguy6"]
+[ext_resource type="Texture2D" uid="uid://c7y0yxglyikjb" path="res://shrineon.png" id="2_fagqx"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_smhyf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_yguy6")
+}],
+"loop": 1,
+"name": &"shrine_off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fagqx")
+}],
+"loop": 1,
+"name": &"shrine_on",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wwafo"]
+size = Vector2(170, 112)
+
+[node name="shrine" type="Node2D" unique_id=1366318851]
+
+[node name="shrine" type="Area2D" parent="." unique_id=776172141 groups=["shrine"]]
+collision_layer = 64
+script = ExtResource("1_fagqx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="shrine" unique_id=1681601469]
+position = Vector2(22, -25)
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_smhyf")
+animation = &"shrine_on"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="shrine" unique_id=214460163 groups=["shrine"]]
+position = Vector2(7, -25)
+shape = SubResource("RectangleShape2D_wwafo")
