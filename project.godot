@@ -22,7 +22,6 @@ Globals="*uid://cplqhccyreqov"
 
 window/size/mode=3
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
 
 [global_group]
 

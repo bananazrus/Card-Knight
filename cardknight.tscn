@@ -257,4 +257,5 @@ one_shot = true
 [connection signal="timeout" from="HazardTimer" to="." method="_on_hazard_timer_timeout"]
 [connection signal="timeout" from="Five_Timer" to="." method="_on_five_timer_timeout"]
 [connection signal="timeout" from="Nine_Timer" to="." method="_on_nine_timer_timeout"]
+[connection signal="timeout" from="Six_Timer" to="." method="_on_six_timer_timeout"]
 [connection signal="timeout" from="InvulnerableTimer" to="." method="_on_invulnerable_timer_timeout"]

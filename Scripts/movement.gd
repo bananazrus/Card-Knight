@@ -74,6 +74,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("switch") and shrine:
 		if current_shrine and "is_active" in current_shrine:
 			current_shrine.is_active = false
+			shrine = false
 		shrine_number = randi_range(0,9)
 		shrine_buff.text =buffs[shrine_number][1]
 		shrine_buff.show()
@@ -168,13 +169,6 @@ func _physics_process(delta: float) -> void:
 	if health_regen_timer.is_stopped() and health < max_health:
 		health = min(health + (regen_rate * delta), max_health)
 		health_changed.emit(health, max_health)
-	if six_timer.is_stopped():
-		$StaticBody2D.hide()
-		$StaticBody2D/CollisionShape2D.set_deferred("disabled",true)
-		SPEED=500
-		JUMP_VELOCITY = -1000
-		$StaticBody2D/Label.hide()
-		invulnerable = false
 	if two_timer.is_stopped():
 		$Area2D1.hide()
 		$Area2D1.set_deferred("monitoring",false)
@@ -318,6 +312,13 @@ func pierce_proj(element):
 func _on_nine_timer_timeout() -> void:
 	Globals.damage_reduction = 1
 	$Buff_Aura.play("empty")
+func _on_six_timer_timeout() -> void:
+	$StaticBody2D.hide()
+	$StaticBody2D/CollisionShape2D.set_deferred("disabled",true)
+	SPEED=500
+	JUMP_VELOCITY = -1000
+	$StaticBody2D/Label.hide()
+	invulnerable = false
 func _on_invulnerable_timer_timeout() -> void:
 	if six_timer.is_stopped():
 		invulnerable = false
