@@ -47,7 +47,7 @@ func _physics_process(delta: float) -> void:
 		sprite.animation = "neutral"
 	sprite.play()
 	if go_back:
-		velocity.x=$Node2D.scale.x*200
+		velocity.x=$Node2D.scale.x*100
 	if health <= 0:
 		if randi_range(1, 7) == 4 and not Globals.card_pool.is_empty():
 			Globals.card_pool.shuffle()
