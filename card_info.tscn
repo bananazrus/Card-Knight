@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://c7cptm51o4ll1"]
+
+[sub_resource type="DrawableTexture2D" id="DrawableTexture2D_smhyf"]
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=205750922]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1665900987]
+modulate = Color(0, 0, 0, 0.3019608)
+position = Vector2(577.5, 380.5)
+scale = Vector2(18.046875, 11.921875)
+texture = SubResource("DrawableTexture2D_smhyf")

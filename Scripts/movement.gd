@@ -11,6 +11,7 @@ extends CharacterBody2D
 @onready var label_timer: Timer = $LabelTimer
 @onready var invulnerable_timer: Timer = $InvulnerableTimer
 @onready var other_invulnerable_timer: Timer = $OtherInvulnerableTimer
+@onready var card_cooldown: Timer = $CardCooldown
 @onready var shrine_buff = $"../CanvasLayer2/Label"
 @export var downslash: PackedScene
 @export var el_projectile: PackedScene
@@ -46,15 +47,17 @@ var regen_rate = 5
 var ability=""
 var overshield = 0
 var jumps = 2
+var speed_buffs = 0
 var shrine = false
 var shrine_number
 var jump_changes = 0
 var no_discard = false
 var buffs = [[1, "Gain an extra jump."],[2, "Cards have a chance not to be discarded upon use."],[3, "Increases damage of card attacks."],[4, "Increases damage of sword attacks."],[5, "Increases damage of bow attacks."],[6, "Increases player health."],[7, "Increases base walking speed."],[8, "Decreases regen cooldown."],[9, "Increases the regen rate."],[10, "Turn invulnerable for 3 second when an attack would kill you."]];
+@onready var sound: AudioStreamPlayer2D = $AudioStreamPlayer2D
 func _ready() -> void:
 	equip_weapon(SwordScene)
 	weapon_offset=weapon_slot.position
-	$Buff_Aura.play("empty")
+	$pivot/Buff_Aura.play("empty")
 func _physics_process(delta: float) -> void:
 	if position.x < get_global_mouse_position().x:
 		facing_direction = 1
@@ -94,7 +97,8 @@ func _physics_process(delta: float) -> void:
 			health_changed.emit(health, max_health)
 			health_regen_timer.start()
 		elif buffs[shrine_number][0] == 7:
-			SPEED=SPEED*1.5
+			SPEED=SPEED*1.3
+			speed_buffs+=1
 		elif buffs[shrine_number][0] == 8:
 			health_regen_timer.wait_time=health_regen_timer.wait_time*0.7
 		elif buffs[shrine_number][0] == 9:
@@ -109,18 +113,30 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 		jumps-=1
 	var direction := Input.get_axis("akey", "dkey")
-	if Input.is_action_just_pressed("card1"):
-		card(0)
-	if Input.is_action_just_pressed("card2"):
-		card(1)
-	if Input.is_action_just_pressed("card3"):
-		card(2)
-	if Input.is_action_just_pressed("card4"):
-		card(3)
-	if Input.is_action_just_pressed("card5"):
-		card(4)
+	if card_cooldown.is_stopped():
+		if Input.is_action_just_pressed("card1"):
+			card(0)
+			card_cooldown.start()
+		if Input.is_action_just_pressed("card2"):
+			card(1)
+			card_cooldown.start()
+		if Input.is_action_just_pressed("card3"):
+			card(2)
+			card_cooldown.start()
+		if Input.is_action_just_pressed("card4"):
+			card(3)
+			card_cooldown.start()
+		if Input.is_action_just_pressed("card5"):
+			card(4)
+			card_cooldown.start()
+	if not card_cooldown.is_stopped():
+		$Label.text=str(ceil(card_cooldown.time_left))
+		$Label.show()
+	else:
+		$Label.hide()
 	if pivot.scale.x:
 		if Input.is_action_just_pressed("dash") and cooldown_timer.is_stopped() and six_timer.is_stopped():
+			sound.play()
 			if direction != 0:
 				current_direction = sign(direction)
 			else:
@@ -234,88 +250,208 @@ func _on_hazard_timer_timeout() -> void:
 		take_damage(25*Globals.damage_reduction)
 	else:
 		hazard_timer.stop()
-func card(num):
+func card(num: int) -> void:
 	if num >= Globals.hand.size():
 		return
 	ability = Globals.hand[num]
-	if no_discard and randi_range(1,10)==6:
-		pass
-	else:
-		if Globals.seven==false:
-			if Globals.deck.size()!=0:
-				Globals.discard = Globals.hand[num]
-				Globals.hand[num]=Globals.deck[0]
-				Globals.deck.remove_at(0)
-			elif Globals.hand.size()>=(num+1):
-				Globals.discard = Globals.hand[num]
-				Globals.hand.remove_at(num)
-			else:
-				pass
-		elif is_mouse_inside_object(get_global_mouse_position()):
-			pass
+	var should_discard: bool = true
+	if no_discard and randi_range(1, 10) == 6:
+		should_discard = false
+	elif Globals.seven:
+		should_discard = false
+		Globals.seven = false
+		$pivot/Buff_Aura.play("empty")	
+	if should_discard:
+		Globals.discard = Globals.hand[num]
+		if Globals.deck.size() > 0:
+			Globals.hand[num] = Globals.deck[0]
+			Globals.deck.remove_at(0)
 		else:
-			Globals.seven=false
-			$Buff_Aura.play("empty")
-	if ability == "5C":
-		Globals.damage_buff_5 = 2
-		five_timer.start()
-		$Buff_Aura.play("5C")
-	if ability == "9C":
-		Globals.damage_reduction = 0.1
-		nine_timer.start()
-		$Buff_Aura.play("9C")
-	if ability == "7H":
-		$Buff_Aura.play("7H")
-		Globals.seven=true
-	if ability =="6D":
-		$StaticBody2D.show()
-		$StaticBody2D/CollisionShape2D.set_deferred("disabled",false)
-		SPEED=0
-		JUMP_VELOCITY = 0
-		invulnerable = true
-		six_timer.start()
-		$StaticBody2D/Label.show()
-	if ability == "10D":
-		slash()
-	if ability == "2D":
-		$Area2D1.show()
-		$Area2D1.set_deferred("monitoring",true)
-		$Area2D1.set_deferred("monitorable",true)
-		$Area2D1.add_to_group("slow")
-		two_timer.start()
-	if ability == "3H":
-		overshield+=30
-		overshield_changed.emit(overshield)
-	if ability == "4S":
-		shoot_el_proj("bleed")
-	if ability == "8S":
-		pierce_proj("bleed")
-	if ability == "AC":
-		spawn_lightning_at(get_global_mouse_position())
+			Globals.hand.remove_at(num)	
+	match ability:
+		"5C":
+			Globals.damage_buff_5 = 1.5 #Done
+			five_timer.start()
+			$pivot/Buff_Aura.play("5C")
+		"5D":
+			Globals.damage_buff_5 = 1.5 #Done
+			five_timer.start()
+			$pivot/Buff_Aura.play("5D")
+		"5H":
+			Globals.damage_buff_5 = 1.5 #Done
+			five_timer.start()
+			$pivot/Buff_Aura.play("5H")
+		"5S":
+			Globals.damage_buff_5 = 1.5 #Done
+			five_timer.start()
+			$pivot/Buff_Aura.play("5S")
+		"9C":
+			Globals.damage_reduction = 0.1 #Done
+			nine_timer.start()
+			$pivot/Buff_Aura.play("9C")
+		"9D":
+			Globals.damage_reduction = 0.1
+			nine_timer.start()
+			$pivot/Buff_Aura.play("9D")
+		"9H":
+			Globals.damage_reduction = 0.1 #Done
+			nine_timer.start()
+			$pivot/Buff_Aura.play("9H")
+		"9S":
+			Globals.damage_reduction = 0.1 #Done
+			nine_timer.start()
+			$pivot/Buff_Aura.play("9S")
+		"7H":
+			$pivot/Buff_Aura.play("7H") #Done
+			Globals.seven = true 
+		"7C":
+			$pivot/Buff_Aura.play("7C") #DOne
+			Globals.seven = true
+		"7D":
+			$pivot/Buff_Aura.play("7D") #Done
+			Globals.seven = true
+		"7S":
+			$pivot/Buff_Aura.play("7S") #Done
+			Globals.seven = true
+		"6D":
+			$StaticBody2D.show()
+			$StaticBody2D/CollisionShape2D.set_deferred("disabled", false)
+			SPEED = 0
+			JUMP_VELOCITY = 0
+			invulnerable = true
+			six_timer.start()
+			$StaticBody2D/Label.show()
+		"6C":
+			$StaticBody2D.show()
+			$StaticBody2D/CollisionShape2D.set_deferred("disabled", false)
+			SPEED = 0
+			JUMP_VELOCITY = 0
+			invulnerable = true
+			six_timer.start()
+			$StaticBody2D/Label.show()
+		"6H":
+			$StaticBody2D.show()
+			$StaticBody2D/CollisionShape2D.set_deferred("disabled", false)
+			SPEED = 0
+			JUMP_VELOCITY = 0
+			invulnerable = true
+			six_timer.start()
+			$StaticBody2D/Label.show()
+		"6S":
+			$StaticBody2D.show()
+			$StaticBody2D/CollisionShape2D.set_deferred("disabled", false)
+			SPEED = 0
+			JUMP_VELOCITY = 0
+			invulnerable = true
+			six_timer.start()
+			$StaticBody2D/Label.show()
+		"10D":
+			slash()
+		"10C":
+			slash()
+		"10H":
+			slash()
+		"10S":
+			slash()
+		"2D":
+			$Area2D1.show()
+			$Area2D1.set_deferred("monitoring", true)
+			$Area2D1.set_deferred("monitorable", true)
+			$Area2D1/Sprite2D.play("2D")
+			$Area2D1.add_to_group("slow")
+			two_timer.start()
+		"2C":
+			$Area2D1.show()
+			$Area2D1.set_deferred("monitoring", true)
+			$Area2D1.set_deferred("monitorable", true)
+			$Area2D1/Sprite2D.play("2D")
+			$Area2D1.add_to_group("shock")
+			two_timer.start()
+		"2S":
+			$Area2D1.show()
+			$Area2D1.set_deferred("monitoring", true)
+			$Area2D1.set_deferred("monitorable", true)
+			$Area2D1/Sprite2D.play("2D")
+			$Area2D1.add_to_group("bleed")
+			two_timer.start()
+		"2H":
+			$Area2D1.show()
+			$Area2D1.set_deferred("monitoring", true)
+			$Area2D1.set_deferred("monitorable", true)
+			$Area2D1/Sprite2D.play("2D")
+			$Area2D1.add_to_group("burn")
+			two_timer.start()
+		"3H":
+			overshield += 30
+			overshield_changed.emit(overshield)
+		"3S":
+			overshield += 30
+			overshield_changed.emit(overshield)
+		"3C":
+			overshield += 30
+			overshield_changed.emit(overshield)
+		"3D":
+			overshield += 30
+			overshield_changed.emit(overshield)
+		"4S":
+			shoot_el_proj("bleed")
+		"4C":
+			shoot_el_proj("shock")
+		"4D":
+			shoot_el_proj("slow")
+		"4H":
+			shoot_el_proj("burn")
+		"8S":
+			pierce_proj("bleed")
+		"8C":
+			pierce_proj("shock")
+		"8D":
+			pierce_proj("slow")
+		"8H":
+			pierce_proj("burn")
+		"AC":
+			spawn_lightning_at(get_global_mouse_position())
+
+func spawn_lightning_at(target_pos: Vector2) -> void:
+	var space_state = get_world_2d().direct_space_state
+	var ray_start = target_pos
+	var ray_end = Vector2(target_pos.x, target_pos.y + 10000)
+	var query = PhysicsRayQueryParameters2D.create(ray_start, ray_end)
+	query.collision_mask = 3
+	
+	var result = space_state.intersect_ray(query)
+	if result:
+		var ground_impact_point: Vector2 = result.position
+		var lightning = LIGHTNING_SCENE.instantiate()
+		lightning.global_position = ground_impact_point - Vector2(0, 2)
+		get_parent().add_child(lightning)
+		lightning.add_to_group("shock")
 func slash():
 	var instance = downslash.instantiate()
 	get_parent().add_child(instance)
 	instance.global_position = get_global_mouse_position()
 func _on_five_timer_timeout() -> void:
 	Globals.damage_buff_5 = 1
-	$Buff_Aura.play("empty")
+	$pivot/Buff_Aura.play("empty")
 func shoot_el_proj(element):
 	var b = el_projectile.instantiate()
 	get_parent().add_child(b)
 	b.global_transform = $Marker2D.global_transform
+	b.setup(element)
 	b.add_to_group(element)
 func pierce_proj(element):
 	var b = pierce_projectile.instantiate()
 	get_parent().add_child(b)
 	b.global_transform = $Marker2D.global_transform
+	b.setup(element)
 	b.add_to_group(element)
 func _on_nine_timer_timeout() -> void:
 	Globals.damage_reduction = 1
-	$Buff_Aura.play("empty")
+	$pivot/Buff_Aura.play("empty")
 func _on_six_timer_timeout() -> void:
 	$StaticBody2D.hide()
 	$StaticBody2D/CollisionShape2D.set_deferred("disabled",true)
-	SPEED=500
+	SPEED=500*(1.3**speed_buffs)
 	JUMP_VELOCITY = -1000
 	$StaticBody2D/Label.hide()
 	invulnerable = false
@@ -331,18 +467,3 @@ func is_mouse_inside_object(pos: Vector2) -> bool:
 	query.collide_with_areas = false
 	var hits = space_state.intersect_point(query)
 	return not hits.is_empty()
-func spawn_lightning_at(target_pos: Vector2) -> void:
-	if is_mouse_inside_object(target_pos):
-		return
-	var space_state = get_world_2d().direct_space_state
-	var ray_start = Vector2(target_pos.x, target_pos.y)
-	var ray_end = Vector2(target_pos.x, target_pos.y + 10000)
-	var query = PhysicsRayQueryParameters2D.create(ray_start, ray_end)
-	query.collision_mask = 1
-	var result = space_state.intersect_ray(query)
-	if result:
-		var ground_impact_point: Vector2 = result.position
-		var lightning = LIGHTNING_SCENE.instantiate()
-		lightning.global_position = ground_impact_point - Vector2(0, 2)
-		get_parent().add_child(lightning)
-		lightning.add_to_group("shock")

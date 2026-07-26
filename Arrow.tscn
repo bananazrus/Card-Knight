@@ -12,6 +12,7 @@ size = Vector2(11, 15)
 [node name="RigidBody2D" type="RigidBody2D" unique_id=31943066 groups=["Arrow"]]
 collision_layer = 8
 collision_mask = 6
+linear_damp_mode = 1
 script = ExtResource("1_265pn")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1159004787 groups=["Arrow"]]

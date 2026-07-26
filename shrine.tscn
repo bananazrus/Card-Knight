@@ -33,11 +33,11 @@ collision_layer = 64
 script = ExtResource("1_fagqx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="shrine" unique_id=1681601469]
-position = Vector2(22, -25)
+position = Vector2(22, -21)
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_smhyf")
 animation = &"shrine_on"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="shrine" unique_id=214460163 groups=["shrine"]]
-position = Vector2(7, -25)
+position = Vector2(7, -21)
 shape = SubResource("RectangleShape2D_wwafo")

@@ -2,24 +2,63 @@
 
 [ext_resource type="Script" uid="uid://cqvftiblhd38g" path="res://piercing_projectile.gd" id="1_0vbox"]
 [ext_resource type="Texture2D" uid="uid://w7rner7ihlsc" path="res://Assets/project_pierce_steel.png" id="1_ltihs"]
+[ext_resource type="Texture2D" uid="uid://c7j334byc5xgm" path="res://Assets/IMG_0792.png" id="3_8mmw5"]
+[ext_resource type="Texture2D" uid="uid://dj8y30hkxsvj1" path="res://Assets/IMG_0793.png" id="4_gvffu"]
+[ext_resource type="Texture2D" uid="uid://bqv3w2tjnlrys" path="res://Assets/IMG_0795.png" id="5_thanx"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_smhyf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ltihs")
+}],
+"loop": 1,
+"name": &"bleed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_8mmw5")
+}],
+"loop": 1,
+"name": &"burn",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_gvffu")
+}],
+"loop": 1,
+"name": &"shock",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_thanx")
+}],
+"loop": 1,
+"name": &"slow",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ltihs"]
 radius = 47.565742
 
-[node name="piercing_projectile" type="Node2D" unique_id=1041554318]
+[node name="piercing_projectile" type="Node2D" unique_id=1041554318 groups=["pierceproj"]]
+script = ExtResource("1_0vbox")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1346704831 groups=["pierceproj"]]
 scale = Vector2(0.4, 0.4)
 collision_layer = 8
 collision_mask = 6
-script = ExtResource("1_0vbox")
 
-[node name="Sprite2D" type="Sprite2D" parent="Area2D" unique_id=98173400]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Area2D" unique_id=124672020]
 position = Vector2(-29.999996, -112.49999)
-texture = ExtResource("1_ltihs")
+sprite_frames = SubResource("SpriteFrames_smhyf")
+animation = &"burn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=705208768 groups=["pierceproj"]]
 position = Vector2(-2.3841858e-07, -2.4999998)
 shape = SubResource("CircleShape2D_ltihs")
 
-[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_pierceproj_body_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_elementalprojectile_body_entered"]

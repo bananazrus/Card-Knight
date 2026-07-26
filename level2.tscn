@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://cd4kytsjj6ana"]
+
+[ext_resource type="PackedScene" uid="uid://buqu4u5q10vbs" path="res://cardknight.tscn" id="1_jifot"]
+[ext_resource type="PackedScene" uid="uid://chet6rk4xtyd6" path="res://card_1.tscn" id="2_3opl0"]
+[ext_resource type="PackedScene" uid="uid://bntaggolf8ma7" path="res://card_2.tscn" id="3_dc5vx"]
+[ext_resource type="PackedScene" uid="uid://dqva1mhwdkven" path="res://card_3.tscn" id="4_s8oj7"]
+[ext_resource type="PackedScene" uid="uid://dvfphl3gt1vv8" path="res://card_4.tscn" id="5_mw4xc"]
+[ext_resource type="PackedScene" uid="uid://bntd2cpe7ggfb" path="res://card_5.tscn" id="6_r8rrl"]
+[ext_resource type="PackedScene" uid="uid://bfyh5hva3hexl" path="res://discard.tscn" id="7_lwvnx"]
+[ext_resource type="FontFile" uid="uid://ce5fxt14opo3b" path="res://Assets/VCR_OSD_MONO_1.001.ttf" id="8_4ou0f"]
+[ext_resource type="Script" uid="uid://bkb7d6b4uclhb" path="res://label_2.gd" id="9_4k5bj"]
+[ext_resource type="PackedScene" uid="uid://d03xmdkamvic4" path="res://healthbar.tscn" id="10_hp87d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gxpff"]
+bg_color = Color(0, 0, 0, 0.34117648)
+
+[node name="Node2D" type="Node2D" unique_id=897185116]
+
+[node name="CharacterBody2D" parent="." unique_id=345397137 instance=ExtResource("1_jifot")]
+z_index = 1
+position = Vector2(1731, 222)
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=276691454]
+
+[node name="Card1" parent="CanvasLayer2" unique_id=1602513097 instance=ExtResource("2_3opl0")]
+position = Vector2(56, 101)
+
+[node name="Card2" parent="CanvasLayer2" unique_id=1461221376 instance=ExtResource("3_dc5vx")]
+position = Vector2(156, 101)
+
+[node name="Card3" parent="CanvasLayer2" unique_id=1828931675 instance=ExtResource("4_s8oj7")]
+position = Vector2(256, 101)
+
+[node name="Card4" parent="CanvasLayer2" unique_id=585867046 instance=ExtResource("5_mw4xc")]
+position = Vector2(356, 101)
+
+[node name="Card5" parent="CanvasLayer2" unique_id=1217493788 instance=ExtResource("6_r8rrl")]
+position = Vector2(456, 101)
+
+[node name="Discard" parent="CanvasLayer2" unique_id=769911772 instance=ExtResource("7_lwvnx")]
+position = Vector2(1080, 585)
+
+[node name="Label" type="Label" parent="CanvasLayer2" unique_id=482566831]
+visible = false
+z_index = 2
+custom_minimum_size = Vector2(300, 0)
+offset_left = 437.0
+offset_top = 513.0
+offset_right = 737.0
+offset_bottom = 545.0
+theme_override_fonts/font = ExtResource("8_4ou0f")
+theme_override_styles/normal = SubResource("StyleBoxFlat_gxpff")
+text = "help me"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label2" type="Label" parent="CanvasLayer2" unique_id=602540660 groups=["card_ui"]]
+visible = false
+z_index = 2
+custom_minimum_size = Vector2(300, 0)
+offset_left = 437.0
+offset_top = 513.0
+offset_right = 737.0
+offset_bottom = 545.0
+theme_override_fonts/font = ExtResource("8_4ou0f")
+theme_override_styles/normal = SubResource("StyleBoxFlat_gxpff")
+text = "help me"
+horizontal_alignment = 1
+autowrap_mode = 2
+script = ExtResource("9_4k5bj")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=9494855]
+
+[node name="ProgressBar" parent="CanvasLayer" unique_id=1743704793 instance=ExtResource("10_hp87d")]
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 415.0
+offset_bottom = 34.0

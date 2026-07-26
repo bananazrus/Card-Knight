@@ -7,7 +7,9 @@ var direction=0
 var health=100
 var slow =1
 var shocked = 0
+var random
 var burn=false
+var go_back=false
 @onready var burn_timer: Timer = $BurnTimer
 @onready var slow_timer: Timer = $SlowTimer
 @onready var shock_timer: Timer = $ShockTimer
@@ -30,7 +32,8 @@ func _physics_process(delta: float) -> void:
 			direction=-1
 		elif player_pos.x>enemy_pos.x:
 			direction=1
-	velocity.x = direction * SPEED * slow
+	if not go_back:
+		velocity.x = direction * SPEED * slow
 	move_and_slide()
 	if direction < 0:
 		$Node2D.scale.x = 1
@@ -43,7 +46,21 @@ func _physics_process(delta: float) -> void:
 	else:
 		sprite.animation = "neutral"
 	sprite.play()
-	if health<=0:
+	if go_back:
+		velocity.x=$Node2D.scale.x*200
+	if health <= 0:
+		if randi_range(1, 7) == 4 and not Globals.card_pool.is_empty():
+			Globals.card_pool.shuffle()
+			var new_card = Globals.card_pool.pop_front() # Draws and removes in one line
+			Globals.all_cards.append(new_card)
+			if Globals.deck.size()==0 and not Globals.hand.size()>=5:
+				Globals.hand.append(new_card)
+			else:
+				Globals.deck.append(new_card)
+			var label = get_tree().get_first_node_in_group("card_ui")
+			if label and label.has_method("display_obtained_card"):
+				label.display_obtained_card(new_card)
+		queue_free()
 		queue_free()
 	if bleed:
 		$enemyhealth.health_changed(health-max(health - (8 * delta), 0))
@@ -93,3 +110,14 @@ func _on_enemy_area_2d_area_entered(area: Area2D) -> void:
 	elif area.is_in_group("slow"):
 		slow = 1.5
 		slow_timer.start()
+	velocity.y-=200
+	flash_red()
+	go_back=true
+	await get_tree().create_timer(0.3).timeout
+	go_back=false
+func flash_red() -> void:
+	var mat = sprite.material as ShaderMaterial
+	if mat:
+		mat.set_shader_parameter("flash_modifier", 1.0)
+		var tween = create_tween()
+		tween.tween_property(mat, "shader_parameter/flash_modifier", 0.0, 0.15)

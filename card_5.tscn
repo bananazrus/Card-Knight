@@ -1,26 +1,86 @@
 [gd_scene format=3 uid="uid://bntd2cpe7ggfb"]
 
 [ext_resource type="Texture2D" uid="uid://1y7rgb28uyqa" path="res://Assets/10D.png" id="1_baxcs"]
+[ext_resource type="Texture2D" uid="uid://d0q64i8l0ivlp" path="res://Assets/10C.png" id="1_toa0k"]
 [ext_resource type="Texture2D" uid="uid://brfck41ryaofy" path="res://Assets/2D.png" id="2_s6kqy"]
 [ext_resource type="Texture2D" uid="uid://y6bjltk3jlnu" path="res://Assets/3H.png" id="3_lo3xn"]
+[ext_resource type="Texture2D" uid="uid://bhjtkxdid147g" path="res://Assets/10H.png" id="3_owajt"]
 [ext_resource type="Texture2D" uid="uid://c5rolvea63g6w" path="res://Assets/4S.png" id="4_8q32k"]
+[ext_resource type="Texture2D" uid="uid://c7ev5kcq2g8el" path="res://Assets/10S.png" id="4_ndyb8"]
 [ext_resource type="Texture2D" uid="uid://b8u3tnkyqleuf" path="res://Assets/5C.png" id="5_4micr"]
+[ext_resource type="Texture2D" uid="uid://cmewhbxq2px2v" path="res://Assets/2C.png" id="5_q807o"]
 [ext_resource type="Texture2D" uid="uid://o7osivrkfcql" path="res://Assets/6D.png" id="6_gctga"]
 [ext_resource type="Texture2D" uid="uid://vekr0pr1ukx0" path="res://Assets/7H.png" id="7_4lpvt"]
+[ext_resource type="Texture2D" uid="uid://crbtsgafa3wgl" path="res://Assets/2H.png" id="7_6yad2"]
+[ext_resource type="Texture2D" uid="uid://1lqfkopnhi07" path="res://Assets/IMG_0875.png" id="8_8akry"]
 [ext_resource type="Texture2D" uid="uid://b8026vpw0d1o3" path="res://Assets/8S.png" id="8_i7wj1"]
 [ext_resource type="Texture2D" uid="uid://cpffd72csprj6" path="res://Assets/9C.png" id="9_8ublr"]
+[ext_resource type="Texture2D" uid="uid://bqw6kwiflr076" path="res://Assets/3C.png" id="9_psqwx"]
 [ext_resource type="Texture2D" uid="uid://dcprr58kwe0e" path="res://Assets/AC.png" id="10_4npey"]
+[ext_resource type="Texture2D" uid="uid://dr3schtlpimn2" path="res://Assets/3D.png" id="10_fakfm"]
 [ext_resource type="Texture2D" uid="uid://bcstrn2u2e47a" path="res://Assets/empty.png" id="11_lo3xn"]
 [ext_resource type="Script" uid="uid://db7r87fgf53sg" path="res://Scripts/card5.gd" id="11_s6kqy"]
+[ext_resource type="Texture2D" uid="uid://drvepc3juue3d" path="res://Assets/3S.png" id="12_b11sj"]
+[ext_resource type="FontFile" uid="uid://ce5fxt14opo3b" path="res://Assets/VCR_OSD_MONO_1.001.ttf" id="13_8q32k"]
+[ext_resource type="Texture2D" uid="uid://b4iafxh2ir728" path="res://Assets/4C.png" id="13_hsgxs"]
+[ext_resource type="Texture2D" uid="uid://075atmtbkkd8" path="res://Assets/4D.png" id="14_3u173"]
+[ext_resource type="Texture2D" uid="uid://s2vlx8xnxs80" path="res://Assets/4H.png" id="15_xs8h5"]
+[ext_resource type="Texture2D" uid="uid://dcvj8gjsloobc" path="res://Assets/5D.png" id="18_6gc8v"]
+[ext_resource type="Texture2D" uid="uid://cb3ablhoipcfn" path="res://Assets/5H.png" id="19_v52if"]
+[ext_resource type="Texture2D" uid="uid://bdehntcvffs8x" path="res://Assets/2S.png" id="20_kn44c"]
+[ext_resource type="Texture2D" uid="uid://bv357c6d5ancy" path="res://Assets/6C.png" id="21_tho24"]
+[ext_resource type="Texture2D" uid="uid://b7wmf473nylge" path="res://Assets/6H.png" id="23_t5d7y"]
+[ext_resource type="Texture2D" uid="uid://n2ghnmfkhfcf" path="res://Assets/IMG_0880.png" id="24_44fsa"]
+[ext_resource type="Texture2D" uid="uid://b126el202uivr" path="res://Assets/7C.png" id="25_i0jye"]
+[ext_resource type="Texture2D" uid="uid://44owmh3iof2a" path="res://Assets/7D.png" id="26_mexbo"]
+[ext_resource type="Texture2D" uid="uid://ufce8l5ljry2" path="res://Assets/7S.png" id="28_kojas"]
+[ext_resource type="Texture2D" uid="uid://dxwnp7j2lxl5j" path="res://Assets/8C.png" id="29_hhupu"]
+[ext_resource type="Texture2D" uid="uid://bcfkwtjj70ogd" path="res://Assets/8D.png" id="30_4i0bo"]
+[ext_resource type="Texture2D" uid="uid://c2dunsnkkiqo5" path="res://Assets/8H.png" id="31_ow8qw"]
+[ext_resource type="Texture2D" uid="uid://w1eqe8xxjlhs" path="res://Assets/9D.png" id="34_tvk1e"]
+[ext_resource type="Texture2D" uid="uid://bge0xbqawkxrc" path="res://Assets/9H.png" id="35_he4jh"]
+[ext_resource type="Texture2D" uid="uid://bghuif3m2t74n" path="res://Assets/6S.png" id="36_3qjr5"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_smhyf"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_w3tt7"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_toa0k")
+}],
+"loop": 1,
+"name": &"10C",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_baxcs")
 }],
 "loop": 1,
 "name": &"10D",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_owajt")
+}],
+"loop": 1,
+"name": &"10H",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_ndyb8")
+}],
+"loop": 1,
+"name": &"10S",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_q807o")
+}],
+"loop": 1,
+"name": &"2C",
 "speed": 5.0
 }, {
 "frames": [{
@@ -33,10 +93,74 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("7_6yad2")
+}],
+"loop": 1,
+"name": &"2H",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_8akry")
+}],
+"loop": 1,
+"name": &"2S",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_psqwx")
+}],
+"loop": 1,
+"name": &"3C",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_fakfm")
+}],
+"loop": 1,
+"name": &"3D",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("3_lo3xn")
 }],
 "loop": 1,
 "name": &"3H",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_b11sj")
+}],
+"loop": 1,
+"name": &"3S",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_hsgxs")
+}],
+"loop": 1,
+"name": &"4C",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_3u173")
+}],
+"loop": 1,
+"name": &"4D",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_xs8h5")
+}],
+"loop": 1,
+"name": &"4H",
 "speed": 5.0
 }, {
 "frames": [{
@@ -57,6 +181,38 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("18_6gc8v")
+}],
+"loop": 1,
+"name": &"5D",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("19_v52if")
+}],
+"loop": 1,
+"name": &"5H",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("20_kn44c")
+}],
+"loop": 1,
+"name": &"5S",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("21_tho24")
+}],
+"loop": 1,
+"name": &"6C",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("6_gctga")
 }],
 "loop": 1,
@@ -65,10 +221,74 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("23_t5d7y")
+}],
+"loop": 1,
+"name": &"6H",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("24_44fsa")
+}],
+"loop": 1,
+"name": &"6S",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("25_i0jye")
+}],
+"loop": 1,
+"name": &"7C",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("26_mexbo")
+}],
+"loop": 1,
+"name": &"7D",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("7_4lpvt")
 }],
 "loop": 1,
 "name": &"7H",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("28_kojas")
+}],
+"loop": 1,
+"name": &"7S",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("29_hhupu")
+}],
+"loop": 1,
+"name": &"8C",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("30_4i0bo")
+}],
+"loop": 1,
+"name": &"8D",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("31_ow8qw")
+}],
+"loop": 1,
+"name": &"8H",
 "speed": 5.0
 }, {
 "frames": [{
@@ -85,6 +305,30 @@ animations = [{
 }],
 "loop": 1,
 "name": &"9C",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("34_tvk1e")
+}],
+"loop": 1,
+"name": &"9D",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("35_he4jh")
+}],
+"loop": 1,
+"name": &"9H",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("36_3qjr5")
+}],
+"loop": 1,
+"name": &"9S",
 "speed": 5.0
 }, {
 "frames": [{
@@ -107,18 +351,15 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_smhyf"]
 size = Vector2(592.30774, 900.00006)
 
-[sub_resource type="SystemFont" id="SystemFont_lo3xn"]
-subpixel_positioning = 0
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8q32k"]
 bg_color = Color(0, 0, 0, 1)
 
 [node name="Card5" type="Node2D" unique_id=1217493788]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1967293512]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1860309987]
 scale = Vector2(0.13, 0.13)
-sprite_frames = SubResource("SpriteFrames_smhyf")
-animation = &"8S"
+sprite_frames = SubResource("SpriteFrames_w3tt7")
+animation = &"10C"
 script = ExtResource("11_s6kqy")
 
 [node name="Area2D" type="Area2D" parent="AnimatedSprite2D" unique_id=261866936]
@@ -133,14 +374,14 @@ custom_minimum_size = Vector2(700, 0)
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -584.61536
+offset_left = -669.2307
 offset_top = 484.61542
-offset_right = -53.8461
+offset_right = 30.769287
 offset_bottom = 539.6154
 grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = SubResource("SystemFont_lo3xn")
-theme_override_font_sizes/font_size = 50
+theme_override_fonts/font = ExtResource("13_8q32k")
+theme_override_font_sizes/font_size = 60
 theme_override_styles/normal = SubResource("StyleBoxFlat_8q32k")
 text = "help me"
 horizontal_alignment = 1

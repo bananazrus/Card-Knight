@@ -17,6 +17,18 @@
 [ext_resource type="Texture2D" uid="uid://cc4lsu0x72wbm" path="res://Assets/7H_aura.png" id="10_lu52h"]
 [ext_resource type="Texture2D" uid="uid://c85rawld3d4vq" path="res://Assets/9C_aura.png" id="11_tnskp"]
 [ext_resource type="Texture2D" uid="uid://bcstrn2u2e47a" path="res://Assets/empty.png" id="12_xpgea"]
+[ext_resource type="Texture2D" uid="uid://0a4qyfu61o27" path="res://Assets/5D_aura.png" id="14_eerug"]
+[ext_resource type="Texture2D" uid="uid://7cybgfhswbl3" path="res://Assets/5H_aura.png" id="15_fi672"]
+[ext_resource type="Texture2D" uid="uid://cya2ipbo2svgs" path="res://Assets/7C_aura.png" id="16_bisj2"]
+[ext_resource type="Texture2D" uid="uid://bkwj886o7n616" path="res://Assets/7D_aura.png" id="17_87rww"]
+[ext_resource type="Texture2D" uid="uid://3rfbbmka3hon" path="res://Assets/9H_aura.PNG" id="18_quv8d"]
+[ext_resource type="Texture2D" uid="uid://cbgi5jkmpekdw" path="res://Assets/9S_aura.PNG" id="19_bisj2"]
+[ext_resource type="Texture2D" uid="uid://dljopk7qtqsur" path="res://Assets/7S_aura.png" id="19_f3h7q"]
+[ext_resource type="Texture2D" uid="uid://dy0x52lq25n1d" path="res://Assets/2C_aura.png" id="24_7atr1"]
+[ext_resource type="Texture2D" uid="uid://0nkl5jlqp1vb" path="res://Assets/2H_aura.png" id="25_61atj"]
+[ext_resource type="Texture2D" uid="uid://du7l6rbb30qf8" path="res://Assets/2S_aura.png" id="26_65mms"]
+[ext_resource type="AudioStream" uid="uid://b24yw4kslf1u2" path="res://Assets/dash.wav" id="28_65mms"]
+[ext_resource type="FontFile" uid="uid://ce5fxt14opo3b" path="res://Assets/VCR_OSD_MONO_1.001.ttf" id="29_bvomt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vii3e"]
 size = Vector2(53, 96.00001)
@@ -75,9 +87,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_smhyf"]
-size = Vector2(61, 99)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_xvnu6"]
 animations = [{
 "frames": [{
@@ -98,10 +107,58 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("14_eerug")
+}],
+"loop": 1,
+"name": &"5D",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_fi672")
+}],
+"loop": 1,
+"name": &"5H",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_fi672")
+}],
+"loop": 1,
+"name": &"5S",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_bisj2")
+}],
+"loop": 1,
+"name": &"7C",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_87rww")
+}],
+"loop": 1,
+"name": &"7D",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("10_lu52h")
 }],
 "loop": 1,
 "name": &"7H",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("19_f3h7q")
+}],
+"loop": 1,
+"name": &"7S",
 "speed": 5.0
 }, {
 "frames": [{
@@ -112,12 +169,71 @@ animations = [{
 "name": &"9C",
 "speed": 5.0
 }, {
+"frames": [],
+"loop": 1,
+"name": &"9D",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_quv8d")
+}],
+"loop": 1,
+"name": &"9H",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("19_bisj2")
+}],
+"loop": 1,
+"name": &"9S",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("12_xpgea")
 }],
 "loop": 1,
 "name": &"empty",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_smhyf"]
+size = Vector2(61, 99)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0in4i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("24_7atr1")
+}],
+"loop": 1,
+"name": &"2C",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_tpxmh")
+}],
+"loop": 1,
+"name": &"2D",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("25_61atj")
+}],
+"loop": 1,
+"name": &"2H",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("26_65mms")
+}],
+"loop": 1,
+"name": &"2S",
 "speed": 5.0
 }]
 
@@ -163,6 +279,14 @@ scale = Vector2(0.28674996, 0.31199998)
 sprite_frames = SubResource("SpriteFrames_smhyf")
 animation = &"neutral"
 
+[node name="Buff_Aura" type="AnimatedSprite2D" parent="pivot" unique_id=2128021199]
+z_index = -2
+position = Vector2(7.0000005, -25.000004)
+scale = Vector2(0.3285, 0.30775002)
+sprite_frames = SubResource("SpriteFrames_xvnu6")
+animation = &"empty"
+frame_progress = 0.16976854
+
 [node name="Area2D" type="Area2D" parent="pivot" unique_id=1266519595]
 collision_mask = 70
 
@@ -185,13 +309,6 @@ one_shot = true
 [node name="Two_Timer" type="Timer" parent="." unique_id=551431066]
 wait_time = 12.0
 one_shot = true
-
-[node name="Buff_Aura" type="AnimatedSprite2D" parent="." unique_id=2128021199]
-z_index = -2
-position = Vector2(7.0000005, -25.000004)
-scale = Vector2(0.3285, 0.30775002)
-sprite_frames = SubResource("SpriteFrames_xvnu6")
-animation = &"5C"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=886238961]
 visible = false
@@ -228,11 +345,12 @@ collision_mask = 2
 monitoring = false
 monitorable = false
 
-[node name="Sprite2D" type="Sprite2D" parent="Area2D1" unique_id=1927237175]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Area2D1" unique_id=2122854218]
 z_index = -9
 position = Vector2(15.499962, -40.999985)
 scale = Vector2(0.64100003, 0.558)
-texture = ExtResource("8_tpxmh")
+sprite_frames = SubResource("SpriteFrames_0in4i")
+animation = &"2S"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D1" unique_id=1675911997 groups=["2D"]]
 position = Vector2(8, 40.00003)
@@ -250,6 +368,22 @@ one_shot = true
 [node name="OtherInvulnerableTimer" type="Timer" parent="." unique_id=887490598]
 wait_time = 60.0
 one_shot = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1510610245]
+stream = ExtResource("28_65mms")
+
+[node name="CardCooldown" type="Timer" parent="." unique_id=1105056622]
+wait_time = 3.0
+one_shot = true
+
+[node name="Label" type="Label" parent="." unique_id=588092424]
+offset_left = -37.0
+offset_top = -100.0
+offset_right = -4.0
+offset_bottom = -56.0
+theme_override_fonts/font = ExtResource("29_bvomt")
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
 
 [connection signal="area_entered" from="pivot/Area2D" to="." method="_on_character_area_2d_area_entered"]
 [connection signal="area_exited" from="pivot/Area2D" to="." method="_on_character_area_2d_area_exited"]

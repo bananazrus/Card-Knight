@@ -1,10 +1,17 @@
 [gd_scene format=3 uid="uid://dl5cya6ij4csw"]
 
+[ext_resource type="Shader" uid="uid://cc6cl01p5f102" path="res://boss.gdshader" id="1_we8h1"]
 [ext_resource type="Script" uid="uid://svkr2wc15kfy" path="res://Scripts/snuggles.gd" id="2_lnbgr"]
 [ext_resource type="PackedScene" uid="uid://b6oa14cessw1m" path="res://laser.tscn" id="2_o1i15"]
 [ext_resource type="Texture2D" uid="uid://cssvhj4h5whvh" path="res://Assets/teddy.png" id="2_skx2t"]
 [ext_resource type="PackedScene" uid="uid://r7bwl4xlp7vi" path="res://enemy.tscn" id="3_o1i15"]
 [ext_resource type="PackedScene" uid="uid://cyretfkwawglu" path="res://spikes.tscn" id="4_lnbgr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jqd3j"]
+resource_local_to_scene = true
+shader = ExtResource("1_we8h1")
+shader_parameter/flash_color = Color(1, 0, 0, 1)
+shader_parameter/flash_modifier = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_smhyf"]
 size = Vector2(326, 431)
@@ -17,6 +24,7 @@ metadata/_edit_vertical_guides_ = [-2179.0]
 
 [node name="Snuggles" type="StaticBody2D" parent="." unique_id=1589786842 groups=["Enemies"]]
 visible = false
+material = SubResource("ShaderMaterial_jqd3j")
 collision_layer = 2
 collision_mask = 12
 script = ExtResource("2_lnbgr")
@@ -50,7 +58,7 @@ position = Vector2(-27, 104)
 shape = SubResource("RectangleShape2D_0in4i")
 
 [node name="AttackTimer" type="Timer" parent="Snuggles" unique_id=1803649711]
-wait_time = 0.4
+wait_time = 0.45
 one_shot = true
 
 [node name="pivot" type="Node2D" parent="Snuggles" unique_id=774679609]

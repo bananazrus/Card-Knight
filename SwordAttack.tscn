@@ -58,7 +58,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1k1oe"]
-size = Vector2(15.272727, 102.09091)
+size = Vector2(15.272727, 134.54544)
 
 [node name="Node2D" type="Node2D" unique_id=1101200473 groups=["Sword"]]
 
@@ -74,7 +74,7 @@ script = ExtResource("1_8r4il")
 libraries/ = SubResource("AnimationLibrary_54pyj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WeaponPivot/Sword" unique_id=1602020567]
-position = Vector2(-0.3636365, -68.04543)
+position = Vector2(-0.3636365, -51.81817)
 shape = SubResource("RectangleShape2D_1k1oe")
 
 [node name="Sprite2D" type="Sprite2D" parent="WeaponPivot/Sword" unique_id=1876024089]

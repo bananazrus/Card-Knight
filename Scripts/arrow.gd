@@ -1,11 +1,8 @@
 extends RigidBody2D
 
-func shoot(mouse_pos,start_pos):
-	visible = false
-	await get_tree().create_timer(0.1).timeout
-	linear_velocity = (mouse_pos - start_pos).normalized() * 1500
+func launch(initial_velocity: Vector2):
+	linear_velocity = initial_velocity
 	rotation = linear_velocity.angle()
-	visible = true
 
 func _physics_process(_delta):
 	if linear_velocity.length() > 0:

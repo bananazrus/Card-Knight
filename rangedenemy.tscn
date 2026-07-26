@@ -3,7 +3,14 @@
 [ext_resource type="Script" uid="uid://d0dap32lnis3k" path="res://Scripts/rangedenemy.gd" id="1_w75bq"]
 [ext_resource type="PackedScene" uid="uid://b5hbum46oq3o7" path="res://projectile.tscn" id="2_o45e0"]
 [ext_resource type="Texture2D" uid="uid://bktq7taam3j3l" path="res://Assets/rangedenemy.png" id="3_o45e0"]
+[ext_resource type="Shader" uid="uid://ct1waomgcg3p0" path="res://rangedenemy.gdshader" id="3_uu31u"]
 [ext_resource type="Script" uid="uid://nwdrc5mi2giq" path="res://Scripts/rangedenemyhealth.gd" id="4_hi58m"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dxifv"]
+resource_local_to_scene = true
+shader = ExtResource("3_uu31u")
+shader_parameter/flash_color = Color(1, 0, 0, 1)
+shader_parameter/flash_modifier = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hi58m"]
 size = Vector2(48, 79)
@@ -26,6 +33,7 @@ script = ExtResource("1_w75bq")
 projectile = ExtResource("2_o45e0")
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=1042450883]
+material = SubResource("ShaderMaterial_dxifv")
 position = Vector2(1, 1.0000004)
 scale = Vector2(0.22899997, 0.24178319)
 texture = ExtResource("3_o45e0")

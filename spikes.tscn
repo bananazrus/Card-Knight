@@ -7,16 +7,16 @@ collision_layer = 2
 collision_mask = 9
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1549617655]
-position = Vector2(155.375, -85.375)
+position = Vector2(155.37502, -81.375)
 scale = Vector2(0.36524996, 0.22924998)
 texture = ExtResource("1_s0g1x")
 
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1885066812]
-position = Vector2(470.375, -85.375)
+position = Vector2(470.37503, -81.375)
 scale = Vector2(0.36524996, 0.22924998)
 texture = ExtResource("1_s0g1x")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1874019059 groups=["Hazards"]]
-position = Vector2(6, 31)
+position = Vector2(6.0000005, 35)
 scale = Vector2(1.000437, 0.6)
-polygon = PackedVector2Array(-6.9969406, -106.66667, 593.74054, -98.33333, 593.74054, 0, -0.9995613, -3.3333378)
+polygon = PackedVector2Array(0.9995632, -60, 561.7545, -55, 565.7528, -5, -0.9995613, -3.3333378)

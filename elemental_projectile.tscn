@@ -2,23 +2,62 @@
 
 [ext_resource type="Script" uid="uid://cs2pis4rp4e8v" path="res://elemental_projectile.gd" id="1_csela"]
 [ext_resource type="Texture2D" uid="uid://bbso133t1cud7" path="res://Assets/projectile_steel.png" id="1_mdbwx"]
+[ext_resource type="Texture2D" uid="uid://b83425bnu5a2m" path="res://Assets/IMG_0733.png" id="3_1tu7s"]
+[ext_resource type="Texture2D" uid="uid://bilyomviceybl" path="res://Assets/IMG_0833.png" id="4_2at3m"]
+[ext_resource type="Texture2D" uid="uid://dxw336ek0cx3m" path="res://Assets/IMG_0832.png" id="5_27uhd"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_smhyf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_mdbwx")
+}],
+"loop": 1,
+"name": &"bleed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_1tu7s")
+}],
+"loop": 1,
+"name": &"burn",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_2at3m")
+}],
+"loop": 1,
+"name": &"shock",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_27uhd")
+}],
+"loop": 1,
+"name": &"slow",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mdbwx"]
 size = Vector2(80, 64)
 
 [node name="elemental_projectile" type="Node2D" unique_id=533431380]
+script = ExtResource("1_csela")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=744680764 groups=["elemental_projectile"]]
 collision_layer = 8
 collision_mask = 6
-script = ExtResource("1_csela")
 
-[node name="Sprite2D" type="Sprite2D" parent="Area2D" unique_id=195390396]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Area2D" unique_id=1124776717]
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_mdbwx")
+sprite_frames = SubResource("SpriteFrames_smhyf")
+animation = &"burn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1219093527]
 position = Vector2(17, -14)
 shape = SubResource("RectangleShape2D_mdbwx")
 
-[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_elementalprojectile_body_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_elementalprojectile_body_entered"]

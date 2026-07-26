@@ -5,6 +5,7 @@ extends StaticBody2D
 @onready var slow_timer: Timer = $SlowTimer
 @onready var shock_timer: Timer = $ShockTimer
 @onready var bleed_timer: Timer = $BleedTimer
+@onready var sprite: Sprite2D = $Sprite2D
 var ranged_health=100
 var player: CharacterBody2D
 var bleed = false
@@ -29,6 +30,18 @@ func _process(delta: float) -> void:
 	elif player.global_position.x>enemy_pos.x:
 		$Sprite2D.flip_h=false
 	if ranged_health<=0:
+		if randi_range(1, 7) == 6 and not Globals.card_pool.is_empty():
+			Globals.card_pool.shuffle()
+			var new_card = Globals.card_pool.pop_front() # Draws and removes in one line
+			Globals.all_cards.append(new_card)
+			if Globals.deck.size()==0 and not Globals.hand.size()>=5:
+				Globals.hand.append(new_card)
+			else:
+				Globals.deck.append(new_card)
+			var label = get_tree().get_first_node_in_group("card_ui")
+			if label and label.has_method("display_obtained_card"):
+				label.display_obtained_card(new_card)
+		
 		queue_free()
 	if bleed:
 		$rangedenemyhealth.health_changed(ranged_health-max(ranged_health - (4 * delta), 0))
@@ -84,3 +97,10 @@ func _on_rangedenemy_area_2d_area_entered(area: Area2D) -> void:
 	elif area.is_in_group("slow"):
 		slow = 1.5
 		slow_timer.start()
+	flash_red()
+func flash_red() -> void:
+	var mat = sprite.material as ShaderMaterial
+	if mat:
+		mat.set_shader_parameter("flash_modifier", 1.0)
+		var tween = create_tween()
+		tween.tween_property(mat, "shader_parameter/flash_modifier", 0.0, 0.15)

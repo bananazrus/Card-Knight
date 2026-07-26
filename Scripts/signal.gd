@@ -5,6 +5,7 @@ extends Node2D
 @onready var boss: Node2D = $snuggles/Snuggles
 @onready var boss_health_bar: ProgressBar = $CanvasLayer/boss_health
 @onready var doors1: StaticBody2D = $StaticBody2D
+@export_file("*.scn") var start_level_path: String = "res://level2.scn"
 signal spawn_door1
 signal spawn_door2
 # Called when the node enters the scene tree for the first time.
@@ -32,3 +33,9 @@ func _on_door2_2d_2_body_entered(body: Node2D) -> void:
 		if is_instance_valid(boss):
 			boss_health_bar.show()
 			$StaticBody2D/Sprite2D.show()
+
+
+func _on_portal_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		await get_tree().create_timer(1.0).timeout
+		get_tree().change_scene_to_file(start_level_path)
