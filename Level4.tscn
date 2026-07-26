@@ -1,0 +1,83 @@
+[gd_scene format=4 uid="uid://c5cfy5ecussvy"]
+
+[ext_resource type="PackedScene" uid="uid://buqu4u5q10vbs" path="res://cardknight.tscn" id="1_nj7ao"]
+[ext_resource type="PackedScene" uid="uid://chet6rk4xtyd6" path="res://card_1.tscn" id="2_1ug64"]
+[ext_resource type="PackedScene" uid="uid://bntaggolf8ma7" path="res://card_2.tscn" id="3_yg50l"]
+[ext_resource type="PackedScene" uid="uid://dqva1mhwdkven" path="res://card_3.tscn" id="4_cbmc8"]
+[ext_resource type="PackedScene" uid="uid://dvfphl3gt1vv8" path="res://card_4.tscn" id="5_872hp"]
+[ext_resource type="PackedScene" uid="uid://bntd2cpe7ggfb" path="res://card_5.tscn" id="6_apgry"]
+[ext_resource type="PackedScene" uid="uid://bfyh5hva3hexl" path="res://discard.tscn" id="7_m0rsl"]
+[ext_resource type="FontFile" uid="uid://ce5fxt14opo3b" path="res://Assets/VCR_OSD_MONO_1.001.ttf" id="8_vtyjd"]
+[ext_resource type="Script" uid="uid://bkb7d6b4uclhb" path="res://label_2.gd" id="9_rnkmw"]
+[ext_resource type="PackedScene" uid="uid://d03xmdkamvic4" path="res://healthbar.tscn" id="10_q4xp6"]
+[ext_resource type="TileSet" uid="uid://yynd4g6a4mcn" path="res://new_tile_set.tres" id="11_wlwhd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_okovq"]
+bg_color = Color(0, 0, 0, 0.34117648)
+
+[node name="Node2D" type="Node2D" unique_id=1584064692]
+
+[node name="CharacterBody2D" parent="." unique_id=345397137 instance=ExtResource("1_nj7ao")]
+z_index = 1
+position = Vector2(313, 377)
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=2102103254]
+
+[node name="Card1" parent="CanvasLayer2" unique_id=1602513097 instance=ExtResource("2_1ug64")]
+position = Vector2(56, 101)
+
+[node name="Card2" parent="CanvasLayer2" unique_id=1461221376 instance=ExtResource("3_yg50l")]
+position = Vector2(156, 101)
+
+[node name="Card3" parent="CanvasLayer2" unique_id=1828931675 instance=ExtResource("4_cbmc8")]
+position = Vector2(256, 101)
+
+[node name="Card4" parent="CanvasLayer2" unique_id=585867046 instance=ExtResource("5_872hp")]
+position = Vector2(356, 101)
+
+[node name="Card5" parent="CanvasLayer2" unique_id=1217493788 instance=ExtResource("6_apgry")]
+position = Vector2(456, 101)
+
+[node name="Discard" parent="CanvasLayer2" unique_id=769911772 instance=ExtResource("7_m0rsl")]
+position = Vector2(1080, 585)
+
+[node name="Label" type="Label" parent="CanvasLayer2" unique_id=1659968579]
+visible = false
+z_index = 2
+custom_minimum_size = Vector2(300, 0)
+offset_left = 437.0
+offset_top = 513.0
+offset_right = 737.0
+offset_bottom = 545.0
+theme_override_fonts/font = ExtResource("8_vtyjd")
+theme_override_styles/normal = SubResource("StyleBoxFlat_okovq")
+text = "help me"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label2" type="Label" parent="CanvasLayer2" unique_id=1373950447 groups=["card_ui"]]
+visible = false
+z_index = 2
+custom_minimum_size = Vector2(300, 0)
+offset_left = 437.0
+offset_top = 513.0
+offset_right = 737.0
+offset_bottom = 545.0
+theme_override_fonts/font = ExtResource("8_vtyjd")
+theme_override_styles/normal = SubResource("StyleBoxFlat_okovq")
+text = "help me"
+horizontal_alignment = 1
+autowrap_mode = 2
+script = ExtResource("9_rnkmw")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1438904279]
+
+[node name="ProgressBar" parent="CanvasLayer" unique_id=1743704793 instance=ExtResource("10_q4xp6")]
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 415.0
+offset_bottom = 34.0
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=306813926]
+tile_map_data = PackedByteArray("AAAAAAkAEgAAAAAAAAABAAkAEgAAAAAAAAACAAkAEgAAAAAAAAADAAkAEgAAAAAAAAAEAAkAEgAAAAAAAAAFAAkAEgAAAAAAAAAGAAkAEgAAAAAAAAAHAAkAEgAAAAAAAAAIAAkAEgAAAAAAAAAJAAkAEgAAAAAAAAAKAAkAEgAAAAAAAAALAAkAEgAAAAAAAAAMAAkAEgAAAAAAAAANAAkAEgAAAAAAAAAOAAkAEgAAAAAAAAAPAAkAEgAAAAAAAAAQAAkAEgAAAAAAAAARAAkAEgAAAAAAAAASAAkAEgAAAAAAAAASAAgAEgAAAAAAAAASAAcAEgAAAAAAAAASAAYAEgAAAAAAAAASAAUAEgAAAAAAAAASAAQAEgAAAAAAAAASAAMAEgAAAAAAAAASAAIAEgAAAAAAAAASAAEAEgAAAAAAAAASAAAAEgAAAAAAAAASAP//EgAAAAAAAAASAP7/EgAAAAAAAAASAP3/EgAAAAAAAAASAPz/EgAAAAAAAAD//wkAEgAAAAAAAAD//wgAEgAAAAAAAAD//wcAEgAAAAAAAAD//wYAEgAAAAAAAAD//wUAEgAAAAAAAAD//wQAEgAAAAAAAAD//wMAEgAAAAAAAAD//wIAEgAAAAAAAAD//wEAEgAAAAAAAAD//wAAEgAAAAAAAAD/////EgAAAAAAAAD///7/EgAAAAAAAAD///3/EgAAAAAAAAD///z/EgAAAAAAAAD///v/EgAAAAAAAAD///r/EgAAAAAAAAASAPv/EgAAAAAAAAASAPr/EgAAAAAAAAASAPn/EgAAAAAAAAASAPj/EgAAAAAAAAASAPf/EgAAAAAAAAASAPb/EgAAAAAAAAD///n/EgAAAAAAAAD///j/EgAAAAAAAAD///f/EgAAAAAAAAD///b/EgAAAAAAAAD///X/EgAAAAAAAAD///T/EgAAAAAAAAD///P/EgAAAAAAAAASAPX/EgAAAAAAAAASAPT/EgAAAAAAAAASAPP/EgAAAAAAAAARAAIAEgAAAAAAAAAAAP3/EgAAAAAAAAARAPf/EgAAAAAAAAA=")
+tile_set = ExtResource("11_wlwhd")
