@@ -19,7 +19,7 @@ extends CharacterBody2D
 @export var el_projectile: PackedScene
 @export var pierce_projectile: PackedScene
 @export var expl_projectile: PackedScene
-
+@export_file("*.scn") var start_level_path: String = "res://node_2d.scn"
 var current_shrine: Area2D = null
 const LIGHTNING_SCENE = preload("res://Lightning.tscn")
 var charging = false
@@ -60,9 +60,23 @@ var buffs = [[1, "Gain an extra jump."],[2, "Cards have a chance not to be disca
 @onready var sound: AudioStreamPlayer2D = $AudioStreamPlayer2D
 func _ready() -> void:
 	equip_weapon(SwordScene)
-	weapon_offset=weapon_slot.position
+	weapon_offset = weapon_slot.position
 	$pivot/Buff_Aura.play("empty")
+	apply_shrine_buffs()
+
+func apply_shrine_buffs() -> void:
+	max_health = 100.0 + Globals.max_health_bonus
+	health = max_health
+	SPEED = 500.0 * (1.3 ** Globals.speed_buffs)
+	speed_buffs = Globals.speed_buffs
+	regen_rate = 5.0 * Globals.regen_rate_multiplier
+	health_regen_timer.wait_time = 10.0 * Globals.regen_cooldown_multiplier
+	no_discard = Globals.no_discard
+	stop_death = Globals.stop_death
+	jump_changes = Globals.jump_changes
 func _physics_process(delta: float) -> void:
+	if not is_inside_tree():
+		return
 	if not kingc_timer.is_stopped() and not length_timer.is_stopped():
 		$pivot/Area2D/CollisionShape2D.disabled = true
 		$pivot/Area2D3/CollisionShape2D.disabled = false
@@ -92,29 +106,47 @@ func _physics_process(delta: float) -> void:
 		shrine_buff.text =buffs[shrine_number][1]
 		shrine_buff.show()
 		label_timer.start()
-		if buffs[shrine_number][0] == 1:
-			jump_changes+=1
-		elif buffs[shrine_number][0] == 2:
-			no_discard = true
-		elif buffs[shrine_number][0] == 3:
-			Globals.card_increase=Globals.card_increase*1.2
-		elif buffs[shrine_number][0] == 4:
-			Globals.sword_increase=Globals.sword_increase*1.3
-		elif buffs[shrine_number][0] == 5:
-			Globals.bow_increase=Globals.bow_increase*1.2
-		elif buffs[shrine_number][0] == 6:
-			max_health += 20
-			health_changed.emit(health, max_health)
-			health_regen_timer.start()
-		elif buffs[shrine_number][0] == 7:
-			SPEED=SPEED*1.3
-			speed_buffs+=1
-		elif buffs[shrine_number][0] == 8:
-			health_regen_timer.wait_time=health_regen_timer.wait_time*0.7
-		elif buffs[shrine_number][0] == 9:
-			regen_rate = regen_rate*1.5
-		elif buffs[shrine_number][0] == 10:
-			stop_death = true
+		if Input.is_action_just_pressed("switch") and shrine:
+			if current_shrine and "is_active" in current_shrine:
+				current_shrine.is_active = false
+				shrine = false
+			shrine_number = randi_range(0, 9)
+			shrine_buff.text = buffs[shrine_number][1]
+			shrine_buff.show()
+			label_timer.start()
+			
+			match buffs[shrine_number][0]:
+				1:
+					Globals.jump_changes += 1
+					jump_changes = Globals.jump_changes
+				2:
+					Globals.no_discard = true
+					no_discard = true
+				3:
+					Globals.card_increase *= 1.2
+				4:
+					Globals.sword_increase *= 1.3
+				5:
+					Globals.bow_increase *= 1.2
+				6:
+					Globals.max_health_bonus += 20.0
+					max_health = 100.0 + Globals.max_health_bonus
+					health += 20.0
+					health_changed.emit(health, max_health)
+					health_regen_timer.start()
+				7:
+					Globals.speed_buffs += 1
+					speed_buffs = Globals.speed_buffs
+					SPEED = 500.0 * (1.3 ** speed_buffs)
+				8:
+					Globals.regen_cooldown_multiplier *= 0.7
+					health_regen_timer.wait_time *= 0.7
+				9:
+					Globals.regen_rate_multiplier *= 1.5
+					regen_rate *= 1.5
+				10:
+					Globals.stop_death = true
+					stop_death = true
 	if not is_on_floor():
 		velocity += get_gravity() * delta * 2
 	if is_on_floor():
@@ -189,7 +221,8 @@ func _physics_process(delta: float) -> void:
 		else:
 			$CollisionShape2D.set_deferred("disabled", true)
 			Globals.reset_game_state()
-			get_tree().call_deferred("reload_current_scene")
+			get_tree().change_scene_to_file(start_level_path)
+			return
 	if bounce:
 		velocity.y=-3000
 		bounce = false
