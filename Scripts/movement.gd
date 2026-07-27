@@ -58,15 +58,8 @@ var jump_changes = 0
 var no_discard = false
 var buffs = [[1, "Gain an extra jump."],[2, "Cards have a chance not to be discarded upon use."],[3, "Increases damage of card attacks."],[4, "Increases damage of sword attacks."],[5, "Increases damage of bow attacks."],[6, "Increases player health."],[7, "Increases base walking speed."],[8, "Decreases regen cooldown."],[9, "Increases the regen rate."],[10, "Turn invulnerable for 3 second when an attack would kill you."]];
 @onready var sound: AudioStreamPlayer2D = $AudioStreamPlayer2D
-func _ready() -> void:
-	equip_weapon(SwordScene)
-	weapon_offset = weapon_slot.position
-	$pivot/Buff_Aura.play("empty")
-	apply_shrine_buffs()
-
 func apply_shrine_buffs() -> void:
 	max_health = 100.0 + Globals.max_health_bonus
-	health = max_health
 	SPEED = 500.0 * (1.3 ** Globals.speed_buffs)
 	speed_buffs = Globals.speed_buffs
 	regen_rate = 5.0 * Globals.regen_rate_multiplier
@@ -74,6 +67,13 @@ func apply_shrine_buffs() -> void:
 	no_discard = Globals.no_discard
 	stop_death = Globals.stop_death
 	jump_changes = Globals.jump_changes
+
+func _ready() -> void:
+	equip_weapon(SwordScene)
+	weapon_offset = weapon_slot.position
+	$pivot/Buff_Aura.play("empty")
+	apply_shrine_buffs()
+	health = max_health # Set health once on spawn
 func _physics_process(delta: float) -> void:
 	if not is_inside_tree():
 		return
@@ -99,54 +99,51 @@ func _physics_process(delta: float) -> void:
 	if label_timer.is_stopped():
 		shrine_buff.hide()
 	if Input.is_action_just_pressed("switch") and shrine:
-		if current_shrine and "is_active" in current_shrine:
-			current_shrine.is_active = false
-			shrine = false
-		shrine_number = randi_range(0,9)
-		shrine_buff.text =buffs[shrine_number][1]
+		# 1. Pick a random buff and show UI
+		shrine_number = randi_range(0, 9)
+		shrine_buff.text = buffs[shrine_number][1]
 		shrine_buff.show()
 		label_timer.start()
-		if Input.is_action_just_pressed("switch") and shrine:
-			if current_shrine and "is_active" in current_shrine:
-				current_shrine.is_active = false
-				shrine = false
-			shrine_number = randi_range(0, 9)
-			shrine_buff.text = buffs[shrine_number][1]
-			shrine_buff.show()
-			label_timer.start()
-			
-			match buffs[shrine_number][0]:
-				1:
-					Globals.jump_changes += 1
-					jump_changes = Globals.jump_changes
-				2:
-					Globals.no_discard = true
-					no_discard = true
-				3:
-					Globals.card_increase *= 1.2
-				4:
-					Globals.sword_increase *= 1.3
-				5:
-					Globals.bow_increase *= 1.2
-				6:
-					Globals.max_health_bonus += 20.0
-					max_health = 100.0 + Globals.max_health_bonus
-					health += 20.0
-					health_changed.emit(health, max_health)
-					health_regen_timer.start()
-				7:
-					Globals.speed_buffs += 1
-					speed_buffs = Globals.speed_buffs
-					SPEED = 500.0 * (1.3 ** speed_buffs)
-				8:
-					Globals.regen_cooldown_multiplier *= 0.7
-					health_regen_timer.wait_time *= 0.7
-				9:
-					Globals.regen_rate_multiplier *= 1.5
-					regen_rate *= 1.5
-				10:
-					Globals.stop_death = true
-					stop_death = true
+
+		# 2. Deactivate the shrine
+		if current_shrine and "is_active" in current_shrine:
+			current_shrine.is_active = false
+		shrine = false
+
+		# 3. Apply the actual stats to player/globals
+		match buffs[shrine_number][0]:
+			1:
+				Globals.jump_changes += 1
+				jump_changes = Globals.jump_changes
+			2:
+				Globals.no_discard = true
+				no_discard = true
+			3:
+				Globals.card_increase *= 1.2
+			4:
+				Globals.sword_increase *= 1.3
+			5:
+				Globals.bow_increase *= 1.2
+			6:
+				Globals.max_health_bonus += 20.0
+				max_health = 100.0 + Globals.max_health_bonus
+				health += 20.0
+				health_changed.emit(health, max_health)
+				health_regen_timer.start()
+			7:
+				Globals.speed_buffs += 1
+				speed_buffs = Globals.speed_buffs
+				SPEED = 500.0 * (1.3 ** speed_buffs)
+			8:
+				Globals.regen_cooldown_multiplier *= 0.7
+				health_regen_timer.wait_time *= 0.7
+			9:
+				Globals.regen_rate_multiplier *= 1.5
+				regen_rate *= 1.5
+			10:
+				Globals.stop_death = true
+				stop_death = true
+		apply_shrine_buffs()
 	if not is_on_floor():
 		velocity += get_gravity() * delta * 2
 	if is_on_floor():
