@@ -78,11 +78,11 @@ func _physics_process(delta: float) -> void:
 		burn = false
 func _on_enemy_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Sword"):
-		$enemyhealth.health_changed((30*Globals.damage_buff_5*Globals.sword_increase)+shocked)
-		health-=30*Globals.damage_buff_5*Globals.sword_increase+shocked
+		$enemyhealth.health_changed((30*Globals.damage_buff_5*Globals.sword_increase*Globals.queen_buff)+shocked)
+		health-=30*Globals.damage_buff_5*Globals.sword_increase*Globals.queen_buff+shocked
 	elif area.is_in_group("Arrow"):
-		$enemyhealth.health_changed(40*Globals.damage_buff_5*Globals.bow_increase+shocked)
-		health-=40*Globals.damage_buff_5*Globals.bow_increase+shocked
+		$enemyhealth.health_changed(40*Globals.damage_buff_5*Globals.bow_increase*Globals.queen_buff+shocked)
+		health-=40*Globals.damage_buff_5*Globals.bow_increase*Globals.queen_buff+shocked
 	elif area.is_in_group("2D"):
 		health-=25*Globals.damage_buff_5*Globals.card_increase+shocked
 		$enemyhealth.health_changed(25*Globals.damage_buff_5*Globals.card_increase+shocked)
@@ -98,6 +98,18 @@ func _on_enemy_area_2d_area_entered(area: Area2D) -> void:
 	elif area.is_in_group("lightning"):
 		$enemyhealth.health_changed(300*Globals.damage_buff_5*Globals.card_increase+shocked)
 		health-=300*Globals.damage_buff_5*Globals.card_increase+shocked
+	elif area.is_in_group("laser"):
+		$enemyhealth.health_changed(350*Globals.damage_buff_5*Globals.card_increase+shocked)
+		health-=350*Globals.damage_buff_5*Globals.card_increase+shocked
+	elif area.is_in_group("dash"):
+		$enemyhealth.health_changed(75*Globals.damage_buff_5*Globals.card_increase+shocked)
+		health-=75*Globals.damage_buff_5*Globals.card_increase+shocked
+	elif area.is_in_group("explosion"):
+		$enemyhealth.health_changed(150*Globals.damage_buff_5*Globals.card_increase+shocked)
+		health-=150*Globals.damage_buff_5*Globals.card_increase+shocked
+	elif area.is_in_group("explosive_proj"):
+		$enemyhealth.health_changed(100*Globals.damage_buff_5*Globals.card_increase+shocked)
+		health-=100*Globals.damage_buff_5*Globals.card_increase+shocked
 	if area.is_in_group("bleed"):
 		bleed_timer.start()
 		bleed=true

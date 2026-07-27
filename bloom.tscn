@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://cx4060uges1sq"]
+
+[ext_resource type="Script" uid="uid://duqutxnvim0pd" path="res://ThornWeaver.gd" id="2_7yerr"]
+[ext_resource type="PackedScene" uid="uid://ba4q1167uk7qc" path="res://handslam.tscn" id="3_xnq03"]
+[ext_resource type="PackedScene" uid="uid://b5507fdric6me" path="res://down_laser.tscn" id="4_vpoo5"]
+[ext_resource type="Texture2D" uid="uid://ddstp14xqwfa6" path="res://IMG_1013.png" id="4_vwmfs"]
+[ext_resource type="Texture2D" uid="uid://4vn2kjqlfjn8" path="res://IMG_1023.png" id="5_5j7h4"]
+[ext_resource type="PackedScene" uid="uid://76kdkkqxcqv5" path="res://sweep_laser.tscn" id="5_e82oc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_smhyf"]
+size = Vector2(207, 498)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v73s7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_vwmfs")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_5j7h4")
+}],
+"loop": 1,
+"name": &"teleport",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0in4i"]
+size = Vector2(282, 562)
+
+[node name="Node2D" type="Node2D" unique_id=446395173]
+
+[node name="CharacterBody2D2" type="CharacterBody2D" parent="." unique_id=119065280 groups=["Enemies"]]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("2_7yerr")
+hand = ExtResource("3_xnq03")
+down_laser = ExtResource("4_vpoo5")
+sweep_laser = ExtResource("5_e82oc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D2" unique_id=466791500]
+position = Vector2(20, 233)
+shape = SubResource("RectangleShape2D_smhyf")
+
+[node name="BleedTimer" type="Timer" parent="CharacterBody2D2" unique_id=1879504967]
+wait_time = 80.0
+one_shot = true
+
+[node name="BurnTimer" type="Timer" parent="CharacterBody2D2" unique_id=1173281605]
+wait_time = 60.0
+one_shot = true
+
+[node name="ShockTimer" type="Timer" parent="CharacterBody2D2" unique_id=98553968]
+wait_time = 30.0
+one_shot = true
+
+[node name="SlowTimer" type="Timer" parent="CharacterBody2D2" unique_id=631724662]
+wait_time = 80.0
+one_shot = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D2" unique_id=779134795]
+position = Vector2(39, 253.00003)
+scale = Vector2(0.47699997, 0.482)
+sprite_frames = SubResource("SpriteFrames_v73s7")
+
+[node name="Area2D" type="Area2D" parent="CharacterBody2D2" unique_id=353800955]
+position = Vector2(0, 270)
+collision_layer = 2
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D2/Area2D" unique_id=554545863]
+position = Vector2(10, -33)
+shape = SubResource("RectangleShape2D_0in4i")
+
+[node name="CooldownTimer" type="Timer" parent="CharacterBody2D2" unique_id=10133421]
+wait_time = 3.5
+one_shot = true
+
+[node name="Marker2D" type="Marker2D" parent="CharacterBody2D2" unique_id=1647554317]
+position = Vector2(40, 50)
+gizmo_extents = 0.0
+
+[connection signal="area_entered" from="CharacterBody2D2/Area2D" to="CharacterBody2D2" method="_on_thornweaver_area_2d_area_entered"]

@@ -39,6 +39,21 @@
 [ext_resource type="Texture2D" uid="uid://w1eqe8xxjlhs" path="res://Assets/9D.png" id="34_rvdsr"]
 [ext_resource type="Texture2D" uid="uid://bge0xbqawkxrc" path="res://Assets/9H.png" id="35_2oc0e"]
 [ext_resource type="Texture2D" uid="uid://bghuif3m2t74n" path="res://Assets/6S.png" id="36_fmujr"]
+[ext_resource type="Texture2D" uid="uid://b231s2oxnsjw0" path="res://Assets/AD.png" id="38_s4qe6"]
+[ext_resource type="Texture2D" uid="uid://m8mw0euc3ef8" path="res://Assets/AH.png" id="39_q3h0v"]
+[ext_resource type="Texture2D" uid="uid://dgxscaxt51hs3" path="res://Assets/AS.png" id="40_7h83w"]
+[ext_resource type="Texture2D" uid="uid://baq0ltt88vp2w" path="res://Assets/JC.png" id="41_p1sg5"]
+[ext_resource type="Texture2D" uid="uid://snpir42mxjj6" path="res://Assets/JD.png" id="42_ilc88"]
+[ext_resource type="Texture2D" uid="uid://keatjg3n8ufc" path="res://Assets/JH.png" id="43_eedxt"]
+[ext_resource type="Texture2D" uid="uid://c6b7asneu6eqo" path="res://Assets/JS.png" id="44_rqxa1"]
+[ext_resource type="Texture2D" uid="uid://c5g3db6rthxup" path="res://Assets/KC.png" id="45_106kc"]
+[ext_resource type="Texture2D" uid="uid://c18redghvunwp" path="res://Assets/KD.png" id="46_hid41"]
+[ext_resource type="Texture2D" uid="uid://d1xciao2p2ti" path="res://Assets/KH.png" id="47_rsq4i"]
+[ext_resource type="Texture2D" uid="uid://d1ndn5oxb8h7x" path="res://Assets/KS.png" id="48_qftcf"]
+[ext_resource type="Texture2D" uid="uid://bnw766xcrftcx" path="res://Assets/QC.png" id="49_ilc88"]
+[ext_resource type="Texture2D" uid="uid://di1njd6l41xcs" path="res://Assets/QD.png" id="50_eedxt"]
+[ext_resource type="Texture2D" uid="uid://b5pruw3fmdv6g" path="res://Assets/QH.png" id="51_rqxa1"]
+[ext_resource type="Texture2D" uid="uid://bx3bytxjdars4" path="res://Assets/QS.png" id="52_106kc"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7rp8x"]
 animations = [{
@@ -340,6 +355,126 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("38_s4qe6")
+}],
+"loop": 1,
+"name": &"AD",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("39_q3h0v")
+}],
+"loop": 1,
+"name": &"AH",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("40_7h83w")
+}],
+"loop": 1,
+"name": &"AS",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("41_p1sg5")
+}],
+"loop": 1,
+"name": &"JC",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("42_ilc88")
+}],
+"loop": 1,
+"name": &"JD",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("43_eedxt")
+}],
+"loop": 1,
+"name": &"JH",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("44_rqxa1")
+}],
+"loop": 1,
+"name": &"JS",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("45_106kc")
+}],
+"loop": 1,
+"name": &"KC",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("46_hid41")
+}],
+"loop": 1,
+"name": &"KD",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("47_rsq4i")
+}],
+"loop": 1,
+"name": &"KH",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("48_qftcf")
+}],
+"loop": 1,
+"name": &"KS",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("49_ilc88")
+}],
+"loop": 1,
+"name": &"QC",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("50_eedxt")
+}],
+"loop": 1,
+"name": &"QD",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("51_rqxa1")
+}],
+"loop": 1,
+"name": &"QH",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("52_106kc")
+}],
+"loop": 1,
+"name": &"QS",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("11_2spa6")
 }],
 "loop": 1,
@@ -353,5 +488,5 @@ animations = [{
 position = Vector2(-1, -10.268448)
 scale = Vector2(0.149, 0.149)
 sprite_frames = SubResource("SpriteFrames_7rp8x")
-animation = &"empty"
+animation = &"QS"
 script = ExtResource("11_c2fxf")

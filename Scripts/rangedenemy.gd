@@ -64,12 +64,13 @@ func shoot():
 	b.add_to_group("Enemies")
 	
 func _on_rangedenemy_area_2d_area_entered(area: Area2D) -> void:
+	print("Area entered: ", area.name, " | Groups: ", area.get_groups(), " | Parent groups: ", area.get_parent().get_groups())
 	if area.is_in_group("Sword"):
-		$rangedenemyhealth.rangedenemy_health_changed(30*Globals.damage_buff_5*Globals.sword_increase+shocked)
-		ranged_health-=30*Globals.damage_buff_5*Globals.sword_increase+shocked
+		$rangedenemyhealth.rangedenemy_health_changed(30*Globals.damage_buff_5*Globals.sword_increase*Globals.queen_buff+shocked)
+		ranged_health-=30*Globals.damage_buff_5*Globals.sword_increase*Globals.queen_buff+shocked
 	elif area.is_in_group("Arrow"):
-		$rangedenemyhealth.rangedenemy_health_changed(40*Globals.damage_buff_5*Globals.bow_increase+shocked)
-		ranged_health-=40*Globals.damage_buff_5*Globals.bow_increase+shocked
+		$rangedenemyhealth.rangedenemy_health_changed(40*Globals.damage_buff_5*Globals.bow_increase*Globals.queen_buff+shocked)
+		ranged_health-=40*Globals.damage_buff_5*Globals.bow_increase*Globals.queen_buff+shocked
 	elif area.is_in_group("2D"):
 		$rangedenemyhealth.rangedenemy_health_changed(25*Globals.damage_buff_5*Globals.card_increase+shocked)
 		ranged_health-=25*Globals.damage_buff_5*Globals.card_increase+shocked
@@ -85,6 +86,18 @@ func _on_rangedenemy_area_2d_area_entered(area: Area2D) -> void:
 	elif area.is_in_group("lightning"):
 		$rangedenemyhealth.rangedenemy_health_changed(300*Globals.damage_buff_5*Globals.card_increase+shocked)
 		ranged_health-=300*Globals.damage_buff_5*Globals.card_increase+shocked
+	elif area.is_in_group("laser"):
+		$rangedenemyhealth.rangedenemy_health_changed(350*Globals.damage_buff_5*Globals.card_increase+shocked)
+		ranged_health-=350*Globals.damage_buff_5*Globals.card_increase+shocked
+	elif area.is_in_group("dash"):
+		$rangedenemyhealth.rangedenemy_health_changed(75*Globals.damage_buff_5*Globals.card_increase+shocked)
+		ranged_health-=75*Globals.damage_buff_5*Globals.card_increase+shocked
+	elif area.is_in_group("explosion"):
+		$rangedenemyhealth.rangedenemy_health_changed(150*Globals.damage_buff_5*Globals.card_increase+shocked)
+		ranged_health-=150*Globals.damage_buff_5*Globals.card_increase+shocked
+	elif area.is_in_group("explosive_proj"):
+		$rangedenemyhealth.rangedenemy_health_changed(100*Globals.damage_buff_5*Globals.card_increase+shocked)
+		ranged_health-=100*Globals.damage_buff_5*Globals.card_increase+shocked
 	if area.is_in_group("bleed"):
 		bleed_timer.start()
 		bleed=true

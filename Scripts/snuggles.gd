@@ -113,9 +113,9 @@ func spawn_boss() -> void:
 	is_active = true
 func _on_snuggles_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Sword"):
-		snuggles_health-=30*Globals.damage_buff_5*Globals.sword_increase+shocked
+		snuggles_health-=30*Globals.damage_buff_5*Globals.sword_increase*Globals.queen_buff+shocked
 	elif area.is_in_group("Arrow"):
-		snuggles_health-=40*Globals.damage_buff_5*Globals.bow_increase+shocked
+		snuggles_health-=40*Globals.damage_buff_5*Globals.bow_increase*Globals.queen_buff+shocked
 	elif area.is_in_group("2D"):
 		snuggles_health-=25*Globals.damage_buff_5*Globals.card_increase+shocked
 	elif area.is_in_group("downslash"):
@@ -126,6 +126,14 @@ func _on_snuggles_area_2d_area_entered(area: Area2D) -> void:
 		snuggles_health-=100*Globals.damage_buff_5*Globals.card_increase+shocked
 	elif area.is_in_group("lightning"):
 		snuggles_health-=300*Globals.damage_buff_5*Globals.card_increase+shocked
+	elif area.is_in_group("laser"):
+		snuggles_health-=350*Globals.damage_buff_5*Globals.card_increase+shocked
+	elif area.is_in_group("dash"):
+		snuggles_health-=75*Globals.damage_buff_5*Globals.card_increase+shocked
+	elif area.is_in_group("explosion"):
+		snuggles_health-=150*Globals.damage_buff_5*Globals.card_increase+shocked
+	elif area.is_in_group("explosive_proj"):
+		snuggles_health-=100*Globals.damage_buff_5*Globals.card_increase+shocked
 	if area.is_in_group("bleed"):
 		bleed_timer.start()
 		bleed=true

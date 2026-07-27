@@ -5,6 +5,21 @@ extends AnimatedSprite2D
 # Use a Dictionary for fast lookups and clean data structure
 const CARD_DESCRIPTIONS: Dictionary = {
 	"AC": "Summons a bolt of lightning above foes.\n\nType: Lightning",
+	"AD": "Summons a cloud of ice rain that deals damage and then explodes.\n\nType: Ice",
+	"AH": "Shoots a large beam of fire.\n\nType: Fire",
+	"AS": "Shoots a piercing projectile that applies bleed.\n\nType: Steel",
+	"JC": "Stuns all enemies nearby.\n\nType: Debuff",
+	"JD": "The next sword attack is a slash that deals massive damage.\n\nType: Ice",
+	"JH": "Summons a projectile that explodes on hit.\n\nType: Fire",
+	"JS": "Plays all 5 cards in your hand instantly.\n\nType: Steel",
+	"QC": "Shoots a butst of lightning around the player.\n\nType: Lightning",
+	"QD": "Summons ice spikes at enemy positions which deals damage and applies slow.\n\nType: Ice",
+	"QH": "Shoots a burst of fire around the player that burns.\n\nType: Fire",
+	"QS": "Greatly increased basic attack damage.\n\nType: Buff",
+	"KC": "Drastically shortens dash cooldown and causes dash to pierce through enemies.\n\nType: Buff",
+	"KD": "Fires a wave of frost that applies slow to all enemies.\n\nType: Ice",
+	"KH": "Summons fire on the floor that deals damage and applies burn.\n\nType: Fire",
+	"KS": "ALl attacks deal bleed damage and bleed damage is doubled..\n\nType: Buff",
 	"2D": "Creates an area around the player that deals damage and applies slow.\n\nType: Ice",
 	"2C": "Creates an area around the player that deals damage and applies shock.\n\nType: Lightning",
 	"2H": "Creates an area around the player that deals damage and applies Burn.\n\nType: Fire",
@@ -42,6 +57,7 @@ const CARD_DESCRIPTIONS: Dictionary = {
 	"10H": "Create a downwards slash of air.",
 	"10S": "Create a downwards slash of air."
 }
+
 
 var _last_card: String = "UNSET"
 func _ready() -> void:

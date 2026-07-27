@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://eiv57vashd0t"]
+
+[ext_resource type="Texture2D" uid="uid://c2v1ckrmeidej" path="res://Assets/IMG_0977.png" id="1_iqgx7"]
+[ext_resource type="Script" uid="uid://yknv506oxnse" path="res://explosive_projectile.gd" id="1_xd5uh"]
+[ext_resource type="Texture2D" uid="uid://bw1vkxe3wobln" path="res://Assets/IMG_0976.png" id="2_xd5uh"]
+[ext_resource type="Texture2D" uid="uid://cg8x50qo3hkhe" path="res://Assets/IMG_0975.png" id="3_sqfid"]
+[ext_resource type="Texture2D" uid="uid://x64q474inwqx" path="res://Assets/IMG_0966.png" id="4_u5xfv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_smhyf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_iqgx7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_xd5uh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_sqfid")
+}],
+"loop": 0,
+"name": &"explode",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_u5xfv")
+}],
+"loop": 0,
+"name": &"shoot",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_smhyf"]
+size = Vector2(196, 207)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mdh4d"]
+size = Vector2(83, 84)
+
+[node name="Node2D" type="Node2D" unique_id=1320673880]
+script = ExtResource("1_xd5uh")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1531256807 groups=["explosion", "explosive_proj"]]
+collision_layer = 8
+collision_mask = 6
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D" unique_id=1599114326]
+position = Vector2(1, 14)
+scale = Vector2(0.2345, 0.2365)
+sprite_frames = SubResource("SpriteFrames_smhyf")
+animation = &"shoot"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=1348561500 groups=["explosion"]]
+position = Vector2(2, 11.5)
+shape = SubResource("RectangleShape2D_smhyf")
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1825146226 groups=["explosive_proj"]]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_mdh4d")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_explosive_projectile_body_entered"]

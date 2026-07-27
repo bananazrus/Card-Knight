@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://du4r8g6gnk5jj" path="res://piercing_projectile.tscn" id="4_xpgea"]
 [ext_resource type="Texture2D" uid="uid://qvqmgw2g2j0s" path="res://Assets/walk1.png" id="5_6ct3r"]
 [ext_resource type="Texture2D" uid="uid://brhb28o4qnhnp" path="res://Assets/backdash.png" id="5_vtow7"]
+[ext_resource type="PackedScene" uid="uid://eiv57vashd0t" path="res://explosive_projectile.tscn" id="5_xgote"]
 [ext_resource type="Texture2D" uid="uid://jgitgw8q73fd" path="res://Assets/walk2.png" id="6_1kp85"]
 [ext_resource type="Texture2D" uid="uid://b6pi2ji6o6knr" path="res://Assets/2D_aura.png" id="8_tpxmh"]
 [ext_resource type="Texture2D" uid="uid://bwqgbapq2cwko" path="res://Assets/6D_aura.png" id="9_klcnx"]
@@ -27,11 +28,40 @@
 [ext_resource type="Texture2D" uid="uid://dy0x52lq25n1d" path="res://Assets/2C_aura.png" id="24_7atr1"]
 [ext_resource type="Texture2D" uid="uid://0nkl5jlqp1vb" path="res://Assets/2H_aura.png" id="25_61atj"]
 [ext_resource type="Texture2D" uid="uid://du7l6rbb30qf8" path="res://Assets/2S_aura.png" id="26_65mms"]
+[ext_resource type="Texture2D" uid="uid://bidxpray5ore8" path="res://IMG_0952.png" id="27_n20tn"]
 [ext_resource type="AudioStream" uid="uid://b24yw4kslf1u2" path="res://Assets/dash.wav" id="28_65mms"]
+[ext_resource type="Texture2D" uid="uid://bgmkbyoult6iq" path="res://IMG_1009.png" id="28_xgote"]
 [ext_resource type="FontFile" uid="uid://ce5fxt14opo3b" path="res://Assets/VCR_OSD_MONO_1.001.ttf" id="29_bvomt"]
+[ext_resource type="Texture2D" uid="uid://du608skpxeacg" path="res://AH1.png" id="30_ifhu5"]
+[ext_resource type="Texture2D" uid="uid://dy74i2cdv14x7" path="res://AH2.png" id="31_wnctf"]
+[ext_resource type="Texture2D" uid="uid://2w2ndfaujl7b" path="res://AH3.png" id="32_n20tn"]
+[ext_resource type="Texture2D" uid="uid://cykvk0k24w331" path="res://AH4.png" id="33_xgote"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vii3e"]
 size = Vector2(53, 96.00001)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4recf"]
+animations = [{
+"frames": [{
+"duration": 0.5,
+"texture": ExtResource("30_ifhu5")
+}, {
+"duration": 0.5,
+"texture": ExtResource("31_wnctf")
+}, {
+"duration": 0.5,
+"texture": ExtResource("32_n20tn")
+}, {
+"duration": 0.5,
+"texture": ExtResource("33_xgote")
+}],
+"loop": 0,
+"name": &"shoot",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kvny2"]
+size = Vector2(1018, 322)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_smhyf"]
 animations = [{
@@ -192,6 +222,22 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("27_n20tn")
+}],
+"loop": 1,
+"name": &"KC",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("28_xgote")
+}],
+"loop": 1,
+"name": &"QS",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("12_xpgea")
 }],
 "loop": 1,
@@ -201,6 +247,9 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_smhyf"]
 size = Vector2(61, 99)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xvnu6"]
+size = Vector2(61, 98)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0in4i"]
 animations = [{
@@ -243,6 +292,8 @@ script = ExtResource("1_ij6vw")
 downslash = ExtResource("2_lu52h")
 el_projectile = ExtResource("3_tnskp")
 pierce_projectile = ExtResource("4_xpgea")
+expl_projectile = ExtResource("5_xgote")
+metadata/_edit_vertical_guides_ = [-347.0]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1104711316]
 position = Vector2(-2.499999, 11.000002)
@@ -267,6 +318,24 @@ position_smoothing_enabled = true
 
 [node name="pivot" type="Node2D" parent="." unique_id=1067168914]
 
+[node name="Area2D2" type="Area2D" parent="pivot" unique_id=1065550151 groups=["laser"]]
+collision_layer = 8
+collision_mask = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="pivot/Area2D2" unique_id=2115626950 groups=["laser"]]
+visible = false
+position = Vector2(529, -1267)
+scale = Vector2(1.3375, 3.076)
+sprite_frames = SubResource("SpriteFrames_4recf")
+animation = &"shoot"
+frame = 3
+frame_progress = 0.25905815
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pivot/Area2D2" unique_id=1121229044]
+position = Vector2(612, -2)
+shape = SubResource("RectangleShape2D_kvny2")
+disabled = true
+
 [node name="WeaponPivot" type="Node2D" parent="pivot" unique_id=1511546471]
 position = Vector2(0, 10)
 
@@ -284,15 +353,23 @@ z_index = -2
 position = Vector2(7.0000005, -25.000004)
 scale = Vector2(0.3285, 0.30775002)
 sprite_frames = SubResource("SpriteFrames_xvnu6")
-animation = &"empty"
-frame_progress = 0.16976854
+animation = &"QS"
 
 [node name="Area2D" type="Area2D" parent="pivot" unique_id=1266519595]
-collision_mask = 70
+collision_mask = 66
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pivot/Area2D" unique_id=2037802669 groups=["player"]]
 position = Vector2(-1.5, 10.5)
 shape = SubResource("RectangleShape2D_smhyf")
+
+[node name="Area2D3" type="Area2D" parent="pivot" unique_id=1056267014 groups=["dash"]]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pivot/Area2D3" unique_id=1170574013 groups=["dash"]]
+position = Vector2(-1.5, 8)
+shape = SubResource("RectangleShape2D_xvnu6")
+disabled = true
 
 [node name="HazardTimer" type="Timer" parent="." unique_id=1670961451]
 
@@ -385,6 +462,15 @@ theme_override_fonts/font = ExtResource("29_bvomt")
 theme_override_font_sizes/font_size = 40
 horizontal_alignment = 1
 
+[node name="QueenTimer" type="Timer" parent="." unique_id=223428104]
+wait_time = 5.0
+one_shot = true
+
+[node name="KingCTimer" type="Timer" parent="." unique_id=1813345716]
+wait_time = 30.0
+one_shot = true
+
+[connection signal="animation_finished" from="pivot/Area2D2/AnimatedSprite2D" to="." method="_on_laser_animation_finished"]
 [connection signal="area_entered" from="pivot/Area2D" to="." method="_on_character_area_2d_area_entered"]
 [connection signal="area_exited" from="pivot/Area2D" to="." method="_on_character_area_2d_area_exited"]
 [connection signal="body_entered" from="pivot/Area2D" to="." method="_on_area_2d_player_body_entered"]
@@ -393,3 +479,5 @@ horizontal_alignment = 1
 [connection signal="timeout" from="Nine_Timer" to="." method="_on_nine_timer_timeout"]
 [connection signal="timeout" from="Six_Timer" to="." method="_on_six_timer_timeout"]
 [connection signal="timeout" from="InvulnerableTimer" to="." method="_on_invulnerable_timer_timeout"]
+[connection signal="timeout" from="QueenTimer" to="." method="_on_queen_timer_timeout"]
+[connection signal="timeout" from="KingCTimer" to="." method="_on_king_c_timer_timeout"]

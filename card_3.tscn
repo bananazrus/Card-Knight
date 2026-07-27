@@ -40,6 +40,21 @@
 [ext_resource type="Texture2D" uid="uid://w1eqe8xxjlhs" path="res://Assets/9D.png" id="34_lqikd"]
 [ext_resource type="Texture2D" uid="uid://bge0xbqawkxrc" path="res://Assets/9H.png" id="35_nuuyr"]
 [ext_resource type="Texture2D" uid="uid://bghuif3m2t74n" path="res://Assets/6S.png" id="36_pmo2p"]
+[ext_resource type="Texture2D" uid="uid://b231s2oxnsjw0" path="res://Assets/AD.png" id="38_rptu1"]
+[ext_resource type="Texture2D" uid="uid://m8mw0euc3ef8" path="res://Assets/AH.png" id="39_muvw6"]
+[ext_resource type="Texture2D" uid="uid://dgxscaxt51hs3" path="res://Assets/AS.png" id="40_guqii"]
+[ext_resource type="Texture2D" uid="uid://baq0ltt88vp2w" path="res://Assets/JC.png" id="41_g1nf4"]
+[ext_resource type="Texture2D" uid="uid://snpir42mxjj6" path="res://Assets/JD.png" id="42_r4ag4"]
+[ext_resource type="Texture2D" uid="uid://keatjg3n8ufc" path="res://Assets/JH.png" id="43_21xyf"]
+[ext_resource type="Texture2D" uid="uid://c6b7asneu6eqo" path="res://Assets/JS.png" id="44_pxdvb"]
+[ext_resource type="Texture2D" uid="uid://c5g3db6rthxup" path="res://Assets/KC.png" id="45_nkolu"]
+[ext_resource type="Texture2D" uid="uid://c18redghvunwp" path="res://Assets/KD.png" id="46_uun73"]
+[ext_resource type="Texture2D" uid="uid://d1xciao2p2ti" path="res://Assets/KH.png" id="47_lqikd"]
+[ext_resource type="Texture2D" uid="uid://d1ndn5oxb8h7x" path="res://Assets/KS.png" id="48_nuuyr"]
+[ext_resource type="Texture2D" uid="uid://bnw766xcrftcx" path="res://Assets/QC.png" id="49_pmo2p"]
+[ext_resource type="Texture2D" uid="uid://di1njd6l41xcs" path="res://Assets/QD.png" id="50_eh4gr"]
+[ext_resource type="Texture2D" uid="uid://b5pruw3fmdv6g" path="res://Assets/QH.png" id="51_xmbhh"]
+[ext_resource type="Texture2D" uid="uid://bx3bytxjdars4" path="res://Assets/QS.png" id="52_go8bb"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eh4gr"]
 animations = [{
@@ -339,77 +354,122 @@ animations = [{
 "name": &"AC",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("38_rptu1")
+}],
 "loop": 1,
 "name": &"AD",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("39_muvw6")
+}],
 "loop": 1,
 "name": &"AH",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("40_guqii")
+}],
 "loop": 1,
 "name": &"AS",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("41_g1nf4")
+}],
 "loop": 1,
 "name": &"JC",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("42_r4ag4")
+}],
 "loop": 1,
 "name": &"JD",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("43_21xyf")
+}],
 "loop": 1,
 "name": &"JH",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("44_pxdvb")
+}],
 "loop": 1,
 "name": &"JS",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("45_nkolu")
+}],
 "loop": 1,
 "name": &"KC",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("46_uun73")
+}],
 "loop": 1,
 "name": &"KD",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("47_lqikd")
+}],
 "loop": 1,
 "name": &"KH",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("48_nuuyr")
+}],
 "loop": 1,
 "name": &"KS",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("49_pmo2p")
+}],
 "loop": 1,
 "name": &"QC",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("50_eh4gr")
+}],
 "loop": 1,
 "name": &"QD",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("51_xmbhh")
+}],
 "loop": 1,
 "name": &"QH",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("52_go8bb")
+}],
 "loop": 1,
 "name": &"QS",
 "speed": 5.0
@@ -434,7 +494,7 @@ bg_color = Color(0, 0, 0, 1)
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." unique_id=1327702095]
 scale = Vector2(0.13, 0.13)
 sprite_frames = SubResource("SpriteFrames_eh4gr")
-animation = &"JS"
+animation = &"QS"
 script = ExtResource("11_qasfy")
 
 [node name="Area2D" type="Area2D" parent="AnimatedSprite2D2" unique_id=541364413]

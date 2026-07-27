@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://ba4q1167uk7qc"]
+
+[ext_resource type="Script" uid="uid://biao6hptame5e" path="res://handslam.gd" id="1_nnb7o"]
+[ext_resource type="Texture2D" uid="uid://phqogajqaorj" path="res://IMG_1024.png" id="2_u7kbq"]
+[ext_resource type="Texture2D" uid="uid://djymge8e40dqm" path="res://IMG_1025.png" id="3_u7kbq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2uq5y"]
+size = Vector2(181, 120)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_smhyf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_u7kbq")
+}],
+"loop": 0,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_u7kbq")
+}],
+"loop": 0,
+"name": &"impact",
+"speed": 5.0
+}]
+
+[node name="handslam" type="Node2D" unique_id=1660132215]
+script = ExtResource("1_nnb7o")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=320402452 groups=["Enemies"]]
+collision_layer = 2
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=340896107 groups=["Enemies"]]
+position = Vector2(14.5, 6)
+shape = SubResource("RectangleShape2D_2uq5y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D" unique_id=1436902926]
+position = Vector2(33, -41.999977)
+scale = Vector2(0.551, 0.561)
+sprite_frames = SubResource("SpriteFrames_smhyf")
+animation = &"impact"
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_handslam_body_entered"]

@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://bryfajlqgfx6h"]
+
+[ext_resource type="Script" uid="uid://27anr3lg23vu" path="res://ice_rain.gd" id="1_rgfwt"]
+
+[node name="IceRain" type="Node2D" unique_id=1543558468]
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1319703251]
+script = ExtResource("1_rgfwt")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D" unique_id=1170036980]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=874878237]

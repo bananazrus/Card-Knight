@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://ddo0kriv6e8l0"]
+
+[ext_resource type="FontFile" uid="uid://ce5fxt14opo3b" path="res://Assets/VCR_OSD_MONO_1.001.ttf" id="1_0gohw"]
+[ext_resource type="Script" uid="uid://yhvtst431nyk" path="res://bloom_health.gd" id="1_g7oed"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_smhyf"]
+bg_color = Color(0.16206557, 0.1620656, 0.16206548, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xvnu6"]
+bg_color = Color(1, 0, 0, 1)
+
+[node name="Node2D" type="ProgressBar" unique_id=1719640444]
+offset_right = 911.0
+offset_bottom = 57.0
+theme_override_styles/background = SubResource("StyleBoxFlat_smhyf")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xvnu6")
+max_value = 5000.0
+show_percentage = false
+script = ExtResource("1_g7oed")
+
+[node name="Label" type="Label" parent="." unique_id=462180192]
+layout_mode = 0
+offset_left = 263.0
+offset_top = -53.0
+offset_right = 629.0
+offset_bottom = 1.0
+theme_override_fonts/font = ExtResource("1_0gohw")
+theme_override_font_sizes/font_size = 39
+text = "THE THORN WEAVER"

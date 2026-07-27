@@ -10,12 +10,16 @@ extends CharacterBody2D
 @onready var two_timer: Timer = $Two_Timer
 @onready var label_timer: Timer = $LabelTimer
 @onready var invulnerable_timer: Timer = $InvulnerableTimer
+@onready var queen_timer: Timer = $QueenTimer
+@onready var kingc_timer: Timer = $KingCTimer
 @onready var other_invulnerable_timer: Timer = $OtherInvulnerableTimer
 @onready var card_cooldown: Timer = $CardCooldown
 @onready var shrine_buff = $"../CanvasLayer2/Label"
 @export var downslash: PackedScene
 @export var el_projectile: PackedScene
 @export var pierce_projectile: PackedScene
+@export var expl_projectile: PackedScene
+
 var current_shrine: Area2D = null
 const LIGHTNING_SCENE = preload("res://Lightning.tscn")
 var charging = false
@@ -59,6 +63,12 @@ func _ready() -> void:
 	weapon_offset=weapon_slot.position
 	$pivot/Buff_Aura.play("empty")
 func _physics_process(delta: float) -> void:
+	if not kingc_timer.is_stopped() and not length_timer.is_stopped():
+		$pivot/Area2D/CollisionShape2D.disabled = true
+		$pivot/Area2D3/CollisionShape2D.disabled = false
+	else:
+		$pivot/Area2D/CollisionShape2D.disabled = false
+		$pivot/Area2D3/CollisionShape2D.disabled = true
 	if position.x < get_global_mouse_position().x:
 		facing_direction = 1
 		pivot.scale.x = 1
@@ -150,14 +160,15 @@ func _physics_process(delta: float) -> void:
 			velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-	if not length_timer.is_stopped() and (direction ==pivot.scale.x or direction == 0):
+	if not length_timer.is_stopped() and (direction == pivot.scale.x or direction == 0):
 		sprite.animation = "dash"
 		sprite.offset.y = -40
-	elif not length_timer.is_stopped() and direction !=pivot.scale.x and direction !=0:
+	elif not length_timer.is_stopped() and direction != pivot.scale.x and direction != 0:
 		sprite.animation = "backdash"
 		sprite.offset.y = -40
 	elif not is_on_floor():
 		sprite.animation = "jump"
+		sprite.offset.y = 0 
 	elif direction != 0:
 		sprite.animation = "walk"
 		sprite.offset.y = -20
@@ -234,6 +245,8 @@ func _on_character_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("shrine") and "is_active" in area and area.is_active:
 		shrine = true
 		current_shrine = area
+	if area.is_in_group("downlaser"):
+		take_damage(10*Globals.damage_reduction)
 
 
 func _on_character_area_2d_area_exited(area: Area2D) -> void:
@@ -411,6 +424,31 @@ func card(num: int) -> void:
 			pierce_proj("burn")
 		"AC":
 			spawn_lightning_at(get_global_mouse_position())
+		"AD":
+			pass
+		"AH":
+			shoot_laser()
+		"AS":
+			pass
+		"JH":
+			shoot_expl_proj()
+		"JS":
+			card(0)
+			card(1)
+			card(2)
+			card(3)
+			card(4)
+		"QS":
+			queen_timer.start()
+			Globals.queen_buff=3
+			$pivot/Buff_Aura.play("QS")
+		"KC":
+			kingc_timer.start()
+			cooldown_timer.wait_time=0.3
+			$pivot/Buff_Aura.play("KC")
+func shoot_laser():
+	$pivot/Area2D2/AnimatedSprite2D.show()
+	$pivot/Area2D2/AnimatedSprite2D.play("shoot")
 
 func spawn_lightning_at(target_pos: Vector2) -> void:
 	var space_state = get_world_2d().direct_space_state
@@ -439,6 +477,10 @@ func shoot_el_proj(element):
 	b.global_transform = $Marker2D.global_transform
 	b.setup(element)
 	b.add_to_group(element)
+func shoot_expl_proj():
+	var b = expl_projectile.instantiate()
+	get_parent().add_child(b)
+	b.global_transform = $Marker2D.global_transform
 func pierce_proj(element):
 	var b = pierce_projectile.instantiate()
 	get_parent().add_child(b)
@@ -467,3 +509,18 @@ func is_mouse_inside_object(pos: Vector2) -> bool:
 	query.collide_with_areas = false
 	var hits = space_state.intersect_point(query)
 	return not hits.is_empty()
+	
+func _on_laser_animation_finished() -> void:
+	$pivot/Area2D2/CollisionShape2D.set_deferred("disabled",false)
+	await get_tree().create_timer(1.0).timeout 
+	$pivot/Area2D2/CollisionShape2D.set_deferred("disabled",true)
+	$pivot/Area2D2/AnimatedSprite2D.hide()
+
+
+func _on_queen_timer_timeout() -> void:
+	Globals.queen_buff = 1
+	$pivot/Buff_Aura.play("empty")
+
+func _on_king_c_timer_timeout() -> void:
+	cooldown_timer.wait_time=1.0
+	$pivot/Buff_Aura.play("empty")

@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://76kdkkqxcqv5"]
+
+[ext_resource type="Script" uid="uid://xobkhwpeengj" path="res://sweep_laser.gd" id="1_3sksp"]
+[ext_resource type="Texture2D" uid="uid://bimuvdulxdk8s" path="res://lasersweep.png" id="2_3sksp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_smhyf"]
+size = Vector2(152, 1856.5)
+
+[node name="sweep_laser" type="Node2D" unique_id=614415900 groups=["sweep_laser"]]
+rotation = 1.0471976
+scale = Vector2(-1, 1)
+script = ExtResource("1_3sksp")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1542435856 groups=["sweep_laser"]]
+collision_layer = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D" unique_id=114918466]
+position = Vector2(-481.51065, 922.73486)
+scale = Vector2(2.8026848, 2.1629953)
+texture = ExtResource("2_3sksp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1508616555 groups=["sweep_laser"]]
+position = Vector2(-10.999979, 904.75)
+shape = SubResource("RectangleShape2D_smhyf")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_laser_2d_body_entered"]
