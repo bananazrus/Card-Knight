@@ -1,7 +1,7 @@
 extends Node2D
 @export var enemy: PackedScene
-var enemy_pos = [Vector2(-1200,-1100), Vector2(500,-3533), Vector2(500, -5300), Vector2(3100,-5620), Vector2(-3100,-3650), Vector2(-2800, -3650)]
-# Called when the node enters the scene tree for the first time.
+var enemy_pos = [Vector2(-1200,-1100), Vector2(500,-3533), Vector2(500, -5300), Vector2(3100,-5820), Vector2(-3100,-3750), Vector2(-2800, -3750)]
+
 func _ready() -> void:
 	for i in enemy_pos:
 		spawn_enemy(i)

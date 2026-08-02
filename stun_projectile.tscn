@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dvxdbt7lnpw3x"]
+
+[ext_resource type="Script" uid="uid://dsqi2tf8hohc6" path="res://stun_projectile.gd" id="1_2t15x"]
+[ext_resource type="Texture2D" uid="uid://258v6ksmrkg7" path="res://stun_projectile.png" id="2_r75oq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qyoxt"]
+size = Vector2(28, 62)
+
+[node name="stun_projectile" type="Node2D" unique_id=2135611687]
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1264757221]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_2t15x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1142674406]
+position = Vector2(4, -13)
+shape = SubResource("RectangleShape2D_qyoxt")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D" unique_id=1284698928]
+position = Vector2(-42.000004, 47.000008)
+scale = Vector2(0.382, 0.354)
+texture = ExtResource("2_r75oq")
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_stun_projectile_body_entered"]

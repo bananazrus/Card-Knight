@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cud43o4m5gibx" path="res://Scripts/arrow.gd" id="1_265pn"]
 [ext_resource type="Texture2D" uid="uid://d2oe68qknjj1y" path="res://Assets/arrow.png" id="2_a8t2u"]
+[ext_resource type="AudioStream" uid="uid://da2gnu5jguf0k" path="res://843729__tannersound__scifi-laser-gun-shooting.wav" id="3_08ca5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xvnu6"]
 size = Vector2(13, 18)
@@ -31,5 +32,9 @@ shape = SubResource("RectangleShape2D_0in4i")
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_a8t2u")
 offset = Vector2(-450, -10)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1671205499]
+stream = ExtResource("3_08ca5")
+volume_db = 24.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_arrow_2d_body_entered"]

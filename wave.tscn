@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://csyyny5l3srb5"]
+
+[ext_resource type="Script" uid="uid://bcsu7dyg4p4na" path="res://character_body_2d.gd" id="1_sj2kr"]
+[ext_resource type="Texture2D" uid="uid://cjf00rqgyymxw" path="res://wave.png" id="2_j10k6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_smhyf"]
+size = Vector2(87.179535, 176.6667)
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=930438969]
+scale = Vector2(1.2, 1.2)
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_sj2kr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=448994841]
+position = Vector2(-6.489746, 6.1333313)
+shape = SubResource("RectangleShape2D_smhyf")
+
+[node name="Node2D" type="Node2D" parent="." unique_id=438439507]
+
+[node name="Area2D" type="Area2D" parent="Node2D" unique_id=428110279]
+collision_layer = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Area2D" unique_id=1924618415]
+position = Vector2(152.43335, -403.86673)
+polygon = PackedVector2Array(-247, 499, -99.692314, 246.1539, -65, 303, -189, 501)
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D" unique_id=1757507996]
+position = Vector2(-89.166664, -134.16666)
+scale = Vector2(0.49700007, 0.46200004)
+texture = ExtResource("2_j10k6")
+
+[connection signal="body_entered" from="Node2D/Area2D" to="." method="_on_wave_body_entered"]

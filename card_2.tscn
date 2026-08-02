@@ -55,6 +55,7 @@
 [ext_resource type="Texture2D" uid="uid://di1njd6l41xcs" path="res://Assets/QD.png" id="50_fndvd"]
 [ext_resource type="Texture2D" uid="uid://b5pruw3fmdv6g" path="res://Assets/QH.png" id="51_mx2gq"]
 [ext_resource type="Texture2D" uid="uid://bx3bytxjdars4" path="res://Assets/QS.png" id="52_o0628"]
+[ext_resource type="Texture2D" uid="uid://v8nolsbj86w3" path="res://IMG_1082.png" id="56_ir618"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fndvd"]
 animations = [{
@@ -510,7 +511,7 @@ offset_bottom = 539.6154
 grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("13_kkses")
-theme_override_font_sizes/font_size = 60
+theme_override_font_sizes/font_size = 80
 theme_override_styles/normal = SubResource("StyleBoxFlat_kkses")
 text = "help me"
 horizontal_alignment = 1
@@ -521,6 +522,11 @@ autowrap_mode = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Area2D" unique_id=1250559544]
 position = Vector2(180.76923, 26.923079)
 shape = SubResource("RectangleShape2D_smhyf")
+
+[node name="Sprite2D" type="Sprite2D" parent="AnimatedSprite2D" unique_id=1838853991]
+position = Vector2(184.61523, 553.84375)
+scale = Vector2(0.16538453, 0.13461486)
+texture = ExtResource("56_ir618")
 
 [connection signal="mouse_entered" from="AnimatedSprite2D/Area2D" to="AnimatedSprite2D" method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="AnimatedSprite2D/Area2D" to="AnimatedSprite2D" method="_on_area_2d_mouse_exited"]

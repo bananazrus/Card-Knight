@@ -15,7 +15,7 @@ extends Node2D
 # Dot Style Options
 @export var dot_radius: float = 3.0
 @export var dot_color: Color = Color(1.0, 1.0, 1.0, 0.8)
-
+@onready var arrow_sound = $AudioStreamPlayer2D
 var calculated_points: Array[Vector2] = []
 
 func _ready() -> void:
@@ -25,10 +25,9 @@ func _process(_delta):
 	aim_at_mouse()
 	update_trajectory()
 	queue_redraw()
-	
-	if shot_timer.is_stopped() and Input.is_action_just_pressed("BowAttack"):
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("BowAttack") and shot_timer.is_stopped():
 		shoot()
-
 func aim_at_mouse():
 	var local_mouse = get_parent().get_local_mouse_position()
 	var angle = local_mouse.angle()
@@ -77,6 +76,7 @@ func _draw():
 
 func shoot():
 	shot_timer.start()
+	arrow_sound.play()
 	var arrow = Projectile.instantiate()
 	get_tree().root.add_child(arrow)
 	

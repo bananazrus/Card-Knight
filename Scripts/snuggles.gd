@@ -21,6 +21,7 @@ var is_active: bool = false
 var shocked = 0
 var slow = 1
 var burn=false
+@onready var laser_sound: AudioStreamPlayer2D = $AudioStreamPlayer2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player") as CharacterBody2D
@@ -70,18 +71,35 @@ func _process(delta: float) -> void:
 	if snuggles_health<=0:
 		if is_instance_valid(boss_health_bar):
 			boss_health_bar.hide()
+		if not Globals.phase_card_pool.is_empty():
+			var valid_slots: Array[int] = []
+			for i in range(Globals.phase_card_pool.size()):
+				if not Globals.phase_card_pool[i].is_empty():
+					valid_slots.append(i)
+			if not valid_slots.is_empty():
+				var slot_idx: int = valid_slots.pick_random()
+				Globals.phase_card_pool[slot_idx].shuffle()
+				var new_card: String = Globals.phase_card_pool[slot_idx].pop_front()
+				Globals.all_cards[slot_idx].append(new_card)
+				if slot_idx < Globals.hand.size() and Globals.hand[slot_idx] == "empty":
+					Globals.hand[slot_idx] = new_card
+				else:
+					Globals.deck[slot_idx].append(new_card)
+				var label = get_tree().get_first_node_in_group("card_ui")
+				if label and label.has_method("display_obtained_card"):
+					label.display_obtained_card(new_card)
 		gate.queue_free()
 		queue_free()
 		set_process(false)
 		return
 	if not spike_timer.is_stopped():
-		$Spikes.position.x+=10
-		$Spikes2.position.x-=10
+		$Spikes.position.x+=10*delta
+		$Spikes2.position.x-=10*delta
 	if bleed:
-		snuggles_health = max(snuggles_health - (8 * delta), 0)
+		snuggles_health = max(snuggles_health - (13 * delta), 0)
 		boss_health_changed.emit(snuggles_health)
 	if burn:
-		snuggles_health = max(snuggles_health - (10 * delta), 0)
+		snuggles_health = max(snuggles_health - (15 * delta), 0)
 		boss_health_changed.emit(snuggles_health)
 	if slow_timer.is_stopped():
 		slow = 1
@@ -95,6 +113,7 @@ func laser_fire():
 	var b = laser.instantiate()
 	get_parent().add_child(b)
 	b.global_transform = $pivot/Muzzle.global_transform
+	laser_sound.play()
 	b.add_to_group("Enemies")
 
 func spike():
@@ -113,7 +132,7 @@ func spawn_boss() -> void:
 	is_active = true
 func _on_snuggles_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Sword"):
-		snuggles_health-=30*Globals.damage_buff_5*Globals.sword_increase*Globals.queen_buff+shocked
+		snuggles_health-=35*Globals.damage_buff_5*Globals.sword_increase*Globals.queen_buff+shocked
 	elif area.is_in_group("Arrow"):
 		snuggles_health-=40*Globals.damage_buff_5*Globals.bow_increase*Globals.queen_buff+shocked
 	elif area.is_in_group("2D"):
@@ -134,21 +153,29 @@ func _on_snuggles_area_2d_area_entered(area: Area2D) -> void:
 		snuggles_health-=150*Globals.damage_buff_5*Globals.card_increase+shocked
 	elif area.is_in_group("explosive_proj"):
 		snuggles_health-=100*Globals.damage_buff_5*Globals.card_increase+shocked
-	if area.is_in_group("bleed"):
+	if area.is_in_group("bleed") or (area.get_parent() and area.get_parent().is_in_group("bleed")):
 		bleed_timer.start()
-		bleed=true
-	elif area.is_in_group("burn"):
-		burn = true
-		burn_timer.start()
-	elif area.is_in_group("shock"):
-		shocked = 15
-		shock_timer.start()
-	elif area.is_in_group("slow"):
-		slow = 1.5
-		slow_timer.start()
+		bleed = true
+	if area.is_in_group("burn") or (area.get_parent() and area.get_parent().is_in_group("burn")):
+		bleed_timer.start()
+		bleed = true
+	if area.is_in_group("shock") or (area.get_parent() and area.get_parent().is_in_group("shock")):
+		bleed_timer.start()
+		bleed = true
+	if area.is_in_group("slow") or (area.get_parent() and area.get_parent().is_in_group("slow")):
+		bleed_timer.start()
+		bleed = true
+	flash_red()
 	boss_health_changed.emit(snuggles_health)
 func spawn_enemy(enemy_position: Vector2):
 	var new_enemy = enemy.instantiate()
 	get_parent().add_child(new_enemy)
 	new_enemy.global_position = enemy_position
+	
+func flash_red() -> void:
+	var mat = $pivot/Sprite2D.material as ShaderMaterial
+	if mat:
+		mat.set_shader_parameter("flash_modifier", 1.0)
+		var tween = create_tween()
+		tween.tween_property(mat, "shader_parameter/flash_modifier", 0.0, 0.15)
 	

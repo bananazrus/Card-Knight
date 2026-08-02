@@ -11,10 +11,9 @@ var is_attacking: bool = false
 func _process(_delta: float) -> void:
 	set_deferred("monitoring", is_attacking)
 	set_deferred("monitorable", is_attacking)
-	if Input.is_action_just_pressed("SwordAttack") and not is_attacking:
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("SwordAttack") and not is_attacking:
 		Attack()
-
-
 func Attack() -> void:
 	is_attacking = true
 	animation_player.play("SwordAttack1")

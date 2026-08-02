@@ -1,0 +1,246 @@
+[gd_scene format=3 uid="uid://b0lxtsnvsgks4"]
+
+[ext_resource type="Texture2D" uid="uid://cde355peqf36m" path="res://Assets/default.png" id="1_kr4a4"]
+[ext_resource type="Script" uid="uid://xwmois85kirt" path="res://twins.gd" id="1_y4ytc"]
+[ext_resource type="Texture2D" uid="uid://cdfpk53iwgw7n" path="res://Assets/boss_jump.png" id="2_ba5gq"]
+[ext_resource type="Shader" uid="uid://d164fk1ob6w72" path="res://twins.gdshader" id="3_8hpyv"]
+[ext_resource type="Texture2D" uid="uid://dejuctwk46h1p" path="res://Assets/nohands.png" id="3_uvpou"]
+[ext_resource type="Texture2D" uid="uid://cg0nxulum7ccf" path="res://Assets/slam.png" id="4_m0ltb"]
+[ext_resource type="PackedScene" uid="uid://ym02u1sfyp10" path="res://homing_hands.tscn" id="11_epewn"]
+[ext_resource type="Shader" uid="uid://btd7er6latrq7" path="res://superman.gdshader" id="12_ora25"]
+[ext_resource type="Shader" uid="uid://dlh3h1oyvg8xr" path="res://laser_fire.gdshader" id="13_ora25"]
+[ext_resource type="Texture2D" uid="uid://b5bqya53vyx7v" path="res://Assets/boss_jump_no_hands.png" id="14_a0qjv"]
+[ext_resource type="PackedScene" uid="uid://cyretfkwawglu" path="res://spikes.tscn" id="15_8hpyv"]
+[ext_resource type="Texture2D" uid="uid://bn3pjo6vqetis" path="res://Assets/slam_no_hands.png" id="15_epewn"]
+[ext_resource type="Texture2D" uid="uid://dxqa4rkirjtm8" path="res://split.png" id="18_kttxn"]
+[ext_resource type="Texture2D" uid="uid://djopmox0542cg" path="res://superman.png" id="20_hkt11"]
+[ext_resource type="Texture2D" uid="uid://pnykut11e5mc" path="res://fire_laser.png" id="21_aoooe"]
+[ext_resource type="Texture2D" uid="uid://csgb6tjdj8d47" path="res://boss_beam.png" id="24_yys0p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xvnu6"]
+size = Vector2(183, 248)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vwmfs"]
+shader = ExtResource("3_8hpyv")
+shader_parameter/flash_color = Color(1, 0, 0, 1)
+shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rcxww"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_kr4a4")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ba5gq")
+}],
+"loop": 0,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_uvpou")
+}],
+"loop": 0,
+"name": &"no_hands_default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_a0qjv")
+}],
+"loop": 0,
+"name": &"no_hands_jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_epewn")
+}],
+"loop": 0,
+"name": &"no_hands_slam",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_m0ltb")
+}],
+"loop": 0,
+"name": &"slam",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_kttxn")
+}],
+"loop": 1,
+"name": &"split",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0in4i"]
+size = Vector2(206.69241, 267)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a0qjv"]
+shader = ExtResource("12_ora25")
+shader_parameter/flash_color = Color(1, 0, 0, 1)
+shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4recf"]
+size = Vector2(218.46158, 76.923065)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5j7h4"]
+shader = ExtResource("13_ora25")
+shader_parameter/flash_color = Color(1, 0, 0, 1)
+shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kvny2"]
+size = Vector2(90.000015, 239.23077)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8joqa"]
+size = Vector2(2461.5386, 153.07693)
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=57996105 groups=["Enemies"]]
+scale = Vector2(1.3, 1.3)
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_y4ytc")
+homing_hands = ExtResource("11_epewn")
+speed = 1000.0
+turn_speed = 0.8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1661173188]
+position = Vector2(4.5, -14)
+shape = SubResource("RectangleShape2D_xvnu6")
+
+[node name="JumpTimer" type="Timer" parent="." unique_id=1999881354]
+one_shot = true
+
+[node name="pivot" type="Node2D" parent="." unique_id=429652592]
+position = Vector2(2, -9)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="pivot" unique_id=729368068]
+material = SubResource("ShaderMaterial_vwmfs")
+position = Vector2(-2.374939, -45.375)
+scale = Vector2(0.31474987, 0.32925007)
+sprite_frames = SubResource("SpriteFrames_rcxww")
+animation = &"no_hands_slam"
+
+[node name="Area2D" type="Area2D" parent="pivot" unique_id=523760870 groups=["Enemies"]]
+position = Vector2(-5, 3)
+collision_layer = 2
+collision_mask = 9
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pivot/Area2D" unique_id=267701205 groups=["Enemies"]]
+position = Vector2(7.3460083, -4.0000153)
+shape = SubResource("RectangleShape2D_0in4i")
+
+[node name="BleedTimer" type="Timer" parent="." unique_id=753374488]
+wait_time = 80.0
+one_shot = true
+
+[node name="BurnTimer" type="Timer" parent="." unique_id=1456700490]
+wait_time = 60.0
+one_shot = true
+
+[node name="ShockTimer" type="Timer" parent="." unique_id=1319636214]
+wait_time = 30.0
+one_shot = true
+
+[node name="SlowTimer" type="Timer" parent="." unique_id=1747882341]
+wait_time = 80.0
+one_shot = true
+
+[node name="CooldownTimer" type="Timer" parent="." unique_id=574644648]
+wait_time = 3.0
+one_shot = true
+
+[node name="Spikes" parent="." unique_id=641470422 instance=ExtResource("15_8hpyv")]
+visible = false
+position = Vector2(-681.5385, 80)
+monitoring = false
+monitorable = false
+
+[node name="Spikes2" parent="." unique_id=906237061 instance=ExtResource("15_8hpyv")]
+visible = false
+position = Vector2(113.846, 80)
+monitoring = false
+monitorable = false
+
+[node name="HandCooldownTimer" type="Timer" parent="." unique_id=328287701]
+wait_time = 9.0
+one_shot = true
+
+[node name="Area2D2" type="Area2D" parent="." unique_id=306384212]
+visible = false
+rotation = -1.5707964
+collision_layer = 2
+collision_mask = 9
+monitoring = false
+monitorable = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D2" unique_id=87718164]
+material = SubResource("ShaderMaterial_a0qjv")
+position = Vector2(43.076935, -141.53844)
+rotation = 1.5707964
+scale = Vector2(0.32, 0.322)
+texture = ExtResource("20_hkt11")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2" unique_id=1237384352]
+position = Vector2(26.92308, -53.076965)
+shape = SubResource("RectangleShape2D_4recf")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1172671399 groups=["Enemies"]]
+visible = false
+position = Vector2(-3.0769043, 5.384613)
+collision_layer = 2
+collision_mask = 9
+monitoring = false
+monitorable = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D" unique_id=1379254760]
+material = SubResource("ShaderMaterial_5j7h4")
+position = Vector2(144.23077, -33.36539)
+scale = Vector2(0.32230768, 0.29173076)
+texture = ExtResource("21_aoooe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1099356472]
+position = Vector2(56.15384, -23.07693)
+shape = SubResource("RectangleShape2D_kvny2")
+
+[node name="Area2D" type="Area2D" parent="Area2D" unique_id=660378650 groups=["twins_laser"]]
+visible = false
+collision_layer = 2
+monitoring = false
+monitorable = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D/Area2D" unique_id=1911586458]
+position = Vector2(1424.6154, -116.92308)
+scale = Vector2(2.6946158, 1.9392308)
+texture = ExtResource("24_yys0p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D/Area2D" unique_id=943548121]
+position = Vector2(1537.6924, -41.153854)
+shape = SubResource("RectangleShape2D_8joqa")
+
+[node name="SplitTimer" type="Timer" parent="." unique_id=210157794]
+wait_time = 4.0
+one_shot = true
+
+[node name="RotationTimer" type="Timer" parent="." unique_id=1191343032]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="area_entered" from="pivot/Area2D" to="." method="_on_twins_area_2d_area_entered"]
+[connection signal="area_entered" from="Area2D2" to="." method="_on_area_2d_2_area_entered"]
+[connection signal="body_entered" from="Area2D2" to="." method="_on_super_man_body_entered"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_laser_firer_2d_area_entered"]
+[connection signal="timeout" from="SplitTimer" to="." method="_on_split_timer_timeout"]

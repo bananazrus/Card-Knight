@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://dlx5bagm44xqv"]
+
+[ext_resource type="Texture2D" uid="uid://l8vba5uhc5ny" path="res://aoe.png" id="1_bxx8t"]
+[ext_resource type="Script" uid="uid://y6mtrmyjpr4u" path="res://aoe.gd" id="1_shrfd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xqlrt"]
+size = Vector2(403, 401)
+
+[node name="Area2D" type="Area2D" unique_id=1170081376]
+position = Vector2(-323, -298)
+scale = Vector2(1.5, 1.5)
+collision_layer = 2
+monitoring = false
+monitorable = false
+script = ExtResource("1_shrfd")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=29008304]
+position = Vector2(0, 3.8947372)
+scale = Vector2(1, 0.9904306)
+points = PackedVector2Array(413, -1, 413, 397, 18, 397, 18, -1)
+closed = true
+default_color = Color(0, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=554409235]
+position = Vector2(215.50002, 199.50002)
+scale = Vector2(0.385, 0.385)
+texture = ExtResource("1_bxx8t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1572351999]
+position = Vector2(214.5, 201.5)
+shape = SubResource("RectangleShape2D_xqlrt")
+
+[node name="Aoe" type="Node2D" parent="." unique_id=404492547]

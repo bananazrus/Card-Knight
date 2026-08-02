@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://bntaggolf8ma7" path="res://card_2.tscn" id="2_2etst"]
 [ext_resource type="PackedScene" uid="uid://dqva1mhwdkven" path="res://card_3.tscn" id="3_vw43l"]
 [ext_resource type="PackedScene" uid="uid://dvfphl3gt1vv8" path="res://card_4.tscn" id="4_jiqp1"]
-[ext_resource type="PackedScene" uid="uid://bntd2cpe7ggfb" path="res://card_5.tscn" id="5_uws32"]
 [ext_resource type="PackedScene" uid="uid://bfyh5hva3hexl" path="res://discard.tscn" id="6_vcgqq"]
 [ext_resource type="FontFile" uid="uid://ce5fxt14opo3b" path="res://Assets/VCR_OSD_MONO_1.001.ttf" id="7_o1mlc"]
 [ext_resource type="Script" uid="uid://bkb7d6b4uclhb" path="res://label_2.gd" id="8_jda3s"]
@@ -66,9 +65,6 @@ position = Vector2(256, 101)
 
 [node name="Card4" parent="CanvasLayer2" unique_id=585867046 instance=ExtResource("4_jiqp1")]
 position = Vector2(356, 101)
-
-[node name="Card5" parent="CanvasLayer2" unique_id=1217493788 instance=ExtResource("5_uws32")]
-position = Vector2(456, 101)
 
 [node name="Discard" parent="CanvasLayer2" unique_id=769911772 instance=ExtResource("6_vcgqq")]
 position = Vector2(1080, 585)

@@ -30,25 +30,31 @@ func _process(delta: float) -> void:
 	elif player.global_position.x>enemy_pos.x:
 		$Sprite2D.flip_h=false
 	if ranged_health<=0:
-		if randi_range(1, 7) == 6 and not Globals.card_pool.is_empty():
-			Globals.card_pool.shuffle()
-			var new_card = Globals.card_pool.pop_front() # Draws and removes in one line
-			Globals.all_cards.append(new_card)
-			if Globals.deck.size()==0 and not Globals.hand.size()>=5:
-				Globals.hand.append(new_card)
-			else:
-				Globals.deck.append(new_card)
-			var label = get_tree().get_first_node_in_group("card_ui")
-			if label and label.has_method("display_obtained_card"):
-				label.display_obtained_card(new_card)
+		if randi_range(1, 7) == 6:
+			var valid_slots: Array[int] = []
+			for i in range(Globals.card_pool.size()):
+				if not Globals.card_pool[i].is_empty():
+					valid_slots.append(i)
+			if not valid_slots.is_empty():
+				var slot_idx: int = valid_slots.pick_random()
+				Globals.card_pool[slot_idx].shuffle()
+				var new_card: String = Globals.card_pool[slot_idx].pop_front()
+				Globals.all_cards[slot_idx].append(new_card)
+				if slot_idx < Globals.hand.size() and Globals.hand[slot_idx] == "empty":
+					Globals.hand[slot_idx] = new_card
+				else:
+					Globals.deck[slot_idx].append(new_card)
+				var label = get_tree().get_first_node_in_group("card_ui")
+				if label and label.has_method("display_obtained_card"):
+					label.display_obtained_card(new_card)
 		
 		queue_free()
 	if bleed:
 		$rangedenemyhealth.health_changed(ranged_health-max(ranged_health - (4 * delta), 0))
-		ranged_health = max(ranged_health - (8 * delta), 0)
+		ranged_health = max(ranged_health - (13 * delta), 0)
 	if burn:
 		$rangedenemyhealth.health_changed(ranged_health-max(ranged_health - (5 * delta), 0))
-		ranged_health = max(ranged_health - (10 * delta), 0)
+		ranged_health = max(ranged_health - (15 * delta), 0)
 	if slow_timer.is_stopped():
 		slow = 1
 	if shock_timer.is_stopped():
@@ -64,10 +70,9 @@ func shoot():
 	b.add_to_group("Enemies")
 	
 func _on_rangedenemy_area_2d_area_entered(area: Area2D) -> void:
-	print("Area entered: ", area.name, " | Groups: ", area.get_groups(), " | Parent groups: ", area.get_parent().get_groups())
 	if area.is_in_group("Sword"):
-		$rangedenemyhealth.rangedenemy_health_changed(30*Globals.damage_buff_5*Globals.sword_increase*Globals.queen_buff+shocked)
-		ranged_health-=30*Globals.damage_buff_5*Globals.sword_increase*Globals.queen_buff+shocked
+		$rangedenemyhealth.rangedenemy_health_changed(35*Globals.damage_buff_5*Globals.sword_increase*Globals.queen_buff+shocked)
+		ranged_health-=35*Globals.damage_buff_5*Globals.sword_increase*Globals.queen_buff+shocked
 	elif area.is_in_group("Arrow"):
 		$rangedenemyhealth.rangedenemy_health_changed(40*Globals.damage_buff_5*Globals.bow_increase*Globals.queen_buff+shocked)
 		ranged_health-=40*Globals.damage_buff_5*Globals.bow_increase*Globals.queen_buff+shocked
@@ -98,18 +103,18 @@ func _on_rangedenemy_area_2d_area_entered(area: Area2D) -> void:
 	elif area.is_in_group("explosive_proj"):
 		$rangedenemyhealth.rangedenemy_health_changed(100*Globals.damage_buff_5*Globals.card_increase+shocked)
 		ranged_health-=100*Globals.damage_buff_5*Globals.card_increase+shocked
-	if area.is_in_group("bleed"):
+	if area.is_in_group("bleed") or (area.get_parent() and area.get_parent().is_in_group("bleed")):
 		bleed_timer.start()
-		bleed=true
-	elif area.is_in_group("burn"):
-		burn = true
-		burn_timer.start()
-	elif area.is_in_group("shock"):
-		shocked = 15
-		shock_timer.start()
-	elif area.is_in_group("slow"):
-		slow = 1.5
-		slow_timer.start()
+		bleed = true
+	if area.is_in_group("burn") or (area.get_parent() and area.get_parent().is_in_group("burn")):
+		bleed_timer.start()
+		bleed = true
+	if area.is_in_group("shock") or (area.get_parent() and area.get_parent().is_in_group("shock")):
+		bleed_timer.start()
+		bleed = true
+	if area.is_in_group("slow") or (area.get_parent() and area.get_parent().is_in_group("slow")):
+		bleed_timer.start()
+		bleed = true
 	flash_red()
 func flash_red() -> void:
 	var mat = sprite.material as ShaderMaterial

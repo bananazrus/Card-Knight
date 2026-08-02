@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://brhb28o4qnhnp" path="res://Assets/backdash.png" id="5_vtow7"]
 [ext_resource type="PackedScene" uid="uid://eiv57vashd0t" path="res://explosive_projectile.tscn" id="5_xgote"]
 [ext_resource type="Texture2D" uid="uid://jgitgw8q73fd" path="res://Assets/walk2.png" id="6_1kp85"]
+[ext_resource type="Script" uid="uid://b7d1j5hag8bie" path="res://camera_2d.gd" id="6_84ch4"]
 [ext_resource type="Texture2D" uid="uid://b6pi2ji6o6knr" path="res://Assets/2D_aura.png" id="8_tpxmh"]
 [ext_resource type="Texture2D" uid="uid://bwqgbapq2cwko" path="res://Assets/6D_aura.png" id="9_klcnx"]
 [ext_resource type="Texture2D" uid="uid://dlsynfln6qqgv" path="res://Assets/5C_aura.png" id="9_tpxmh"]
@@ -36,6 +37,8 @@
 [ext_resource type="Texture2D" uid="uid://dy74i2cdv14x7" path="res://AH2.png" id="31_wnctf"]
 [ext_resource type="Texture2D" uid="uid://2w2ndfaujl7b" path="res://AH3.png" id="32_n20tn"]
 [ext_resource type="Texture2D" uid="uid://cykvk0k24w331" path="res://AH4.png" id="33_xgote"]
+[ext_resource type="Shader" uid="uid://dgn3mwi4hwvfo" path="res://hurt.gdshader" id="38_jm24g"]
+[ext_resource type="Script" uid="uid://k45xmr3jn33o" path="res://color_rect.gd" id="39_nkg07"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vii3e"]
 size = Vector2(53, 96.00001)
@@ -61,7 +64,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kvny2"]
-size = Vector2(1018, 322)
+size = Vector2(1704, 316)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_smhyf"]
 animations = [{
@@ -286,6 +289,13 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_smhyf"]
+shader = ExtResource("38_jm24g")
+shader_parameter/vignette_color = Color(0.8, 0, 0, 1)
+shader_parameter/intensity = 0.0
+shader_parameter/radius = 0.50000002375
+shader_parameter/softness = 0.150000007125
+
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=345397137 groups=["player"]]
 collision_mask = 69
 script = ExtResource("1_ij6vw")
@@ -315,24 +325,26 @@ one_shot = true
 [node name="Camera2D" type="Camera2D" parent="." unique_id=216309636]
 zoom = Vector2(0.5, 0.5)
 position_smoothing_enabled = true
+script = ExtResource("6_84ch4")
 
 [node name="pivot" type="Node2D" parent="." unique_id=1067168914]
 
 [node name="Area2D2" type="Area2D" parent="pivot" unique_id=1065550151 groups=["laser"]]
+z_index = 3
 collision_layer = 8
 collision_mask = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="pivot/Area2D2" unique_id=2115626950 groups=["laser"]]
 visible = false
-position = Vector2(529, -1267)
-scale = Vector2(1.3375, 3.076)
+position = Vector2(824.12494, -1267)
+scale = Vector2(2.24175, 3.076)
 sprite_frames = SubResource("SpriteFrames_4recf")
 animation = &"shoot"
 frame = 3
 frame_progress = 0.25905815
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pivot/Area2D2" unique_id=1121229044]
-position = Vector2(612, -2)
+position = Vector2(955, -5)
 shape = SubResource("RectangleShape2D_kvny2")
 disabled = true
 
@@ -381,8 +393,6 @@ one_shot = true
 wait_time = 4.0
 one_shot = true
 
-[node name="Seven_Timer" type="Timer" parent="." unique_id=926320943]
-
 [node name="Two_Timer" type="Timer" parent="." unique_id=551431066]
 wait_time = 12.0
 one_shot = true
@@ -416,14 +426,14 @@ wait_time = 7.0
 one_shot = true
 
 [node name="Area2D1" type="Area2D" parent="." unique_id=1566692510 groups=["2D"]]
-visible = false
 collision_layer = 8
 collision_mask = 2
 monitoring = false
 monitorable = false
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="Area2D1" unique_id=2122854218]
-z_index = -9
+visible = false
+z_index = -4
 position = Vector2(15.499962, -40.999985)
 scale = Vector2(0.64100003, 0.558)
 sprite_frames = SubResource("SpriteFrames_0in4i")
@@ -470,6 +480,25 @@ one_shot = true
 wait_time = 30.0
 one_shot = true
 
+[node name="iFrames" type="Timer" parent="." unique_id=2090244380]
+one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1140757615]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=2085343869]
+material = SubResource("ShaderMaterial_smhyf")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("39_nkg07")
+
+[node name="StunTimer" type="Timer" parent="." unique_id=1331778579]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="animation_finished" from="pivot/Area2D2/AnimatedSprite2D" to="." method="_on_laser_animation_finished"]
 [connection signal="area_entered" from="pivot/Area2D" to="." method="_on_character_area_2d_area_entered"]
 [connection signal="area_exited" from="pivot/Area2D" to="." method="_on_character_area_2d_area_exited"]
@@ -481,3 +510,5 @@ one_shot = true
 [connection signal="timeout" from="InvulnerableTimer" to="." method="_on_invulnerable_timer_timeout"]
 [connection signal="timeout" from="QueenTimer" to="." method="_on_queen_timer_timeout"]
 [connection signal="timeout" from="KingCTimer" to="." method="_on_king_c_timer_timeout"]
+[connection signal="timeout" from="iFrames" to="." method="_on_i_frames_timeout"]
+[connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]

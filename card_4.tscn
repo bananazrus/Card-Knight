@@ -55,6 +55,7 @@
 [ext_resource type="Texture2D" uid="uid://di1njd6l41xcs" path="res://Assets/QD.png" id="50_48ga7"]
 [ext_resource type="Texture2D" uid="uid://b5pruw3fmdv6g" path="res://Assets/QH.png" id="51_mhurn"]
 [ext_resource type="Texture2D" uid="uid://bx3bytxjdars4" path="res://Assets/QS.png" id="52_e63mm"]
+[ext_resource type="Texture2D" uid="uid://da360hpsmorb" path="res://IMG_1083.png" id="56_10pjf"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_48ga7"]
 animations = [{
@@ -516,11 +517,16 @@ offset_bottom = 539.6154
 grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("13_so6f8")
-theme_override_font_sizes/font_size = 60
+theme_override_font_sizes/font_size = 80
 theme_override_styles/normal = SubResource("StyleBoxFlat_so6f8")
 text = "help me"
 horizontal_alignment = 1
 autowrap_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="AnimatedSprite2D" unique_id=1955472041]
+position = Vector2(176.92307, 546.1538)
+scale = Vector2(0.14423089, 0.12115392)
+texture = ExtResource("56_10pjf")
 
 [connection signal="mouse_entered" from="AnimatedSprite2D/Area2D" to="AnimatedSprite2D" method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="AnimatedSprite2D/Area2D" to="AnimatedSprite2D" method="_on_area_2d_mouse_exited"]

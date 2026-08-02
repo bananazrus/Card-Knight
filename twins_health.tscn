@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://b368esf1xx7a0"]
+
+[ext_resource type="Script" uid="uid://dbvoffitokq1p" path="res://twins_health.gd" id="1_4e3ui"]
+[ext_resource type="FontFile" uid="uid://ce5fxt14opo3b" path="res://Assets/VCR_OSD_MONO_1.001.ttf" id="1_d4hh2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nf7g7"]
+bg_color = Color(0.16078432, 0.16078432, 0.16078432, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d4hh2"]
+bg_color = Color(1, 0, 0, 1)
+
+[node name="twins_health" type="ProgressBar" unique_id=1103933735]
+offset_right = 911.0
+offset_bottom = 57.0
+theme_override_styles/background = SubResource("StyleBoxFlat_nf7g7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_d4hh2")
+max_value = 6000.0
+value = 6000.0
+show_percentage = false
+script = ExtResource("1_4e3ui")
+
+[node name="Label" type="Label" parent="." unique_id=930622660]
+layout_mode = 0
+offset_left = 272.0
+offset_top = -53.0
+offset_right = 638.0
+offset_bottom = 1.0
+theme_override_fonts/font = ExtResource("1_d4hh2")
+theme_override_font_sizes/font_size = 39
+text = "THE TWINS"
+horizontal_alignment = 1

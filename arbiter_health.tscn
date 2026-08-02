@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://drgjrqpxhdufn"]
+
+[ext_resource type="FontFile" uid="uid://ce5fxt14opo3b" path="res://Assets/VCR_OSD_MONO_1.001.ttf" id="2_arpia"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_smhyf"]
+bg_color = Color(0.16078432, 0.16078432, 0.16078432, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_arpia"]
+bg_color = Color(1, 0, 0, 1)
+
+[node name="arbiter_health" type="ProgressBar" unique_id=1863952210]
+offset_right = 911.0
+offset_bottom = 57.0
+theme_override_styles/background = SubResource("StyleBoxFlat_smhyf")
+theme_override_styles/fill = SubResource("StyleBoxFlat_arpia")
+max_value = 6500.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="." unique_id=143701963]
+layout_mode = 0
+offset_left = 268.0
+offset_top = -53.0
+offset_right = 657.0
+offset_bottom = 1.0
+theme_override_fonts/font = ExtResource("2_arpia")
+theme_override_font_sizes/font_size = 39
+text = "THE FALSE ARBITER"
+horizontal_alignment = 1

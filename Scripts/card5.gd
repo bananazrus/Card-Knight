@@ -11,18 +11,18 @@ const CARD_DESCRIPTIONS: Dictionary = {
 	"JC": "Stuns all enemies nearby.\n\nType: Debuff",
 	"JD": "The next sword attack is a slash that deals massive damage.\n\nType: Ice",
 	"JH": "Summons a projectile that explodes on hit.\n\nType: Fire",
-	"JS": "Plays all 5 cards in your hand instantly.\n\nType: Steel",
-	"QC": "Shoots a butst of lightning around the player.\n\nType: Lightning",
+	"JS": "Plays all cards in your hand instantly.\n\nType: Buff",
+	"QC": "Releases a burst of lightning around the player.\n\nType: Lightning",
 	"QD": "Summons ice spikes at enemy positions which deals damage and applies slow.\n\nType: Ice",
-	"QH": "Shoots a burst of fire around the player that burns.\n\nType: Fire",
-	"QS": "Greatly increased basic attack damage.\n\nType: Buff",
-	"KC": "Drastically shortens dash cooldown and causes dash to pierce through enemies.\n\nType: Buff",
+	"QH": "Heals the player back to full and gives overshield.\n\nType: Buff",
+	"QS": "Increases basic attack damage by 200% for 5 seconds.\n\nType: Buff",
+	"KC": "Drastically shortens dash cooldown and causes dash to hurt enemies for 30 seconds.\n\nType: Buff",
 	"KD": "Fires a wave of frost that applies slow to all enemies.\n\nType: Ice",
 	"KH": "Summons fire on the floor that deals damage and applies burn.\n\nType: Fire",
-	"KS": "ALl attacks deal bleed damage and bleed damage is doubled..\n\nType: Buff",
+	"KS": "All attacks deal bleed damage and bleed damage is doubled..\n\nType: Buff",
 	"2D": "Creates an area around the player that deals damage and applies slow.\n\nType: Ice",
 	"2C": "Creates an area around the player that deals damage and applies shock.\n\nType: Lightning",
-	"2H": "Creates an area around the player that deals damage and applies Burn.\n\nType: Fire",
+	"2H": "Creates an area around the player that deals damage and applies burn.\n\nType: Fire",
 	"2S": "Creates an area around the player that deals damage and applies bleed.\n\nType: Steel", # Fixed key from 2D to 2S
 	"3H": "Gives the player bonus health.\n\nType: Buff",
 	"3C": "Gives the player bonus health.\n\nType: Buff",
@@ -32,14 +32,14 @@ const CARD_DESCRIPTIONS: Dictionary = {
 	"4C": "Shoots a projectile that applies shock.\n\nType: Lightning",
 	"4D": "Shoots a projectile that applies slow.\n\nType: Ice",
 	"4H": "Shoots a projectile that applies burn.\n\nType: Fire",
-	"5C": "Increases damage dealt.\n\nType: Buff",
-	"5D": "Increases damage dealt.\n\nType: Buff",
-	"5H": "Increases damage dealt.\n\nType: Buff",
-	"5S": "Increases damage dealt.\n\nType: Buff",
-	"6D": "Creates a wall around the player.\n\nType: Buff",
-	"6C": "Creates a wall around the player.\n\nType: Buff",
-	"6H": "Creates a wall around the player.\n\nType: Buff",
-	"6S": "Creates a wall around the player.\n\nType: Buff",
+	"5C": "75% increased damage dealt for 5 seconds.\n\nType: Buff",
+	"5D": "75% increased damage dealt for 5 seconds.\n\nType: Buff",
+	"5H": "75% increased damage dealt for 5 seconds.\n\nType: Buff",
+	"5S": "75% increased damage dealt for 5 seconds.\n\nType: Buff",
+	"6D": "Creates a wall around the player that lasts 7 seconds.\n\nType: Buff",
+	"6C": "Creates a wall around the player that lasts 7 seconds.\n\nType: Buff",
+	"6H": "Creates a wall around the player that lasts 7 seconds.\n\nType: Buff",
+	"6S": "Creates a wall around the player that lasts 7 seconds.\n\nType: Buff",
 	"7H": "The next card you play is not discarded.\n\nType: Buff",
 	"7C": "The next card you play is not discarded.\n\nType: Buff",
 	"7D": "The next card you play is not discarded.\n\nType: Buff",
@@ -48,10 +48,10 @@ const CARD_DESCRIPTIONS: Dictionary = {
 	"8H": "Fires a projectile that pierces enemies and applies burn.\n\nType: Fire",
 	"8D": "Fires a projectile that pierces enemies and applies slow.\n\nType: Ice",
 	"8C": "Fires a projectile that pierces enemies and applies shock.\n\nType: Lightning",
-	"9C": "Gives significant damage reduction.\n\nType: Buff",
-	"9D": "Gives significant damage reduction.\n\nType: Buff",
-	"9H": "Gives significant damage reduction.\n\nType: Buff",
-	"9S": "Gives significant damage reduction.\n\nType: Buff",
+	"9C": "Gives 90% damage reduction for 4 second.\n\nType: Buff",
+	"9D": "Gives 90% damage reduction for 4 seconds.\n\nType: Buff",
+	"9H": "Gives 90% damage reduction for 4 seconds.\n\nType: Buff",
+	"9S": "Gives 90% damage reduction for 4 seconds.\n\nType: Buff",
 	"10D": "Create a downwards slash of air.",
 	"10C": "Create a downwards slash of air.",
 	"10H": "Create a downwards slash of air.",
@@ -60,7 +60,8 @@ const CARD_DESCRIPTIONS: Dictionary = {
 
 var _last_card: String = "UNSET"
 func _ready() -> void:
-	_update_card_display(Globals.hand[4])
+	if Globals.hand.size() > 4:
+		_update_card_display(Globals.hand[4])
 func _process(_delta: float) -> void:
 	var current_card: String = Globals.hand[4] if Globals.hand.size() > 4 else ""
 	

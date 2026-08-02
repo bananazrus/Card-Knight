@@ -10,7 +10,16 @@ func display_obtained_card(card: String) -> void:
 		"S": "SPADES"
 	}
 	var suit_name = suit_names.get(suit_char, "")
-	text = "CARD OBTAINED:\n%s OF %s" % [rank_str, suit_name]
+	if rank_str=="A":
+		text = "CARD OBTAINED:\n ACE OF "+suit_name
+	elif rank_str=="K":
+		text = "CARD OBTAINED:\n KING OF "+suit_name
+	elif rank_str=="Q":
+		text = "CARD OBTAINED:\n QUEEN OF "+suit_name
+	elif rank_str=="J":
+		text = "CARD OBTAINED:\n JACK OF "+suit_name
+	else:
+		text = "CARD OBTAINED:\n "+ rank_str + " OF "+suit_name
 	show()
 	await get_tree().create_timer(3.0).timeout
 	hide()

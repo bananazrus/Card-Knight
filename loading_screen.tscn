@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://dn14r1os284yu"]
+
+[ext_resource type="Script" uid="uid://dsw3va6561t0c" path="res://loading_screen.gd" id="1_mggpi"]
+[ext_resource type="Texture2D" uid="uid://b0o5ytigyiqrv" path="res://Assets/neutral.png" id="2_74xf4"]
+[ext_resource type="Texture2D" uid="uid://cqkknji4xdtgt" path="res://Assets/bow.png" id="3_pa1l2"]
+[ext_resource type="Texture2D" uid="uid://cssvhj4h5whvh" path="res://Assets/teddy.png" id="4_401ed"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lqy6m"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="LoadingScreen" type="Node2D" unique_id=1042569626]
+script = ExtResource("1_mggpi")
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=5301653]
+offset_left = 218.0
+offset_top = 483.0
+offset_right = 952.0
+offset_bottom = 522.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/fill = SubResource("StyleBoxFlat_lqy6m")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1465140791]
+z_index = -6
+offset_top = 1.0
+offset_right = 1235.0
+offset_bottom = 743.0
+color = Color(0.34117648, 0.7882353, 0.61960787, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=100137431]
+position = Vector2(298.00003, 387.00003)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_74xf4")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=706777021]
+position = Vector2(392.0001, 413.99997)
+rotation = -0.20943952
+scale = Vector2(0.2464375, 0.191)
+texture = ExtResource("3_pa1l2")
+
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=196759836]
+position = Vector2(845.00006, 286.00003)
+scale = Vector2(0.46545666, 0.44700003)
+texture = ExtResource("4_401ed")

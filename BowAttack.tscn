@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://di5r3wt4wpiuu" path="res://Scripts/bow.gd" id="1_ka2c4"]
 [ext_resource type="Texture2D" uid="uid://cqkknji4xdtgt" path="res://Assets/bow.png" id="2_ll2qf"]
+[ext_resource type="AudioStream" uid="uid://bha2g77frntie" path="res://arrow.wav" id="3_8i1vp"]
 
 [node name="Node2D" type="Node2D" unique_id=1767712584]
 
@@ -19,3 +20,6 @@ position = Vector2(15, -1)
 [node name="Timer" type="Timer" parent="Bow" unique_id=625851155]
 wait_time = 0.5
 one_shot = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Bow" unique_id=21314972]
+stream = ExtResource("3_8i1vp")

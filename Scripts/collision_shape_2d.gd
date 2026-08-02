@@ -12,10 +12,8 @@ func _process(_delta: float) -> void:
 
 
 func _on_node_2d_spawn_door_1() -> void:
-	print("hi")
 	show_door1 = true
 
 
 func _on_node_2d_spawn_door_2() -> void:
 	show_door2 = true
-	print("hi")
